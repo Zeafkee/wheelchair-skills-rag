@@ -1,0 +1,18 @@
+Goal: {skill_title} ({level})
+
+User context:
+- Environment: {environment}
+- Surface: {surface}
+- Slope: {slope_percent}%
+- Equipment: {equipment}
+- Spotter available: {spotter}
+
+Recent issues/telemetry:
+- {telemetry_summary}
+
+Provide:
+1) Brief overview (1–2 lines)
+2) Step-by-step (3–7 steps max)
+3) Safety cues and common errors
+4) Quick success criteria (bulleted)
+5) If unsafe, provide an abort path and a safer alternative
