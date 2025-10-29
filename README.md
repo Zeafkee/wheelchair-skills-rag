@@ -16,7 +16,7 @@ This pack turns a wheelchair skills manual into a structured knowledge base for 
 - `schemas/skill.schema.json` — JSON Schema for skill docs validation.
 - `prompts/system.txt` — System prompt to enforce safety-first guidance behavior.
 - `prompts/user_guidance_template.txt` — Template for user-specific guidance prompts.
-- `scripts/ingest.py` — Chunk, embed, and index the KB (Chroma/FAISS).
+- `scripts/ingest.py` — Chunk, embed, and index the KB (Chroma).
 - `scripts/serve.py` — Simple FastAPI app with a `/ask` RAG endpoint.
 - `requirements.txt` — Python deps.
 - `.env.example` — Environment variables.
@@ -26,13 +26,21 @@ This pack turns a wheelchair skills manual into a structured knowledge base for 
 1) Create a virtualenv and install deps:
 ```
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+# Windows PowerShell:
+. .\.venv\Scripts\Activate.ps1
+# Windows cmd:
+.venv\Scripts\activate
+# macOS/Linux:
+source .venv/bin/activate
+
+python -m pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt
 ```
 
 2) Set environment variables:
-- Copy `.env.example` to `.env` and fill in `OPENAI_API_KEY`.
+- Copy `.env.example` to `.env` and fill in `OPENAI_API_KEY` (uppercase key).
 - Optionally set `EMBEDDING_MODEL`, `LLM_MODEL`.
+- Optional: set `CHROMA_TELEMETRY_DISABLED=1` to silence Chroma telemetry logs.
 
 3) Ingest the data (build the vector index):
 ```
@@ -41,7 +49,7 @@ python scripts/ingest.py
 
 4) Run the server:
 ```
-uvicorn scripts.serve:app --reload --port 8000
+python -m uvicorn scripts.serve:app --reload --port 8000
 ```
 
 5) Test the RAG endpoint:
@@ -51,6 +59,69 @@ curl -X POST http://localhost:8000/ask -H "Content-Type: application/json" -d '{
   "filters": {"level": "intermediate"}
 }'
 ```
+
+PowerShell example:
+```
+$body = @{
+  question = "How do I pop casters safely and what mistakes should I avoid?"
+  filters  = @{ level = "intermediate" }
+} | ConvertTo-Json
+Invoke-RestMethod -Uri "http://localhost:8000/ask" -Method Post -ContentType "application/json" -Body $body
+```
+
+## How to run (detailed)
+
+- Activate the virtualenv each new terminal session:
+  - PowerShell: `. .\.venv\Scripts\Activate.ps1`
+  - cmd: `.venv\Scripts\activate`
+  - macOS/Linux: `source .venv/bin/activate`
+
+- Install/upgrade dependencies:
+```
+python -m pip install --upgrade pip setuptools wheel
+pip install -r requirements.txt
+```
+
+- Configure `.env`:
+```
+OPENAI_API_KEY=sk-...
+EMBEDDING_MODEL=text-embedding-3-small
+LLM_MODEL=gpt-4o-mini
+INDEX_DIR=.rag_index
+CHROMA_TELEMETRY_DISABLED=1  # optional; reduces log noise
+```
+
+- Build the index and run:
+```
+python scripts/ingest.py
+python -m uvicorn scripts.serve:app --reload --port 8000
+```
+
+### Run without a virtualenv (not recommended)
+```
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install --user -r requirements.txt
+python scripts/ingest.py
+python -m uvicorn scripts.serve:app --reload --port 8000
+```
+Tip: Using `python -m uvicorn` ensures the right interpreter.
+
+## Troubleshooting
+
+- Telemetry warnings like “capture() takes 1 positional argument…”:
+  - Add `CHROMA_TELEMETRY_DISABLED=1` to `.env`.
+
+- OpenAI/httpx compatibility (e.g., “proxies” argument error):
+  - Pin compatible versions:
+    - `pip install "openai==1.43.0" "httpx==0.27.2"`
+
+- Metadata NoneType error during ingest:
+  - Already handled in `scripts/ingest.py`. If seen, wipe the index and re-run:
+    - Windows: `rmdir /s /q .rag_index`
+    - macOS/Linux: `rm -rf .rag_index`
+
+- Uvicorn not found:
+  - Use `python -m uvicorn ...` or ensure the venv is activated.
 
 ## How RAG “Training” Works
 
