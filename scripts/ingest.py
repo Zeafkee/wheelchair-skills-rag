@@ -8,6 +8,8 @@ INDEX_DIR = os.getenv("INDEX_DIR", ".rag_index")
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
+# Tip: set CHROMA_TELEMETRY_DISABLED=1 in .env to silence telemetry warnings
+
 chroma_client = chromadb.PersistentClient(path=INDEX_DIR)
 
 openai_ef = embedding_functions.OpenAIEmbeddingFunction(
@@ -52,23 +54,28 @@ def load_documents():
             docs.append(doc)
     return docs
 
+def clean_metadata(d: dict) -> dict:
+    # Chroma requires primitives only; drop None
+    md = {
+        "type": d.get("type"),
+        "title": d.get("title"),
+        "level": d.get("level"),
+        "category": d.get("category"),
+        "source": d.get("source"),
+    }
+    return {k: v for k, v in md.items() if isinstance(v, (str, int, float, bool))}
+
 def main():
     collection = chroma_client.get_or_create_collection(
         name="wheelchair_skills",
         embedding_function=openai_ef,
-        metadata={"hnsw:space":"cosine"}
+        metadata={"hnsw:space": "cosine"},
     )
     docs = load_documents()
     ids, metadatas, documents = [], [], []
     for d in docs:
         ids.append(d["id"])
-        metadatas.append({
-            "type": d.get("type"),
-            "title": d.get("title"),
-            "level": d.get("level"),
-            "category": d.get("category"),
-            "source": d.get("source")
-        })
+        metadatas.append(clean_metadata(d))
         documents.append(to_doc_text(d))
     # Upsert
     if ids:
