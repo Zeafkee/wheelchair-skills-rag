@@ -66,7 +66,8 @@ $body = @{
   question = "How do I pop casters safely and what mistakes should I avoid?"
   filters  = @{ level = "intermediate" }
 } | ConvertTo-Json
-Invoke-RestMethod -Uri "http://localhost:8000/ask" -Method Post -ContentType "application/json" -Body $body
+ [Console]::OutputEncoding = [System.Text.UTF8Encoding]::UTF8
+Invoke-RestMethod -Uri "http://localhost:8000/ask" -Method Post -ContentType "application/json" -Body $body | ConvertTo-Json -Depth 6
 ```
 
 ## How to run (detailed)
