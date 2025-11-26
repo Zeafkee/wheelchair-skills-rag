@@ -1,0 +1,190 @@
+{
+  "skill_id": "advanced-curb-down-backwards",
+  "title": "Getting Down Curbs (backwards)",
+  "level": "advanced",
+  "total_steps": 3,
+  "common_errors": [
+    "Sitting up early",
+    "Uneven pull"
+  ],
+  "corrections": [
+    "Stay forward until casters land",
+    "Equalize rim pull"
+  ],
+  "steps": [
+    {
+      "step_number": 1,
+      "instruction": "Back up until rear wheels are at curb edge.",
+      "cues": [
+        "Feel edge"
+      ],
+      "expected_inputs": [
+        "S"
+      ],
+      "input_actions": [
+        {
+          "key": "S",
+          "action": "move_backward",
+          "description": "Geri hareket"
+        }
+      ],
+      "possible_errors": []
+    },
+    {
+      "step_number": 2,
+      "instruction": "Lean forward (chest toward thighs) and control the drop by pulling back evenly on rims.",
+      "cues": [
+        "Even pull"
+      ],
+      "expected_inputs": [
+        "W",
+        "S",
+        "V"
+      ],
+      "input_actions": [
+        {
+          "key": "W",
+          "action": "move_forward",
+          "description": "İleri hareket"
+        },
+        {
+          "key": "S",
+          "action": "move_backward",
+          "description": "Geri hareket"
+        },
+        {
+          "key": "V",
+          "action": "lean_forward",
+          "description": "Öne eğil"
+        }
+      ],
+      "possible_errors": [
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine geri gitti"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "SPACE",
+          "wrong_action": "brake",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine frene bastı"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "X",
+          "wrong_action": "pop_casters",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine caster kaldırdı"
+        },
+        {
+          "expected_input": "V",
+          "expected_action": "lean_forward",
+          "wrong_input": "B",
+          "wrong_action": "lean_backward",
+          "error_type": "wrong_input",
+          "description": "Öne eğilmek yerine arkaya eğildi"
+        },
+        {
+          "expected_input": "V",
+          "expected_action": "lean_forward",
+          "wrong_input": "W",
+          "wrong_action": "move_forward",
+          "error_type": "wrong_input",
+          "description": "Öne eğilmek yerine ileri gitti"
+        }
+      ]
+    },
+    {
+      "step_number": 3,
+      "instruction": "Pause with casters up, then pivot them off one at a time; only sit up after casters land.",
+      "cues": [
+        "Sequence matters"
+      ],
+      "expected_inputs": [
+        "W",
+        "A",
+        "D",
+        "X"
+      ],
+      "input_actions": [
+        {
+          "key": "W",
+          "action": "move_forward",
+          "description": "İleri hareket"
+        },
+        {
+          "key": "A",
+          "action": "turn_left",
+          "description": "Sola dön"
+        },
+        {
+          "key": "D",
+          "action": "turn_right",
+          "description": "Sağa dön"
+        },
+        {
+          "key": "X",
+          "action": "pop_casters",
+          "description": "Ön tekerlekleri kaldır (caster pop)"
+        }
+      ],
+      "possible_errors": [
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine geri gitti"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "SPACE",
+          "wrong_action": "brake",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine frene bastı"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "X",
+          "wrong_action": "pop_casters",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine caster kaldırdı"
+        },
+        {
+          "expected_input": "X",
+          "expected_action": "pop_casters",
+          "wrong_input": "W",
+          "wrong_action": "move_forward",
+          "error_type": "wrong_input",
+          "description": "Ön tekerlekleri kaldırmak yerine ileri gitmeye çalıştı"
+        },
+        {
+          "expected_input": "X",
+          "expected_action": "pop_casters",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "Ön tekerlekleri kaldırmak yerine geri gitmeye çalıştı"
+        },
+        {
+          "expected_input": "X",
+          "expected_action": "pop_casters",
+          "wrong_input": "V",
+          "wrong_action": "lean_forward",
+          "error_type": "wrong_input",
+          "description": "Ön tekerlekleri kaldırmak yerine öne eğildi"
+        }
+      ]
+    }
+  ]
+}

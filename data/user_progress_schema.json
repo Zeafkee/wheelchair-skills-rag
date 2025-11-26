@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "User Progress Schema",
+  "description": "Tekerlekli sandalye beceri eğitimi için kullanıcı ilerleme şeması",
+  "type": "object",
+  "required": ["user_id", "current_phase", "skill_progress", "sessions", "created_at"],
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Kullanıcı kimliği"
+    },
+    "current_phase": {
+      "type": "string",
+      "enum": ["Foundation", "Mobility", "Advanced"],
+      "description": "Eğitim fazı"
+    },
+    "skill_progress": {
+      "type": "object",
+      "description": "Her beceri için ilerleme detayları",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["skill_id", "attempts", "successful_attempts", "success_rate", "step_errors", "last_attempt"],
+        "properties": {
+          "skill_id": {
+            "type": "string",
+            "description": "Beceri kimliği"
+          },
+          "attempts": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Toplam deneme sayısı"
+          },
+          "successful_attempts": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Başarılı deneme sayısı"
+          },
+          "success_rate": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Başarı oranı (0-1)"
+          },
+          "step_errors": {
+            "type": "object",
+            "description": "Hangi adımda hangi hatalar yapıldı (adım numarası → hata listesi)",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "error_type": {
+                    "type": "string",
+                    "description": "Hata tipi"
+                  },
+                  "expected_action": {
+                    "type": "string",
+                    "description": "Beklenen aksiyon"
+                  },
+                  "actual_action": {
+                    "type": "string",
+                    "description": "Yapılan aksiyon"
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Hata zamanı (ISO 8601)"
+                  }
+                }
+              }
+            }
+          },
+          "last_attempt": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "description": "Son deneme tarihi (ISO 8601)"
+          }
+        }
+      }
+    },
+    "sessions": {
+      "type": "array",
+      "description": "Oturum geçmişi",
+      "items": {
+        "type": "object",
+        "required": ["session_id", "start_time", "end_time"],
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "description": "Oturum kimliği"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Oturum başlangıç zamanı (ISO 8601)"
+          },
+          "end_time": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "description": "Oturum bitiş zamanı (ISO 8601)"
+          },
+          "skills_practiced": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Çalışılan beceriler"
+          },
+          "total_attempts": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Toplam deneme sayısı"
+          },
+          "successful_attempts": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Başarılı deneme sayısı"
+          }
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Kullanıcı oluşturulma zamanı (ISO 8601)"
+    },
+    "updated_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Son güncelleme zamanı (ISO 8601)"
+    }
+  }
+}

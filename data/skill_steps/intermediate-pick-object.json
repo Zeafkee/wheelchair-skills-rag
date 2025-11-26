@@ -1,0 +1,162 @@
+{
+  "skill_id": "intermediate-pick-object",
+  "title": "Picking an Object off the Floor",
+  "level": "intermediate",
+  "total_steps": 3,
+  "common_errors": [
+    "No wheel locks",
+    "Overreaching"
+  ],
+  "corrections": [
+    "Lock wheels first",
+    "Keep opposite support"
+  ],
+  "steps": [
+    {
+      "step_number": 1,
+      "instruction": "Position with rear wheel/caster close to object; set casters OUT to lengthen footprint.",
+      "cues": [
+        "Stable base"
+      ],
+      "expected_inputs": [
+        "W",
+        "X"
+      ],
+      "input_actions": [
+        {
+          "key": "W",
+          "action": "move_forward",
+          "description": "İleri hareket"
+        },
+        {
+          "key": "X",
+          "action": "pop_casters",
+          "description": "Ön tekerlekleri kaldır (caster pop)"
+        }
+      ],
+      "possible_errors": [
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine geri gitti"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "SPACE",
+          "wrong_action": "brake",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine frene bastı"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "X",
+          "wrong_action": "pop_casters",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine caster kaldırdı"
+        },
+        {
+          "expected_input": "X",
+          "expected_action": "pop_casters",
+          "wrong_input": "W",
+          "wrong_action": "move_forward",
+          "error_type": "wrong_input",
+          "description": "Ön tekerlekleri kaldırmak yerine ileri gitmeye çalıştı"
+        },
+        {
+          "expected_input": "X",
+          "expected_action": "pop_casters",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "Ön tekerlekleri kaldırmak yerine geri gitmeye çalıştı"
+        },
+        {
+          "expected_input": "X",
+          "expected_action": "pop_casters",
+          "wrong_input": "V",
+          "wrong_action": "lean_forward",
+          "error_type": "wrong_input",
+          "description": "Ön tekerlekleri kaldırmak yerine öne eğildi"
+        }
+      ]
+    },
+    {
+      "step_number": 2,
+      "instruction": "Lock wheels and hold opposite armrest/back cane.",
+      "cues": [
+        "Three-point contact"
+      ],
+      "expected_inputs": [
+        "W",
+        "S"
+      ],
+      "input_actions": [
+        {
+          "key": "W",
+          "action": "move_forward",
+          "description": "İleri hareket"
+        },
+        {
+          "key": "S",
+          "action": "move_backward",
+          "description": "Geri hareket"
+        }
+      ],
+      "possible_errors": [
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine geri gitti"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "SPACE",
+          "wrong_action": "brake",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine frene bastı"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "X",
+          "wrong_action": "pop_casters",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine caster kaldırdı"
+        }
+      ]
+    },
+    {
+      "step_number": 3,
+      "instruction": "Lean and reach, then pull on support to return upright.",
+      "cues": [
+        "Controlled return"
+      ],
+      "expected_inputs": [
+        "A",
+        "D"
+      ],
+      "input_actions": [
+        {
+          "key": "A",
+          "action": "turn_left",
+          "description": "Sola dön"
+        },
+        {
+          "key": "D",
+          "action": "turn_right",
+          "description": "Sağa dön"
+        }
+      ],
+      "possible_errors": []
+    }
+  ]
+}

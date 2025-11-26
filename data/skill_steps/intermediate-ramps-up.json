@@ -1,0 +1,154 @@
+{
+  "skill_id": "intermediate-ramps-up",
+  "title": "Wheeling Up Ramps",
+  "level": "intermediate",
+  "total_steps": 3,
+  "common_errors": [
+    "Insufficient momentum",
+    "Leaning back"
+  ],
+  "corrections": [
+    "Pre-accelerate",
+    "Forward lean"
+  ],
+  "steps": [
+    {
+      "step_number": 1,
+      "instruction": "Build momentum before the ramp and stay centered.",
+      "cues": [
+        "Square approach"
+      ],
+      "expected_inputs": [
+        "W",
+        "C"
+      ],
+      "input_actions": [
+        {
+          "key": "W",
+          "action": "move_forward",
+          "description": "İleri hareket"
+        },
+        {
+          "key": "C",
+          "action": "center_balance",
+          "description": "Dengeyi ortala"
+        }
+      ],
+      "possible_errors": [
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine geri gitti"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "SPACE",
+          "wrong_action": "brake",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine frene bastı"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "X",
+          "wrong_action": "pop_casters",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine caster kaldırdı"
+        }
+      ]
+    },
+    {
+      "step_number": 2,
+      "instruction": "Lean forward and use short, strong ARC strokes.",
+      "cues": [
+        "Even power"
+      ],
+      "expected_inputs": [
+        "W",
+        "V"
+      ],
+      "input_actions": [
+        {
+          "key": "W",
+          "action": "move_forward",
+          "description": "İleri hareket"
+        },
+        {
+          "key": "V",
+          "action": "lean_forward",
+          "description": "Öne eğil"
+        }
+      ],
+      "possible_errors": [
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine geri gitti"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "SPACE",
+          "wrong_action": "brake",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine frene bastı"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "X",
+          "wrong_action": "pop_casters",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine caster kaldırdı"
+        },
+        {
+          "expected_input": "V",
+          "expected_action": "lean_forward",
+          "wrong_input": "B",
+          "wrong_action": "lean_backward",
+          "error_type": "wrong_input",
+          "description": "Öne eğilmek yerine arkaya eğildi"
+        },
+        {
+          "expected_input": "V",
+          "expected_action": "lean_forward",
+          "wrong_input": "W",
+          "wrong_action": "move_forward",
+          "error_type": "wrong_input",
+          "description": "Öne eğilmek yerine ileri gitti"
+        }
+      ]
+    },
+    {
+      "step_number": 3,
+      "instruction": "Turn sideways to rest if needed; resume when ready.",
+      "cues": [
+        "Controlled rest, then align"
+      ],
+      "expected_inputs": [
+        "A",
+        "D"
+      ],
+      "input_actions": [
+        {
+          "key": "A",
+          "action": "turn_left",
+          "description": "Sola dön"
+        },
+        {
+          "key": "D",
+          "action": "turn_right",
+          "description": "Sağa dön"
+        }
+      ],
+      "possible_errors": []
+    }
+  ]
+}

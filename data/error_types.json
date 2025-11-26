@@ -1,0 +1,47 @@
+{
+  "wrong_input": {
+    "code": "wrong_input",
+    "description": "Yanlış tuşa basıldı",
+    "severity": "medium"
+  },
+  "wrong_sequence": {
+    "code": "wrong_sequence",
+    "description": "Doğru tuşlar ama yanlış sırada",
+    "severity": "medium"
+  },
+  "timing_error": {
+    "code": "timing_error",
+    "description": "Doğru input ama yanlış zamanlama",
+    "severity": "low"
+  },
+  "missing_input": {
+    "code": "missing_input",
+    "description": "Gerekli input atlandı",
+    "severity": "high"
+  },
+  "extra_input": {
+    "code": "extra_input",
+    "description": "Gereksiz input yapıldı",
+    "severity": "low"
+  },
+  "incomplete_action": {
+    "code": "incomplete_action",
+    "description": "Hareket tamamlanmadı",
+    "severity": "medium"
+  },
+  "balance_lost": {
+    "code": "balance_lost",
+    "description": "Denge kaybedildi",
+    "severity": "high"
+  },
+  "collision": {
+    "code": "collision",
+    "description": "Çarpışma oldu",
+    "severity": "high"
+  },
+  "safety_violation": {
+    "code": "safety_violation",
+    "description": "Güvenlik ihlali",
+    "severity": "critical"
+  }
+}
