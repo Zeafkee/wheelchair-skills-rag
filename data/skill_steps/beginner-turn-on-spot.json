@@ -1,0 +1,163 @@
+{
+  "skill_id": "beginner-turn-on-spot",
+  "title": "Turning on the Spot",
+  "level": "beginner",
+  "total_steps": 3,
+  "common_errors": [
+    "Hands leaving rims",
+    "Over-gripping"
+  ],
+  "corrections": [
+    "Keep hands in contact",
+    "Relax grip"
+  ],
+  "steps": [
+    {
+      "step_number": 1,
+      "instruction": "Set one hand to push forward while the other pulls back.",
+      "cues": [
+        "Hands move opposite directions"
+      ],
+      "expected_inputs": [
+        "W",
+        "S"
+      ],
+      "input_actions": [
+        {
+          "key": "W",
+          "action": "move_forward",
+          "description": "İleri hareket"
+        },
+        {
+          "key": "S",
+          "action": "move_backward",
+          "description": "Geri hareket"
+        }
+      ],
+      "possible_errors": [
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine geri gitti"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "SPACE",
+          "wrong_action": "brake",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine frene bastı"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "X",
+          "wrong_action": "pop_casters",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine caster kaldırdı"
+        }
+      ]
+    },
+    {
+      "step_number": 2,
+      "instruction": "For tight turns, hold the turn-side (inside) wheel still and push the opposite wheel.",
+      "cues": [
+        "Keep hands close to rims"
+      ],
+      "expected_inputs": [
+        "W",
+        "A",
+        "D"
+      ],
+      "input_actions": [
+        {
+          "key": "W",
+          "action": "move_forward",
+          "description": "İleri hareket"
+        },
+        {
+          "key": "A",
+          "action": "turn_left",
+          "description": "Sola dön"
+        },
+        {
+          "key": "D",
+          "action": "turn_right",
+          "description": "Sağa dön"
+        }
+      ],
+      "possible_errors": [
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine geri gitti"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "SPACE",
+          "wrong_action": "brake",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine frene bastı"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "X",
+          "wrong_action": "pop_casters",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine caster kaldırdı"
+        }
+      ]
+    },
+    {
+      "step_number": 3,
+      "instruction": "Practice both directions to build symmetry.",
+      "cues": [
+        "Even pressure"
+      ],
+      "expected_inputs": [
+        "W"
+      ],
+      "input_actions": [
+        {
+          "key": "W",
+          "action": "move_forward",
+          "description": "İleri hareket"
+        }
+      ],
+      "possible_errors": [
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine geri gitti"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "SPACE",
+          "wrong_action": "brake",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine frene bastı"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "X",
+          "wrong_action": "pop_casters",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine caster kaldırdı"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "W": {
+    "action": "move_forward",
+    "description": "İleri hareket"
+  },
+  "S": {
+    "action": "move_backward",
+    "description": "Geri hareket"
+  },
+  "A": {
+    "action": "turn_left",
+    "description": "Sola dön"
+  },
+  "D": {
+    "action": "turn_right",
+    "description": "Sağa dön"
+  },
+  "X": {
+    "action": "pop_casters",
+    "description": "Ön tekerlekleri kaldır (caster pop)"
+  },
+  "V": {
+    "action": "lean_forward",
+    "description": "Öne eğil"
+  },
+  "B": {
+    "action": "lean_backward",
+    "description": "Arkaya eğil"
+  },
+  "SPACE": {
+    "action": "brake",
+    "description": "Fren / Dur"
+  },
+  "Q": {
+    "action": "turn_left_wheel_only",
+    "description": "Sadece sol tekerlek"
+  },
+  "E": {
+    "action": "turn_right_wheel_only",
+    "description": "Sadece sağ tekerlek"
+  },
+  "SHIFT": {
+    "action": "speed_boost",
+    "description": "Hızlı hareket"
+  },
+  "C": {
+    "action": "center_balance",
+    "description": "Dengeyi ortala"
+  }
+}

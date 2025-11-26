@@ -1,0 +1,138 @@
+{
+  "skill_id": "beginner-turn-forward",
+  "title": "Turning while Wheeling Forward",
+  "level": "beginner",
+  "total_steps": 3,
+  "common_errors": [
+    "Turning too early/late",
+    "Over-accelerating outside wheel"
+  ],
+  "corrections": [
+    "Practice with pylons to learn spacing",
+    "Coast into the turn"
+  ],
+  "steps": [
+    {
+      "step_number": 1,
+      "instruction": "Approach at medium speed and prepare to coast.",
+      "cues": [
+        "Gaze through the turn"
+      ],
+      "expected_inputs": [
+        "W"
+      ],
+      "input_actions": [
+        {
+          "key": "W",
+          "action": "move_forward",
+          "description": "İleri hareket"
+        }
+      ],
+      "possible_errors": [
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine geri gitti"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "SPACE",
+          "wrong_action": "brake",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine frene bastı"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "X",
+          "wrong_action": "pop_casters",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine caster kaldırdı"
+        }
+      ]
+    },
+    {
+      "step_number": 2,
+      "instruction": "Time the turn so the axle aligns with the object.",
+      "cues": [
+        "Visualize axle line"
+      ],
+      "expected_inputs": [
+        "W",
+        "A",
+        "D"
+      ],
+      "input_actions": [
+        {
+          "key": "W",
+          "action": "move_forward",
+          "description": "İleri hareket"
+        },
+        {
+          "key": "A",
+          "action": "turn_left",
+          "description": "Sola dön"
+        },
+        {
+          "key": "D",
+          "action": "turn_right",
+          "description": "Sağa dön"
+        }
+      ],
+      "possible_errors": [
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine geri gitti"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "SPACE",
+          "wrong_action": "brake",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine frene bastı"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "X",
+          "wrong_action": "pop_casters",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine caster kaldırdı"
+        }
+      ]
+    },
+    {
+      "step_number": 3,
+      "instruction": "Slow the inside wheel or speed the outside wheel to turn.",
+      "cues": [
+        "Smooth differential push"
+      ],
+      "expected_inputs": [
+        "A",
+        "D"
+      ],
+      "input_actions": [
+        {
+          "key": "A",
+          "action": "turn_left",
+          "description": "Sola dön"
+        },
+        {
+          "key": "D",
+          "action": "turn_right",
+          "description": "Sağa dön"
+        }
+      ],
+      "possible_errors": []
+    }
+  ]
+}

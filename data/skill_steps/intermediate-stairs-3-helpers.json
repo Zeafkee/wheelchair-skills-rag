@@ -1,0 +1,145 @@
+{
+  "skill_id": "intermediate-stairs-3-helpers",
+  "title": "Bumping Up/Down Stairs with 3 Helpers",
+  "level": "intermediate",
+  "total_steps": 3,
+  "common_errors": [
+    "Lifting instead of rolling",
+    "Poor coordination"
+  ],
+  "corrections": [
+    "Roll the wheels each step",
+    "Use clear counts"
+  ],
+  "steps": [
+    {
+      "step_number": 1,
+      "instruction": "Assign roles: top helper leader, two bottom helpers.",
+      "cues": [
+        "Clear commands"
+      ],
+      "expected_inputs": [
+        "W"
+      ],
+      "input_actions": [
+        {
+          "key": "W",
+          "action": "move_forward",
+          "description": "İleri hareket"
+        }
+      ],
+      "possible_errors": [
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine geri gitti"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "SPACE",
+          "wrong_action": "brake",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine frene bastı"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "X",
+          "wrong_action": "pop_casters",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine caster kaldırdı"
+        }
+      ]
+    },
+    {
+      "step_number": 2,
+      "instruction": "Top controls tilt; bottoms push frame/handrims step-by-step on leader’s count.",
+      "cues": [
+        "Roll, do not lift"
+      ],
+      "expected_inputs": [
+        "W"
+      ],
+      "input_actions": [
+        {
+          "key": "W",
+          "action": "move_forward",
+          "description": "İleri hareket"
+        }
+      ],
+      "possible_errors": [
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine geri gitti"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "SPACE",
+          "wrong_action": "brake",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine frene bastı"
+        },
+        {
+          "expected_input": "W",
+          "expected_action": "move_forward",
+          "wrong_input": "X",
+          "wrong_action": "pop_casters",
+          "error_type": "wrong_input",
+          "description": "İleri gitmek yerine caster kaldırdı"
+        }
+      ]
+    },
+    {
+      "step_number": 3,
+      "instruction": "Lower casters when safe; replace anti-tippers.",
+      "cues": [
+        "Confirm stability"
+      ],
+      "expected_inputs": [
+        "X"
+      ],
+      "input_actions": [
+        {
+          "key": "X",
+          "action": "pop_casters",
+          "description": "Ön tekerlekleri kaldır (caster pop)"
+        }
+      ],
+      "possible_errors": [
+        {
+          "expected_input": "X",
+          "expected_action": "pop_casters",
+          "wrong_input": "W",
+          "wrong_action": "move_forward",
+          "error_type": "wrong_input",
+          "description": "Ön tekerlekleri kaldırmak yerine ileri gitmeye çalıştı"
+        },
+        {
+          "expected_input": "X",
+          "expected_action": "pop_casters",
+          "wrong_input": "S",
+          "wrong_action": "move_backward",
+          "error_type": "wrong_input",
+          "description": "Ön tekerlekleri kaldırmak yerine geri gitmeye çalıştı"
+        },
+        {
+          "expected_input": "X",
+          "expected_action": "pop_casters",
+          "wrong_input": "V",
+          "wrong_action": "lean_forward",
+          "error_type": "wrong_input",
+          "description": "Ön tekerlekleri kaldırmak yerine öne eğildi"
+        }
+      ]
+    }
+  ]
+}
