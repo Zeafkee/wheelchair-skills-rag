@@ -156,6 +156,156 @@ Key knobs:
 - Encourage professional supervision for high-risk and advanced skills.
 - The provided content is for simulation and training aid; not a substitute for professional instruction.
 
+## Kullanıcı İlerleme Sistemi Test Rehberi
+
+Bu bölüm, kişiselleştirilmiş eğitim planları için kullanıcı ilerleme ve hata takip sisteminin nasıl test edileceğini gösterir.
+
+### Sunucuyu Başlat
+
+```powershell
+python -m uvicorn scripts.serve:app --reload --port 8000
+```
+
+### 1) Kullanıcı Oluştur
+
+```powershell
+Invoke-RestMethod -Uri "http://localhost:8000/user/sefa001/create" -Method Post | ConvertTo-Json -Depth 6
+```
+
+### 2) Skill Adımlarını Görüntüle
+
+```powershell
+Invoke-RestMethod -Uri "http://localhost:8000/skills/intermediate-popping-casters/steps" -Method Get | ConvertTo-Json -Depth 10
+```
+
+### 3) Beceri Denemesi Başlat
+
+```powershell
+$response = Invoke-RestMethod -Uri "http://localhost:8000/user/sefa001/skill/intermediate-popping-casters/start-attempt" -Method Post
+$attemptId = $response.attempt_id
+Write-Host "Attempt ID: $attemptId"
+$response | ConvertTo-Json -Depth 6
+```
+
+### 4) Doğru Input Kaydet
+
+```powershell
+$body = @{
+    step_number = 1
+    expected_input = "W"
+    actual_input = "W"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri "http://localhost:8000/attempt/$attemptId/record-input" -Method Post -ContentType "application/json" -Body $body | ConvertTo-Json
+```
+
+### 5) Yanlış Input Kaydet
+
+```powershell
+# Yanlış tuşa basıldı (X yerine W)
+$body = @{
+    step_number = 2
+    expected_input = "X"
+    actual_input = "W"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri "http://localhost:8000/attempt/$attemptId/record-input" -Method Post -ContentType "application/json" -Body $body | ConvertTo-Json
+```
+
+### 6) Hata Kaydet
+
+```powershell
+$body = @{
+    step_number = 2
+    error_type = "wrong_input"
+    expected_action = "pop_casters"
+    actual_action = "move_forward"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri "http://localhost:8000/attempt/$attemptId/record-error" -Method Post -ContentType "application/json" -Body $body | ConvertTo-Json
+```
+
+### 7) Denemeyi Tamamla
+
+```powershell
+$body = @{
+    success = $false
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri "http://localhost:8000/attempt/$attemptId/complete" -Method Post -ContentType "application/json" -Body $body | ConvertTo-Json
+```
+
+### 8) İstatistikleri Görüntüle
+
+```powershell
+# Beceri istatistikleri
+Invoke-RestMethod -Uri "http://localhost:8000/user/sefa001/skill/intermediate-popping-casters/stats" -Method Get | ConvertTo-Json -Depth 6
+
+# Kullanıcı ilerleme durumu
+Invoke-RestMethod -Uri "http://localhost:8000/user/sefa001/progress" -Method Get | ConvertTo-Json -Depth 10
+```
+
+### 9) Hata Analizleri
+
+```powershell
+# Sık yapılan hatalar
+Invoke-RestMethod -Uri "http://localhost:8000/user/sefa001/common-errors" -Method Get | ConvertTo-Json -Depth 6
+
+# En çok hata yapılan adımlar
+Invoke-RestMethod -Uri "http://localhost:8000/user/sefa001/weak-steps?skill_id=intermediate-popping-casters" -Method Get | ConvertTo-Json -Depth 6
+
+# Önerilen beceriler
+Invoke-RestMethod -Uri "http://localhost:8000/user/sefa001/recommended-skills" -Method Get | ConvertTo-Json -Depth 6
+```
+
+### 10) Kişiselleştirilmiş Eğitim Planı Oluştur
+
+```powershell
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::UTF8
+Invoke-RestMethod -Uri "http://localhost:8000/user/sefa001/generate-plan" -Method Post | ConvertTo-Json -Depth 10
+```
+
+### Unity Input Mapping
+
+Tuş eşlemeleri `data/unity_input_mapping.json` dosyasında tanımlıdır:
+
+| Tuş | Aksiyon | Açıklama |
+|-----|---------|----------|
+| `W` | move_forward | İleri hareket |
+| `S` | move_backward | Geri hareket |
+| `A` | turn_left | Sola dön |
+| `D` | turn_right | Sağa dön |
+| `X` | pop_casters | Ön tekerlekleri kaldır |
+| `V` | lean_forward | Öne eğil |
+| `B` | lean_backward | Arkaya eğil |
+| `SPACE` | brake | Fren / Dur |
+| `Q` | turn_left_wheel_only | Sadece sol tekerlek |
+| `E` | turn_right_wheel_only | Sadece sağ tekerlek |
+| `C` | center_balance | Dengeyi ortala |
+
+### Swagger UI
+
+Tüm endpoint'leri görsel olarak test etmek için tarayıcıda açın:
+```
+http://localhost:8000/docs
+```
+
+### Hata Tipleri
+
+`data/error_types.json` dosyasında tanımlı hata tipleri:
+
+| Hata Tipi | Açıklama |
+|-----------|----------|
+| `wrong_input` | Yanlış tuşa basıldı |
+| `wrong_sequence` | Doğru tuşlar ama yanlış sırada |
+| `timing_error` | Doğru input ama yanlış zamanlama |
+| `missing_input` | Gerekli input atlandı |
+| `extra_input` | Gereksiz input yapıldı |
+| `incomplete_action` | Hareket tamamlanmadı |
+| `balance_lost` | Denge kaybedildi |
+| `collision` | Çarpışma oldu |
+| `safety_violation` | Güvenlik ihlali |
+
 ## Unity Integration (High Level)
 
 - Unity sends: user query + current skill context + telemetry (posture, speed, slope, collisions).
