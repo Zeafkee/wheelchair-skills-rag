@@ -7,8 +7,8 @@ import chromadb
 from chromadb.utils import embedding_functions
 from openai import OpenAI
 
-from user_progress import UserProgressManager
-from skill_steps_parser import get_skill_steps, parse_all_skills, save_parsed_skills
+from .user_progress import UserProgressManager
+from .skill_steps_parser import get_skill_steps, parse_all_skills, save_parsed_skills
 
 load_dotenv()
 INDEX_DIR = os.getenv("INDEX_DIR", ".rag_index")
