@@ -1,3 +1,4 @@
+# scripts/serve.py (küçük prompt netleştirmesi eklendi)
 import os
 from typing import Optional
 from dotenv import load_dotenv
@@ -67,12 +68,33 @@ progress_manager = UserProgressManager()
 
 app = FastAPI(title="Wheelchair Skills RAG")
 
-SYSTEM_PROMPT = """You are a wheelchair skills coach. Use the provided context to:\n- Give concise step-by-step guidance\n- Emphasize safety & spotter use when needed\n- Warn about common errors; provide corrections\n- End with success criteria and a safety reminder\nIf information is missing, ask a clarifying question first.\n"""
+SYSTEM_PROMPT = """You are a wheelchair skills coach. Use the provided context to:
+- Give concise step-by-step guidance
+- Emphasize safety & spotter use when needed
+- Warn about common errors; [...]
+"""
 
 def build_prompt(question: str, context_chunks: list[str]):
     context_text = "\n\n---\n\n".join(context_chunks)
-    user_prompt = f"""User question: {question}\n\nContext:\n{context_text}\n\nRespond with:\n1) Brief overview\n2) Steps (3–7)\n3) Safety cues & common errors\n4) Success criteria\n5) If unsafe, an abort path and safer alternative\n"""
+    user_prompt = f"""User question: {question}
+
+Context:
+{context_text}
+
+Respond with:
+1) Brief overview
+2) Steps (3–7) as a numbered list ONLY — use the exact prefix '1.','2.', etc. For each step include the instruction on the same line. If you have a short cue for the step, put it on the following line starting with 'Cue:'. Example:
+
+1. Pop the casters 2–4 inches.
+Cue: Soft elbows
+
+3) Safety cues & common errors
+4) Success criteria
+5) If unsafe, provide an abort path and safer alternative
+
+Make sure the steps are simple actionable sentences and are numbered. Don't include extra headings between numbered items."""
     return user_prompt
+
 def ask_rag(question: str, filters: dict | None = None, top_k: int = 6):
     where = None
     if filters:
@@ -118,7 +140,6 @@ def ask_rag(question: str, filters: dict | None = None, top_k: int = 6):
 @app.post("/ask")
 def ask(req: AskRequest):
     return ask_rag(req.question, req.filters, req.top_k)
-
 
 
 # ==================== User Progress Endpoints ====================
@@ -216,20 +237,8 @@ def complete_attempt(attempt_id: str, req: CompleteAttemptRequest):
 @app.post("/attempt/{attempt_id}/record-step")
 def record_step_telemetry(attempt_id: str, payload: dict = Body(...)):
     """
-    Accepts a richer telemetry payload for a tutorial step:
-    {
-      "stepNumber": 1,
-      "expectedAction": "PopCasters",
-      "actualAction": "PopCasters",
-      "success": true,
-      "holdDuration": 0.12,
-      "peakForce": 120.2,
-      "distance": 0.0,
-      "assistUsed": false,
-      "timestamp": "2025-12-02T17:00:00Z"
-    }
+    Accepts a richer telemetry payload for a tutorial step.
     """
-    # Store telemetry in the attempt if present in active attempts or in DB
     success = progress_manager.record_step_telemetry(attempt_id, payload)
     if not success:
         raise HTTPException(status_code=404, detail="Attempt not found")
@@ -329,6 +338,7 @@ def parse_skills():
         "message": f"{len(parsed_skills)} beceri parse edildi",
         "skill_count": len(parsed_skills)
     }
+
 @app.post("/ask/practice")
 def ask_practice(req: AskRequest):
     rag = ask_rag(req.question, req.filters)
@@ -356,4 +366,3 @@ def ask_practice(req: AskRequest):
         "skill_id": skill_id,
         "steps": final_steps
     }
-
