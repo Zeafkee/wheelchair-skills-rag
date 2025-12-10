@@ -649,6 +649,34 @@ class UserProgressManager:
             plan["notes"].append("İleri seviye teknikler ve acil durum becerileri")
         
         return plan
+    def record_step_telemetry(self, attempt_id: str, payload: dict) -> bool:
+        """
+        Store a richer telemetry payload for an active attempt.
+        Payload is expected to be a dict with keys like:
+        stepNumber, expectedAction, actualAction, success, holdDuration, peakForce, distance, assistUsed, timestamp
+        """
+        if attempt_id not in self._active_attempts:
+            return False
+        attempt = self._active_attempts[attempt_id]
+        # normalize key names
+        step_number = payload.get("stepNumber") or payload.get("step_number") or 0
+        telemetry = {
+            "step_number": step_number,
+            "expected_action": payload.get("expectedAction") or payload.get("expected_action"),
+            "actual_action": payload.get("actualAction") or payload.get("actual_action"),
+            "success": payload.get("success", False),
+            "metrics": {
+                "hold_duration": payload.get("holdDuration") or payload.get("hold_duration") or 0,
+                "peak_force": payload.get("peakForce") or payload.get("peak_force") or 0,
+                "distance": payload.get("distance", 0),
+                "assist_used": payload.get("assistUsed") or payload.get("assist_used", False)
+            },
+            "timestamp": payload.get("timestamp") or _get_timestamp()
+        }
+        if "step_telemetry" not in attempt:
+            attempt["step_telemetry"] = []
+        attempt["step_telemetry"].append(telemetry)
+        return True
 
 
 # Test için

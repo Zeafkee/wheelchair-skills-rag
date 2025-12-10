@@ -6,9 +6,15 @@ from pydantic import BaseModel
 import chromadb
 from chromadb.utils import embedding_functions
 from openai import OpenAI
+from fastapi import Body
 
 from .user_progress import UserProgressManager
 from .skill_steps_parser import get_skill_steps, parse_all_skills, save_parsed_skills
+from .rag_practice_service import (
+    extract_numbered_steps,
+    load_skill_json,
+    map_steps_to_skill
+)
 
 load_dotenv()
 INDEX_DIR = os.getenv("INDEX_DIR", ".rag_index")
@@ -67,37 +73,52 @@ def build_prompt(question: str, context_chunks: list[str]):
     context_text = "\n\n---\n\n".join(context_chunks)
     user_prompt = f"""User question: {question}\n\nContext:\n{context_text}\n\nRespond with:\n1) Brief overview\n2) Steps (3–7)\n3) Safety cues & common errors\n4) Success criteria\n5) If unsafe, an abort path and safer alternative\n"""
     return user_prompt
-
-@app.post("/ask")
-def ask(req: AskRequest):
+def ask_rag(question: str, filters: dict | None = None, top_k: int = 6):
     where = None
-    if req.filters:
+    if filters:
         where = {}
-        for k, v in req.filters.items():
-            if k in ("type","title","level","category","source"):
+        for k, v in filters.items():
+            if k in ("type", "title", "level", "category", "source"):
                 where[k] = v
 
     results = collection.query(
-        query_texts=[req.question],
-        n_results=req.top_k,
+        query_texts=[question],
+        n_results=top_k,
         where=where
     )
+
     docs = results.get("documents", [[]])[0]
     metas = results.get("metadatas", [[]])[0]
     ids = results.get("ids", [[]])[0]
 
-    prompt = build_prompt(req.question, docs)
+    prompt = build_prompt(question, docs)
+
     chat = client.chat.completions.create(
         model=LLM_MODEL,
         messages=[
-            {"role":"system","content": SYSTEM_PROMPT},
-            {"role":"user","content": prompt}
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": prompt}
         ],
         temperature=0.2
     )
+
     answer = chat.choices[0].message.content
-    citations = [{"id": _id, "title": meta.get("title"), "type": meta.get("type")} for _id, meta in zip(ids, metas)]
-    return {"answer": answer, "citations": citations, "used_filters": where or {}}
+
+    citations = [
+        {"id": _id, "title": meta.get("title"), "type": meta.get("type")}
+        for _id, meta in zip(ids, metas)
+    ]
+
+    return {
+        "answer": answer,
+        "citations": citations,
+        "used_filters": where or {}
+    }
+
+@app.post("/ask")
+def ask(req: AskRequest):
+    return ask_rag(req.question, req.filters, req.top_k)
+
 
 
 # ==================== User Progress Endpoints ====================
@@ -191,6 +212,28 @@ def complete_attempt(attempt_id: str, req: CompleteAttemptRequest):
         raise HTTPException(status_code=404, detail="Deneme bulunamadı")
     
     return {"success": True, "message": "Deneme tamamlandı"}
+
+@app.post("/attempt/{attempt_id}/record-step")
+def record_step_telemetry(attempt_id: str, payload: dict = Body(...)):
+    """
+    Accepts a richer telemetry payload for a tutorial step:
+    {
+      "stepNumber": 1,
+      "expectedAction": "PopCasters",
+      "actualAction": "PopCasters",
+      "success": true,
+      "holdDuration": 0.12,
+      "peakForce": 120.2,
+      "distance": 0.0,
+      "assistUsed": false,
+      "timestamp": "2025-12-02T17:00:00Z"
+    }
+    """
+    # Store telemetry in the attempt if present in active attempts or in DB
+    success = progress_manager.record_step_telemetry(attempt_id, payload)
+    if not success:
+        raise HTTPException(status_code=404, detail="Attempt not found")
+    return {"success": True, "message": "Step telemetry recorded"}
 
 
 # ==================== Analytics Endpoints ====================
@@ -286,3 +329,31 @@ def parse_skills():
         "message": f"{len(parsed_skills)} beceri parse edildi",
         "skill_count": len(parsed_skills)
     }
+@app.post("/ask/practice")
+def ask_practice(req: AskRequest):
+    rag = ask_rag(req.question, req.filters)
+
+    # 1️⃣ skill seç (ilk skill citation yeterli)
+    skill_id = None
+    for c in rag.get("citations", []):
+        if c["type"] == "skill":
+            skill_id = c["id"]
+            break
+
+    if not skill_id:
+        return {"error": "No skill citation found"}
+
+    # 2️⃣ RAG step'lerini çıkar
+    rag_steps = extract_numbered_steps(rag["answer"])
+
+    # 3️⃣ Skill JSON yükle
+    skill_json = load_skill_json(skill_id)
+
+    # 4️⃣ Filtrele + Unity'ye uygun hale getir
+    final_steps = map_steps_to_skill(rag_steps, skill_json)
+
+    return {
+        "skill_id": skill_id,
+        "steps": final_steps
+    }
+
