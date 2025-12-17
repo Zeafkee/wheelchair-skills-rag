@@ -1,0 +1,418 @@
+[
+  {
+    "test_id": "a01_10m_forward",
+    "label": "10 m Wheeling Forward",
+    "mapped_skill_id": "beginner-wheeling-forward",
+    "instructions": [
+      "Start at the beginning line, sitting upright.",
+      "Hands at ~11 o'clock on the rims, push forward smoothly.",
+      "Maintain a straight line and steady pace until you cover 10 meters."
+    ],
+    "completion_condition": "reach_trigger_distance_meters:10",
+    "requires_helpers": false,
+    "notes": "Used for basic propulsion control and endurance."
+  },
+  {
+    "test_id": "a02_30s_10m",
+    "label": "10 m in 30 seconds (timed)",
+    "mapped_skill_id": "beginner-wheeling-forward",
+    "instructions": [
+      "Start at the beginning line, sitting upright.",
+      "Push to cover 10 meters while time is measured.",
+      "Keep steady, controlled pushes so you reach 10 m within 30 s."
+    ],
+    "completion_condition": "reach_trigger_distance_meters:10 and time_elapsed_seconds<=30",
+    "requires_helpers": false,
+    "notes": "Time-based variant of wheeling forward."
+  },
+  {
+    "test_id": "a03_5m_backward",
+    "label": "5 m Wheeling Backward",
+    "mapped_skill_id": "beginner-wheeling-backward",
+    "instructions": [
+      "Start at the line facing away from the track.",
+      "Hands at ~11 o'clock, push backward steadily for 5 m.",
+      "Keep eyes over the shoulder or use short, controlled strokes."
+    ],
+    "completion_condition": "reach_trigger_distance_meters:5",
+    "requires_helpers": false,
+    "notes": "Basic backward mobility control."
+  },
+  {
+    "test_id": "a04_forward_90_turn",
+    "label": "Forward 90° Turn (left & right)",
+    "mapped_skill_id": "beginner-turn-forward",
+    "instructions": [
+      "Roll forward and practice a smooth 90° turn to the left.",
+      "Return to start and repeat to the right.",
+      "Use short ARC pushes to pivot while moving forward."
+    ],
+    "completion_condition": "trigger_on_turn_completed",
+    "requires_helpers": false,
+    "notes": "Test both left and right 90-degree turns."
+  },
+  {
+    "test_id": "a05_backward_90_turn",
+    "label": "Backward 90° Turn (left & right)",
+    "mapped_skill_id": "beginner-turn-backward",
+    "instructions": [
+      "Roll backward and perform a 90° turn to the left while moving backward.",
+      "Repeat the same to the right.",
+      "Use small, controlled pushes; keep eyes oriented safely."
+    ],
+    "completion_condition": "trigger_on_turn_completed",
+    "requires_helpers": false,
+    "notes": ""
+  },
+  {
+    "test_id": "a06_180_turn_in_place",
+    "label": "180° Turn In Place (both directions)",
+    "mapped_skill_id": "beginner-turn-on-spot",
+    "instructions": [
+      "From a stopped position, perform a 180° turn on the spot to the left.",
+      "Repeat the 180° turn to the right.",
+      "Use opposite-hand strokes to pivot cleanly."
+    ],
+    "completion_condition": "trigger_on_turn_completed",
+    "requires_helpers": false,
+    "notes": ""
+  },
+  {
+    "test_id": "a07_lateral_maneuver",
+    "label": "Sideways Maneuvering (shuffling)",
+    "mapped_skill_id": "intermediate-shuffling-sideways",
+    "instructions": [
+      "Use short, alternating pushes to move slightly sideways.",
+      "Maintain contact with rims and keep small balanced strokes.",
+      "Repeat left- and right-ward shuffles for set distance."
+    ],
+    "completion_condition": "reach_trigger_distance_meters:2",
+    "requires_helpers": false,
+    "notes": "Tests fine lateral control."
+  },
+  {
+    "test_id": "a08_pass_through_door",
+    "label": "Pass Through Door (both directions)",
+    "mapped_skill_id": "intermediate-doors-out",
+    "instructions": [
+      "Approach a doorway centered and keep momentum controlled.",
+      "Pass through the doorway with minimal adjustments.",
+      "Repeat in opposite direction."
+    ],
+    "completion_condition": "trigger_on_pass_through",
+    "requires_helpers": false,
+    "notes": "Use both in/out variants during testing."
+  },
+  {
+    "test_id": "a09_reach_1_5m",
+    "label": "Reach to 1.5 m Object",
+    "mapped_skill_id": "intermediate-pick-object",
+    "instructions": [
+      "Approach a platform 1.5 m ahead, position chair stable.",
+      "Keep wheels locked if necessary; reach to touch the marked point.",
+      "Return to neutral position safely."
+    ],
+    "completion_condition": "trigger_on_reach_point",
+    "requires_helpers": false,
+    "notes": "Tests reach and positioning."
+  },
+  {
+    "test_id": "a10_pick_from_floor",
+    "label": "Pick Object from Floor",
+    "mapped_skill_id": "intermediate-pick-object",
+    "instructions": [
+      "Position the chair near the object, stabilize wheels if needed.",
+      "Lean forward safely and pick the object from the floor.",
+      "Return to upright, holding the object securely."
+    ],
+    "completion_condition": "trigger_on_item_collected",
+    "requires_helpers": false,
+    "notes": ""
+  },
+  {
+    "test_id": "a11_hip_weight_shift",
+    "label": "Hip Weight Shift (load via hip)",
+    "mapped_skill_id": null,
+    "instructions": [
+      "From sitting upright, perform a controlled weight shift through the hips.",
+      "Use small, repeated weight transfers while maintaining balance.",
+      "Return to neutral position safely."
+    ],
+    "completion_condition": "trigger_on_weightshift_complete",
+    "requires_helpers": false,
+    "notes": "No direct mapped skill in repo; uses balance training steps."
+  },
+  {
+    "test_id": "a12_transfer_to_bench",
+    "label": "Transfer to Bench (transfer)",
+    "mapped_skill_id": null,
+    "instructions": [
+      "Approach bench and lock wheels.",
+      "Perform a safe transfer using armrests / push-offs.",
+      "Return to wheelchair safely after the transfer."
+    ],
+    "completion_condition": "trigger_on_transfer_zone",
+    "requires_helpers": false,
+    "notes": "Transfer skill not present in repo; basic safe-transfer steps included."
+  },
+  {
+    "test_id": "a13_fold_unfold_wheelchair",
+    "label": "Fold and Unfold Wheelchair",
+    "mapped_skill_id": null,
+    "instructions": [
+      "From a parked chair, demonstrate safe folding steps.",
+      "Unfold the chair and lock it into use position.",
+      "Show the correct checks (brakes, footrests)."
+    ],
+    "completion_condition": "trigger_on_fold_unfold_area",
+    "requires_helpers": false,
+    "notes": "Not present in repo; static task."
+  },
+  {
+    "test_id": "a14_100m_forward",
+    "label": "100 m Wheeling Forward (endurance)",
+    "mapped_skill_id": "beginner-wheeling-forward",
+    "instructions": [
+      "Start at the line, hands on rims.",
+      "Maintain steady pushes and propell for 100 meters.",
+      "Keep posture and breathing steady."
+    ],
+    "completion_condition": "reach_trigger_distance_meters:100",
+    "requires_helpers": false,
+    "notes": "Endurance variant."
+  },
+  {
+    "test_id": "a15_side_obstacle_avoid",
+    "label": "Obstacle Avoidance (left & right)",
+    "mapped_skill_id": "intermediate-avoid-collisions",
+    "instructions": [
+      "Roll forward and avoid obstacles placed to the left and right.",
+      "Use short controlled turns or stops to avoid collisions.",
+      "Continue to finish point once clear."
+    ],
+    "completion_condition": "trigger_on_finish_without_collision",
+    "requires_helpers": false,
+    "notes": ""
+  },
+  {
+    "test_id": "a16_5deg_ramp_up",
+    "label": "5° Ramp Climb",
+    "mapped_skill_id": "intermediate-ramps-up",
+    "instructions": [
+      "Approach ramp centered with momentum.",
+      "Lean forward slightly and use strong, short pushes to climb.",
+      "Reach the ramp top and stabilize."
+    ],
+    "completion_condition": "trigger_at_ramp_top",
+    "requires_helpers": false,
+    "notes": "Place completion trigger at top of ramp."
+  },
+  {
+    "test_id": "a17_5deg_ramp_down",
+    "label": "5° Ramp Descent",
+    "mapped_skill_id": "intermediate-ramps-down",
+    "instructions": [
+      "Start at ramp top, keep hands ready on rims.",
+      "Lean back slightly and control descent with small pushes or braking.",
+      "Reach flat ground and stabilize."
+    ],
+    "completion_condition": "trigger_at_ramp_bottom",
+    "requires_helpers": false,
+    "notes": ""
+  },
+  {
+    "test_id": "a18_10deg_ramp_up",
+    "label": "10° Ramp Climb",
+    "mapped_skill_id": "intermediate-ramps-up",
+    "instructions": [
+      "Approach ramp center, push strongly with short arcs.",
+      "Lean forward to help push rear wheels up the slope.",
+      "Reach ramp top and stop at the trigger."
+    ],
+    "completion_condition": "trigger_at_ramp_top",
+    "requires_helpers": false,
+    "notes": "Higher grade; adjust test tolerance accordingly."
+  },
+  {
+    "test_id": "a19_10deg_ramp_down",
+    "label": "10° Ramp Descent",
+    "mapped_skill_id": "intermediate-ramps-down",
+    "instructions": [
+      "Begin at ramp top, keep a controlled posture.",
+      "Lean back, use controlled rim contact to slow descent.",
+      "Reach bottom and stabilize."
+    ],
+    "completion_condition": "trigger_at_ramp_bottom",
+    "requires_helpers": false,
+    "notes": ""
+  },
+  {
+    "test_id": "a20_side_slope_5deg_2m",
+    "label": "2 m Against 5° Side Slope",
+    "mapped_skill_id": "intermediate-side-slopes",
+    "instructions": [
+      "Position on side slope and maintain balance.",
+      "Drive 2 meters across the slope using short controlled pushes.",
+      "Stabilize at finish."
+    ],
+    "completion_condition": "reach_trigger_distance_meters:2",
+    "requires_helpers": false,
+    "notes": ""
+  },
+  {
+    "test_id": "a21_soft_surface_2m",
+    "label": "2 m on Soft Surface",
+    "mapped_skill_id": "intermediate-soft-surfaces",
+    "instructions": [
+      "Start on soft surface (e.g., gravel), keep hands ready.",
+      "Use lower, more powerful pushes to keep momentum.",
+      "Drive 2 meters and stop at the trigger."
+    ],
+    "completion_condition": "reach_trigger_distance_meters:2",
+    "requires_helpers": false,
+    "notes": ""
+  },
+  {
+    "test_id": "a22_15cm_trench",
+    "label": "Cross 15 cm Ditch",
+    "mapped_skill_id": "intermediate-obstacles-thresholds",
+    "instructions": [
+      "Approach ditch straight, build enough momentum.",
+      "Pop casters if needed and push rear wheels to clear the ditch.",
+      "Land and stabilize on the far side."
+    ],
+    "completion_condition": "trigger_on_far_side",
+    "requires_helpers": false,
+    "notes": "Use a small ramp/trigger on far side."
+  },
+  {
+    "test_id": "a23_2cm_threshold",
+    "label": "Pass 2 cm Threshold",
+    "mapped_skill_id": "intermediate-obstacles-thresholds",
+    "instructions": [
+      "Approach the small threshold squarely, keep momentum.",
+      "Lift front slightly and roll the rear wheels over the threshold.",
+      "Stabilize after passing."
+    ],
+    "completion_condition": "trigger_on_far_side",
+    "requires_helpers": false,
+    "notes": ""
+  },
+  {
+    "test_id": "a24_5cm_climb_up",
+    "label": "5 cm Step Up",
+    "mapped_skill_id": "intermediate-obstacles-thresholds",
+    "instructions": [
+      "Approach platform, pop front casters and land on platform.",
+      "Lean forward and push rear wheels up the 5 cm step.",
+      "Stabilize once on top."
+    ],
+    "completion_condition": "trigger_on_top",
+    "requires_helpers": false,
+    "notes": ""
+  },
+  {
+    "test_id": "a25_5cm_step_down",
+    "label": "5 cm Step Down",
+    "mapped_skill_id": "intermediate-obstacles-thresholds",
+    "instructions": [
+      "Approach step edge and slowly roll rear wheels down.",
+      "Control descent with small pulls on the rims.",
+      "Stabilize on lower surface."
+    ],
+    "completion_condition": "trigger_on_bottom",
+    "requires_helpers": false,
+    "notes": ""
+  },
+  {
+    "test_id": "a26_15cm_climb_up",
+    "label": "15 cm Step Up",
+    "mapped_skill_id": "advanced-curb-up",
+    "instructions": [
+      "Approach 15 cm curb centered and with momentum.",
+      "Pop front casters higher (2–4 in) and land on the curb.",
+      "Lean forward and push the rear wheels up onto the curb top."
+    ],
+    "completion_condition": "trigger_on_top",
+    "requires_helpers": false,
+    "notes": "Mapped to advanced-curb-up; in repo advanced entry mentions spotter for practice — treat as solo test in simulation."
+  },
+  {
+    "test_id": "a27_15cm_step_down",
+    "label": "15 cm Step Down",
+    "mapped_skill_id": "advanced-curb-down-backwards",
+    "instructions": [
+      "Approach the curb backward as needed for control.",
+      "Control the rear wheels descent to the lower level, keeping balance.",
+      "Stabilize after descent."
+    ],
+    "completion_condition": "trigger_on_bottom",
+    "requires_helpers": false,
+    "notes": "Mapped to advanced-curb-down-backwards."
+  },
+  {
+    "test_id": "a28_30s_static_wheelie",
+    "label": "30 s Wheelie Hold",
+    "mapped_skill_id": "advanced-holding-wheelie",
+    "instructions": [
+      "From a safe position, pop into a wheelie and hold for 30 seconds.",
+      "Keep balance using small rim adjustments.",
+      "Lower wheels safely when time completes."
+    ],
+    "completion_condition": "time_elapsed_seconds>=30",
+    "requires_helpers": false,
+    "notes": "Advanced skill; repo originally suggests spotter — simulation test is solo."
+  },
+  {
+    "test_id": "a29_wheelie_180_turn",
+    "label": "Wheelie 180° Turn",
+    "mapped_skill_id": "advanced-holding-wheelie",
+    "instructions": [
+      "Pop into wheelie position and perform a controlled 180° turn.",
+      "Use small adjustments on the rims to rotate.",
+      "Return to normal wheels and stabilize."
+    ],
+    "completion_condition": "trigger_on_turn_completed",
+    "requires_helpers": false,
+    "notes": ""
+  },
+  {
+    "test_id": "a30_get_up_from_floor",
+    "label": "Get Up from Floor to Wheelchair",
+    "mapped_skill_id": null,
+    "instructions": [
+      "Demonstrate safe method to return from floor to seated position on wheelchair.",
+      "Use correct bracing, roll and pull technique, and ask for assistance if unsafe.",
+      "Complete the transfer and stabilize."
+    ],
+    "completion_condition": "trigger_on_seated",
+    "requires_helpers": false,
+    "notes": "This is a transfer scenario derived from clinical guidance; not present as specific repo skill."
+  },
+  {
+    "test_id": "a31_stair_climb",
+    "label": "Stair Climb (multiple helpers required)",
+    "mapped_skill_id": "intermediate-stairs-3-helpers",
+    "instructions": [
+      "This test requires 3 helpers placed at safe positions.",
+      "Coordinate lift to ascend 3–5 steps while maintaining control.",
+      "Place completion trigger at top landing."
+    ],
+    "completion_condition": "trigger_on_top",
+    "requires_helpers": true,
+    "notes": "Repo contains helper-based stair procedures only."
+  },
+  {
+    "test_id": "a32_stair_descent",
+    "label": "Stair Descent (helpers required)",
+    "mapped_skill_id": "emergency-stairs-2-helpers",
+    "instructions": [
+      "This test requires 2 helpers to safely descend 3–5 steps.",
+      "Helpers support and guide controls; descend in coordinated manner.",
+      "Mark completion at bottom landing."
+    ],
+    "completion_condition": "trigger_on_bottom",
+    "requires_helpers": true,
+    "notes": "Emergency or multi-helper procedure from repo."
+  }
+]
