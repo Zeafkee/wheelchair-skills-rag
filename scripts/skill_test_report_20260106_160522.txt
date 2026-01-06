@@ -1,0 +1,377 @@
+﻿===============================================================================
+                 WHEELCHAIR SKILLS RAG PARSING TEST REPORT
+===============================================================================
+
+Test Date: 2026-01-06 16:04:36
+Backend URL: http://localhost:8000/ask/practice
+Total Skills to Test: 10
+
+===============================================================================
+                              SUMMARY
+===============================================================================
+
+  OVERALL SCORE: 387 / 750 (52%)
+
+  +----------+----------+----------+
+  |  PASSED  | WARNING  |  FAILED  |
+  +----------+----------+----------+
+  |    2     |    5     |    3     |
+  +----------+----------+----------+
+
+  Grading:  PASS >= 70%, WARNING 40-69%, FAIL < 40%
+
+===============================================================================
+                          QUICK RESULTS TABLE
+===============================================================================
+
+  Skill  | Name                              | Steps | Dups | Score  | Status
+  -------+-----------------------------------+-------+------+--------+--------
+      1 | Rolls forwards 10m                |     6 |    2 |    83% | PASS   
+      2 | Rolls backwards 2m                |     9 |    5 |    36% | FAIL   
+      3 | Turns while moving forwards 90deg |     7 |    2 |    69% | WARNING
+      4 | Turns while moving backwards 9... |    15 |    8 |    12% | FAIL   
+      5 | Rolls 100m                        |     8 |    2 |    52% | WARNING
+     15 | Ascends 5deg incline              |     9 |    3 |    41% | WARNING
+     16 | Descends 5deg incline             |     9 |    3 |    49% | WARNING
+     25 | Ascends curb 15cm                 |     3 |    0 |   100% | PASS   
+     26 | Descends curb                     |     8 |    3 |    27% | FAIL   
+     30 | Avoids moving obstacles           |    10 |    4 |    47% | WARNING
+
+===============================================================================
+                          DETAILED RESULTS
+===============================================================================
+
+-------------------------------------------------------------------------------
+SKILL 1: Rolls forwards 10m
+-------------------------------------------------------------------------------
+
+  Question: How do I roll forwards 10 meters in a wheelchair?
+
+  Status: PASS    Score: 62/75 (83%)
+
+  Steps Generated: 6 (expected: 3)
+  Duplicate Steps:  2
+
+  Expected Actions:    move_forward, brake
+  Detected Actions:   move_forward, turn_right, brake
+  Unexpected Actions:  turn_right [PROBLEM]
+
+  Steps Detail:
+  +------+----------------+-------------------------------------------------------+
+  | Step | Action         | Instruction                                           |
+  +------+----------------+-------------------------------------------------------+
+  |    1 | move_forward   | Start Position: Begin at the starting line, sit...
+  |    2 | turn_right     | Start Position: Begin at the starting line, sit... [DUP]
+  |    3 | move_forward   | Initial Push: Push forward smoothly to gain mom...
+  |    4 | brake          | Initial Push: Push forward smoothly to gain mom... [DUP]
+  |    5 | move_forward   | Maintain Direction: Keep your wheelchair moving...
+  |    6 | move_forward   | Steady Pace: Focus on maintaining a steady pace...
+  +------+----------------+-------------------------------------------------------+
+
+-------------------------------------------------------------------------------
+SKILL 2: Rolls backwards 2m
+-------------------------------------------------------------------------------
+
+  Question: How do I roll backwards 2 meters in a wheelchair?
+
+  Status: FAIL    Score: 27/75 (36%)
+
+  Steps Generated: 9 (expected: 3)
+  Duplicate Steps:  5
+
+  Expected Actions:    move_backward, brake
+  Detected Actions:   move_forward, move_backward, brake
+  Unexpected Actions:  move_forward [PROBLEM]
+
+  Steps Detail:
+  +------+----------------+-------------------------------------------------------+
+  | Step | Action         | Instruction                                           |
+  +------+----------------+-------------------------------------------------------+
+  |    1 | move_forward   | Begin rolling: Push backward steadily, using sm...
+  |    2 | move_backward  | Begin rolling: Push backward steadily, using sm... [DUP]
+  |    3 | brake          | Begin rolling: Push backward steadily, using sm... [DUP]
+  |    4 | move_forward   | Maintain control: Keep your eyes over your shou...
+  |    5 | brake          | Maintain control: Keep your eyes over your shou... [DUP]
+  |    6 | move_forward   | Monitor distance: Roll backward until you reach...
+  |    7 | move_backward  | Monitor distance: Roll backward until you reach... [DUP]
+  |    8 | move_forward   | Stop safely: Gradually reduce your push to come...
+  |    9 | brake          | Stop safely: Gradually reduce your push to come... [DUP]
+  +------+----------------+-------------------------------------------------------+
+
+-------------------------------------------------------------------------------
+SKILL 3: Turns while moving forwards 90deg
+-------------------------------------------------------------------------------
+
+  Question: How do I turn 90 degrees while moving forward in a wheelchair?
+
+  Status: WARNING    Score: 52/75 (69%)
+
+  Steps Generated: 7 (expected: 3)
+  Duplicate Steps:  2
+
+  Expected Actions:    move_forward, turn_left, turn_right
+  Detected Actions:   move_forward, turn_left, turn_right, brake
+  Unexpected Actions:  brake [PROBLEM]
+
+  Steps Detail:
+  +------+----------------+-------------------------------------------------------+
+  | Step | Action         | Instruction                                           |
+  +------+----------------+-------------------------------------------------------+
+  |    1 | move_forward   | Start rolling forward at a comfortable speed. E...
+  |    2 | turn_left      | Identify the direction of your turn (left or ri...
+  |    3 | turn_right     | Identify the direction of your turn (left or ri... [DUP]
+  |    4 | move_forward   | Use short ARC pushes on the wheel opposite to t...
+  |    5 | brake          | As you turn, keep your eyes oriented in the dir...
+  |    6 | move_forward   | Stabilize your position after the turn to ensur...
+  |    7 | brake          | Stabilize your position after the turn to ensur... [DUP]
+  +------+----------------+-------------------------------------------------------+
+
+-------------------------------------------------------------------------------
+SKILL 4: Turns while moving backwards 90deg
+-------------------------------------------------------------------------------
+
+  Question: How do I turn 90 degrees while moving backward in a wheelchair?
+
+  Status: FAIL    Score: 9/75 (12%)
+
+  Steps Generated: 15 (expected: 3)
+  Duplicate Steps:  8
+
+  Expected Actions:    move_backward, turn_left, turn_right
+  Detected Actions:   move_forward, move_backward, brake, turn_left, turn_right
+  Unexpected Actions:  move_forward, brake [PROBLEM]
+
+  Steps Detail:
+  +------+----------------+-------------------------------------------------------+
+  | Step | Action         | Instruction                                           |
+  +------+----------------+-------------------------------------------------------+
+  |    1 | move_forward   | Brief overview: To perform a 90-degree turn whi...
+  |    2 | move_backward  | Brief overview: To perform a 90-degree turn whi... [DUP]
+  |    3 | brake          | Brief overview: To perform a 90-degree turn whi... [DUP]
+  |    4 | move_forward   | Roll backward steadily, keeping your hands at a...
+  |    5 | move_backward  | Roll backward steadily, keeping your hands at a... [DUP]
+  |    6 | move_forward   | As you approach the point where you want to tur...
+  |    7 | move_forward   | Begin to push the wheel on the side you want to...
+  |    8 | turn_left      | Begin to push the wheel on the side you want to... [DUP]
+  |    9 | turn_right     | Begin to push the wheel on the side you want to... [DUP]
+  |   10 | move_forward   | Use small, controlled pushes on the opposite wh...
+  |   11 | brake          | Use small, controlled pushes on the opposite wh... [DUP]
+  |   12 | brake          | Maintain your balance and keep your eyes orient...
+  |   13 | move_forward   | Complete the turn and stabilize your position b...
+  |   14 | move_backward  | Complete the turn and stabilize your position b... [DUP]
+  |   15 | brake          | Complete the turn and stabilize your position b... [DUP]
+  +------+----------------+-------------------------------------------------------+
+
+-------------------------------------------------------------------------------
+SKILL 5: Rolls 100m
+-------------------------------------------------------------------------------
+
+  Question: How do I roll 100 meters in a wheelchair maintaining good form?
+
+  Status: WARNING    Score: 39/75 (52%)
+
+  Steps Generated: 8 (expected: 4)
+  Duplicate Steps:  2
+
+  Expected Actions:    move_forward, brake
+  Detected Actions:   move_forward, turn_right, brake, move_backward
+  Unexpected Actions:  turn_right, move_backward [PROBLEM]
+
+  Steps Detail:
+  +------+----------------+-------------------------------------------------------+
+  | Step | Action         | Instruction                                           |
+  +------+----------------+-------------------------------------------------------+
+  |    1 | move_forward   | Start Position: Begin at the starting line with...
+  |    2 | turn_right     | Start Position: Begin at the starting line with... [DUP]
+  |    3 | brake          | Grip Adjustment: Position your hands at approxi...
+  |    4 | move_forward   | Steady Push: Begin pushing forward smoothly and...
+  |    5 | move_backward  | Posture Maintenance: Keep your back straight an...
+  |    6 | move_forward   | Breathing Control: Breathe steadily and deeply ...
+  |    7 | brake          | Breathing Control: Breathe steadily and deeply ... [DUP]
+  |    8 | move_forward   | Distance Awareness: Keep track of your distance...
+  +------+----------------+-------------------------------------------------------+
+
+-------------------------------------------------------------------------------
+SKILL 15: Ascends 5deg incline
+-------------------------------------------------------------------------------
+
+  Question: How do I ascend a 5 degree incline ramp in a wheelchair?
+
+  Status: WARNING    Score: 31/75 (41%)
+
+  Steps Generated: 9 (expected: 3)
+  Duplicate Steps:  3
+
+  Expected Actions:    move_forward
+  Detected Actions:   move_forward, pop_casters, brake, move_backward
+  Unexpected Actions:  pop_casters, brake, move_backward [PROBLEM]
+
+  Steps Detail:
+  +------+----------------+-------------------------------------------------------+
+  | Step | Action         | Instruction                                           |
+  +------+----------------+-------------------------------------------------------+
+  |    1 | move_forward   | Approach ramp centered with momentum.             
+  |    2 | pop_casters    | Lean forward slightly and use strong, short pus...
+  |    3 | move_forward   | Lean forward slightly and use strong, short pus... [DUP]
+  |    4 | brake          | Keep your hands on the rims for control during ...
+  |    5 | brake          | Reach the ramp top and stabilize your position.   
+  |    6 | brake          | Ensure you stop at the completion trigger at th...
+  |    7 | move_forward   | Avoid leaning too far back or pushing too hard,...
+  |    8 | move_backward  | Avoid leaning too far back or pushing too hard,... [DUP]
+  |    9 | brake          | Avoid leaning too far back or pushing too hard,... [DUP]
+  +------+----------------+-------------------------------------------------------+
+
+-------------------------------------------------------------------------------
+SKILL 16: Descends 5deg incline
+-------------------------------------------------------------------------------
+
+  Question: How do I descend a 5 degree incline ramp in a wheelchair safely?
+
+  Status: WARNING    Score: 37/75 (49%)
+
+  Steps Generated: 9 (expected: 3)
+  Duplicate Steps:  3
+
+  Expected Actions:    move_forward, brake
+  Detected Actions:   brake, move_backward, move_forward
+  Unexpected Actions:  move_backward [PROBLEM]
+
+  Steps Detail:
+  +------+----------------+-------------------------------------------------------+
+  | Step | Action         | Instruction                                           |
+  +------+----------------+-------------------------------------------------------+
+  |    1 | brake          | Begin at the top of the 5Â° ramp, ensuring your...
+  |    2 | move_backward  | Lean back slightly to maintain balance as you p...
+  |    3 | brake          | Lean back slightly to maintain balance as you p... [DUP]
+  |    4 | move_forward   | Use small pushes or braking with your hands on ...
+  |    5 | brake          | Use small pushes or braking with your hands on ... [DUP]
+  |    6 | move_forward   | Keep your body centered and avoid leaning too f...
+  |    7 | move_backward  | Keep your body centered and avoid leaning too f... [DUP]
+  |    8 | brake          | As you reach the flat ground, stabilize your wh...
+  |    9 | brake          | Ensure you are fully stopped before making any ...
+  +------+----------------+-------------------------------------------------------+
+
+-------------------------------------------------------------------------------
+SKILL 25: Ascends curb 15cm
+-------------------------------------------------------------------------------
+
+  Question: How do I ascend a 15cm curb in a wheelchair?
+
+  Status: PASS    Score: 75/75 (100%)
+
+  Steps Generated: 3 (expected: 4)
+  Duplicate Steps:  0
+
+  Expected Actions:    move_forward, pop_casters
+  Detected Actions:   move_forward, pop_casters
+  Unexpected Actions: None (OK)
+
+  Steps Detail:
+  +------+----------------+-------------------------------------------------------+
+  | Step | Action         | Instruction                                           |
+  +------+----------------+-------------------------------------------------------+
+  |    1 | move_forward   | Approach the curb centered and with momentum. (...
+  |    2 | pop_casters    | Pop the front casters higher (2â4 inches) and...
+  |    3 | move_forward   | Lean forward and push the rear wheels up onto t...
+  +------+----------------+-------------------------------------------------------+
+
+-------------------------------------------------------------------------------
+SKILL 26: Descends curb
+-------------------------------------------------------------------------------
+
+  Question: How do I descend a curb in a wheelchair safely?
+
+  Status: FAIL    Score: 20/75 (27%)
+
+  Steps Generated: 8 (expected: 4)
+  Duplicate Steps:  3
+
+  Expected Actions:    move_backward, brake, pop_casters
+  Detected Actions:   move_forward, move_backward, brake
+  Unexpected Actions:  move_forward [PROBLEM]
+
+  Steps Detail:
+  +------+----------------+-------------------------------------------------------+
+  | Step | Action         | Instruction                                           |
+  +------+----------------+-------------------------------------------------------+
+  |    1 | move_forward   | Approach the curb backward as needed for contro...
+  |    2 | move_backward  | Approach the curb backward as needed for contro... [DUP]
+  |    3 | brake          | Approach the curb backward as needed for contro... [DUP]
+  |    4 | move_forward   | Slowly roll the rear wheels down while controll...
+  |    5 | brake          | Slowly roll the rear wheels down while controll... [DUP]
+  |    6 | brake          | Keep your balance as you lower the rear wheels ...
+  |    7 | brake          | Stabilize on the lower surface after the descen...
+  |    8 | move_forward   | Ensure you are stable before moving forward. (C...
+  +------+----------------+-------------------------------------------------------+
+
+-------------------------------------------------------------------------------
+SKILL 30: Avoids moving obstacles
+-------------------------------------------------------------------------------
+
+  Question: How do I avoid moving obstacles while in a wheelchair?
+
+  Status: WARNING    Score: 35/75 (47%)
+
+  Steps Generated: 10 (expected: 3)
+  Duplicate Steps:  4
+
+  Expected Actions:    move_forward, turn_left, turn_right, brake
+  Detected Actions:   move_forward, brake, turn_left, turn_right
+  Unexpected Actions: None (OK)
+
+  Steps Detail:
+  +------+----------------+-------------------------------------------------------+
+  | Step | Action         | Instruction                                           |
+  +------+----------------+-------------------------------------------------------+
+  |    1 | move_forward   | Brief overview: To avoid moving obstacles while...
+  |    2 | brake          | Brief overview: To avoid moving obstacles while... [DUP]
+  |    3 | move_forward   | Roll forward and assess the area for obstacles ...
+  |    4 | turn_left      | Roll forward and assess the area for obstacles ... [DUP]
+  |    5 | turn_right     | Roll forward and assess the area for obstacles ... [DUP]
+  |    6 | move_forward   | Use short, controlled turns to maneuver around ...
+  |    7 | brake          | Use short, controlled turns to maneuver around ... [DUP]
+  |    8 | brake          | If necessary, stop briefly to reassess your pat...
+  |    9 | move_forward   | Continue moving forward once you have successfu...
+  |   10 | brake          | Maintain a steady pace and stay aware of your s...
+  +------+----------------+-------------------------------------------------------+
+
+===============================================================================
+                          IDENTIFIED ISSUES
+===============================================================================
+
+  1. DUPLICATE STEP GENERATION
+     The parser splits multi-action instructions into separate steps with
+     identical text. This causes confusion in Unity tutorial flow.
+
+  2. OVERLY BROAD KEYWORD MATCHING
+     Words like 'up', 'back', 'forward' in context (e.g., 'sit upright',
+     'check back') trigger incorrect action assignments.
+
+  3. MISSING ACTIONS FOR SOME SKILLS
+     Skill 26 (Descends curb) should include pop_casters but it is not
+     being detected from the instruction text.
+
+===============================================================================
+                          RECOMMENDATIONS
+===============================================================================
+
+  1. Fix generate_expected_actions() in rag_practice_service.py:
+     - Use more specific keyword patterns (e.g., 'push forward' not just 'forward')
+     - Exclude false positives like 'upright', 'back to', etc.
+
+  2. Fix map_steps_to_skill() in rag_practice_service.py:
+     - Don't split multiple actions into separate steps with same text
+     - Keep all actions in one step OR create unique instruction per action
+
+  3. Consider adding action validation based on skill type:
+     - Forward skills should not have move_backward
+     - Backward skills should not have move_forward as primary action
+
+===============================================================================
+                              END OF REPORT
+===============================================================================
+
+Generated by:  Wheelchair Skills RAG Test Suite
+Project: wheelchair-skills-rag / wheelchair-skills-rag_Unity
+Report Time: 2026-01-06 16:04:36
+
