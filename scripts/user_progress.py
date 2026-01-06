@@ -18,6 +18,10 @@ DEFAULT_DB_PATH = os.path.join(DATA_DIR, "user_progress.json")
 ERROR_TYPES_PATH = os.path.join(DATA_DIR, "error_types.json")
 SKILL_STEPS_DIR = os.path.join(DATA_DIR, "skill_steps")
 
+# Analytics constants
+MAX_PROBLEMATIC_ITEMS = 20  # Maximum items to return in problematic steps/actions lists
+COMPARISON_THRESHOLD = 0.05  # Threshold for "average" classification in comparisons
+
 # Thread-safe dosya yazma için kilit
 _file_lock = threading.Lock()
 
@@ -694,8 +698,8 @@ class UserProgressManager:
             "total_attempts": total_attempts,
             "total_users": total_users,
             "skill_summary": sorted(skill_summary, key=lambda x: x["failure_rate"], reverse=True),
-            "problematic_steps": problematic_steps[:20],  # İlk 20
-            "action_confusion": action_confusion_list[:20],  # İlk 20
+            "problematic_steps": problematic_steps[:MAX_PROBLEMATIC_ITEMS],
+            "action_confusion": action_confusion_list[:MAX_PROBLEMATIC_ITEMS],
             "generated_at": _get_timestamp()
         }
     
@@ -864,7 +868,7 @@ class UserProgressManager:
             
             # Karşılaştırma yap
             comparison = "above_average" if your_success_rate > global_success_rate else "below_average"
-            if abs(your_success_rate - global_success_rate) < 0.05:
+            if abs(your_success_rate - global_success_rate) < COMPARISON_THRESHOLD:
                 comparison = "average"
             
             comparisons.append({
