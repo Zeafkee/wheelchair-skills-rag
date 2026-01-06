@@ -1,11 +1,41 @@
-# rag_practice_service.py (Updated: Solo-only, Multi-action Step Splitting, Negation check)
+# rag_practice_service.py (Updated: GPT-based action generation)
 import re
 import json
+import os
+import logging
 from pathlib import Path
+from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Paths
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 TEST_SUITES_FILE = DATA_DIR / "test_suites" / "32_skill_tests.json"
+
+# OpenAI client
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+LLM_MODEL = os.getenv("LLM_MODEL", "gpt-4o-mini")
+
+if not OPENAI_API_KEY:
+    logger.warning("OPENAI_API_KEY not set. GPT-based action generation will fall back to keyword-based approach.")
+    client = None
+else:
+    client = OpenAI(api_key=OPENAI_API_KEY)
+
+# Available actions in the wheelchair simulator
+AVAILABLE_ACTIONS = [
+    "move_forward",   # W key
+    "move_backward",  # S key
+    "turn_left",      # A key
+    "turn_right",     # D key
+    "brake",          # SPACE key
+    "pop_casters"     # X key
+]
 
 def clean_rag_text(text: str):
     """
@@ -95,7 +125,8 @@ def load_skill_from_test_suite(skill_id_or_mapped_id: str):
 
 def generate_expected_actions(instruction: str):
     """
-    Identifies all relevant actions. Splitting happens in map_steps_to_skill.
+    Keyword-based action identification (legacy fallback).
+    NOTE: This is kept as a fallback for when GPT-based generation fails.
     """
     text = instruction.lower()
     
@@ -134,41 +165,154 @@ def generate_expected_actions(instruction: str):
     return list(set(all_found))
 
 
-def map_steps_to_skill(rag_steps, skill_json):
+def _fallback_keyword_based_actions(steps: list[dict]) -> list[dict]:
     """
-    Maps RAG steps to filtered actionable solo steps.
-    If multiple actions are found in one RAG step, it splits them into separate Unity steps.
+    Fallback to keyword-based action generation when GPT fails.
+    Filters helper/spotter steps and assigns actions based on keywords.
     """
     final_steps = []
     
-    for i, rag_step in enumerate(rag_steps):
-        instruction = rag_step.get("instruction", "")
+    for step in steps:
+        instruction = step.get("instruction", "")
         
-        # 1. Filter out Helper/Assistant/Spotter steps
+        # Filter out Helper/Assistant/Spotter steps
         if any(k in instruction.lower() for k in ["helper", "assistant", "spotter"]):
             continue
             
-        # 2. Generate actions (can be multiple)
+        # Generate actions using keyword-based approach
         expected_actions = generate_expected_actions(instruction)
         
         if not expected_actions:
             continue
         
-        cue_val = rag_step.get("cue")
-        
-        # 3. Split multiple actions into separate steps
-        # Use a specific order for splitting to ensure logic (e.g. Lean before Move)
-        # We'll use a simple priority order for the split sequence
-        priority = ["pop_casters", "move_forward", "move_backward", "turn_left", "turn_right", "brake"]
-        
-        sorted_actions = sorted(expected_actions, key=lambda x: priority.index(x) if x in priority else 99)
-
-        for action in sorted_actions:
-            final_steps.append({
-                "step_number": len(final_steps) + 1,
-                "text": instruction,
-                "cue": cue_val,
-                "expected_actions": [action] # Always one action per step now
-            })
-
+        # Take only the first action to avoid duplicates
+        final_steps.append({
+            "step_number": len(final_steps) + 1,
+            "text": instruction,  # Use 'text' for consistency with GPT output
+            "expected_actions": [expected_actions[0]],  # Use only first action
+            "cue": step.get("cue")
+        })
+    
     return final_steps
+    return final_steps
+
+
+def generate_actions_with_gpt(steps: list[dict]) -> list[dict]:
+    """
+    Uses GPT to analyze steps and generate accurate expected_actions.
+    Returns steps with expected_actions assigned, filtering out helper/spotter steps.
+    """
+    if not steps:
+        return []
+    
+    # Check if OpenAI client is available
+    if not client:
+        logger.warning("OpenAI client not available. Using fallback keyword-based approach.")
+        return _fallback_keyword_based_actions(steps)
+    
+    # Build the prompt for GPT
+    steps_text = "\n".join([
+        f"{i+1}. {step.get('instruction', '')}"
+        for i, step in enumerate(steps)
+    ])
+    
+    # Build actions list from constant
+    actions_descriptions = {
+        "move_forward": "Moving forward/approaching/pushing ahead",
+        "move_backward": "Moving backward/reversing/backing up",
+        "turn_left": "Turning left",
+        "turn_right": "Turning right",
+        "brake": "Stopping/holding position/stabilizing/waiting",
+        "pop_casters": "Lifting front casters/popping wheelie"
+    }
+    
+    actions_text = "\n".join([
+        f"- {action}: {actions_descriptions[action]}"
+        for action in AVAILABLE_ACTIONS
+    ])
+    
+    prompt = f"""You are analyzing wheelchair skill training steps. For each step below, determine the expected wheelchair action(s).
+
+Available actions:
+{actions_text}
+
+Steps to analyze:
+{steps_text}
+
+Rules:
+1. Assign ONE action per step whenever possible
+2. If a step describes "left OR right" (user can choose either), return BOTH actions: ["turn_left", "turn_right"]
+3. If a step requires SEQUENTIAL actions (e.g., "pop casters THEN move forward"), split into 2 steps with different instruction texts
+4. Filter out steps for helpers/spotters/assistants - do NOT include them
+5. Focus on solo wheelchair user actions only
+6. For positioning/alignment steps, use "brake" to hold position
+7. Words like "upright", "sit up", "square" are about posture, NOT forward movement - use "brake" unless explicitly moving
+
+Return a JSON object with this exact format:
+{{
+  "steps": [
+    {{
+      "step_number": 1,
+      "instruction": "exact instruction text from original step",
+      "expected_actions": ["action_name"],
+      "cue": "any helpful cue or tip"
+    }}
+  ]
+}}
+
+For steps requiring sequential actions, create separate entries with modified instruction text that clearly describes each action.
+Example: "Pop casters and move forward" → 
+  Step 1: "Pop casters" with ["pop_casters"]
+  Step 2: "Move forward" with ["move_forward"]
+
+Return only the JSON, no other text."""
+
+    try:
+        response = client.chat.completions.create(
+            model=LLM_MODEL,
+            messages=[
+                {"role": "system", "content": "You are a wheelchair training expert analyzing skill steps to assign correct actions."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.1,
+            response_format={"type": "json_object"}
+        )
+        
+        result = json.loads(response.choices[0].message.content)
+        gpt_steps = result.get("steps", [])
+        
+        # Merge cues from original steps using step index mapping
+        # Create a mapping of original steps for quick lookup
+        original_steps_map = {i+1: step for i, step in enumerate(steps)}
+        
+        # Re-number steps sequentially to avoid gaps or duplicates
+        final_steps = []
+        for idx, gpt_step in enumerate(gpt_steps):
+            original_step_num = gpt_step.get("step_number", idx + 1)
+            # Try to get cue from original step
+            original_cue = original_steps_map.get(original_step_num, {}).get("cue")
+            
+            final_steps.append({
+                "step_number": idx + 1,  # Always sequential
+                "text": gpt_step.get("instruction", ""),  # Use 'text' for consistency
+                "expected_actions": gpt_step.get("expected_actions", []),
+                "cue": gpt_step.get("cue") or original_cue
+            })
+        
+        return final_steps
+        
+    except json.JSONDecodeError as e:
+        logger.error(f"JSON decode error in GPT response: {e}. Falling back to keyword-based approach.")
+        return _fallback_keyword_based_actions(steps)
+    except Exception as e:
+        logger.error(f"Unexpected error in generate_actions_with_gpt: {e}. Falling back to keyword-based approach.")
+        return _fallback_keyword_based_actions(steps)
+
+
+def map_steps_to_skill(rag_steps, skill_json):
+    """
+    Maps RAG steps to filtered actionable solo steps using GPT-based action generation.
+    """
+    # Use GPT to analyze and assign actions to all steps at once
+    # GPT already returns steps in Unity format with sequential numbering
+    return generate_actions_with_gpt(rag_steps)

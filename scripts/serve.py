@@ -364,7 +364,7 @@ from fastapi import Response
 
 @app.post("/ask/practice")
 def ask_practice(req: AskRequest, response: Response):
-    response.headers["X-Code-Version"] = "v5-single-action"
+    response.headers["X-Code-Version"] = "v6-gpt-actions"
     rag = ask_rag(req.question, req.filters)
 
     # 1️⃣ skill seç (ilk skill citation yeterli)
