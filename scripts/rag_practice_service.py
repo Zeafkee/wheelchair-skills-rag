@@ -2,11 +2,16 @@
 import re
 import json
 import os
+import logging
 from pathlib import Path
 from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Paths
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
@@ -115,7 +120,8 @@ def load_skill_from_test_suite(skill_id_or_mapped_id: str):
 
 def generate_expected_actions(instruction: str):
     """
-    Identifies all relevant actions. Splitting happens in map_steps_to_skill.
+    Keyword-based action identification (legacy fallback).
+    NOTE: This is kept as a fallback for when GPT-based generation fails.
     """
     text = instruction.lower()
     
@@ -152,6 +158,37 @@ def generate_expected_actions(instruction: str):
         if "move_backward" not in all_found: all_found.append("move_backward")
 
     return list(set(all_found))
+
+
+def _fallback_keyword_based_actions(steps: list[dict]) -> list[dict]:
+    """
+    Fallback to keyword-based action generation when GPT fails.
+    Filters helper/spotter steps and assigns actions based on keywords.
+    """
+    final_steps = []
+    
+    for step in steps:
+        instruction = step.get("instruction", "")
+        
+        # Filter out Helper/Assistant/Spotter steps
+        if any(k in instruction.lower() for k in ["helper", "assistant", "spotter"]):
+            continue
+            
+        # Generate actions using keyword-based approach
+        expected_actions = generate_expected_actions(instruction)
+        
+        if not expected_actions:
+            continue
+        
+        # Take only the first action to avoid duplicates
+        final_steps.append({
+            "step_number": len(final_steps) + 1,
+            "instruction": instruction,
+            "expected_actions": [expected_actions[0]],  # Use only first action
+            "cue": step.get("cue")
+        })
+    
+    return final_steps
 
 
 def generate_actions_with_gpt(steps: list[dict]) -> list[dict]:
@@ -243,9 +280,9 @@ Return only the JSON, no other text."""
         return final_steps
         
     except Exception as e:
-        print(f"Error in generate_actions_with_gpt: {e}")
-        # Fallback to empty list if GPT fails
-        return []
+        logger.error(f"Error in generate_actions_with_gpt: {e}. Falling back to keyword-based approach.")
+        # Fallback to keyword-based approach
+        return _fallback_keyword_based_actions(steps)
 
 
 def map_steps_to_skill(rag_steps, skill_json):
