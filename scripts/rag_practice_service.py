@@ -194,7 +194,6 @@ def _fallback_keyword_based_actions(steps: list[dict]) -> list[dict]:
         })
     
     return final_steps
-    return final_steps
 
 
 def generate_actions_with_gpt(steps: list[dict]) -> list[dict]:
@@ -239,23 +238,55 @@ Available actions:
 Steps to analyze:
 {steps_text}
 
-Rules:
-1. Assign ONE action per step whenever possible
-2. If a step describes "left OR right" (user can choose either), return BOTH actions: ["turn_left", "turn_right"]
-3. If a step requires SEQUENTIAL actions (e.g., "pop casters THEN move forward"), split into 2 steps with different instruction texts
-4. Filter out steps for helpers/spotters/assistants - do NOT include them
-5. Focus on solo wheelchair user actions only
-6. For positioning/alignment steps, use "brake" to hold position
-7. Words like "upright", "sit up", "square" are about posture, NOT forward movement - use "brake" unless explicitly moving
+CRITICAL RULES:
+
+1. ONLY create steps that require PHYSICAL ACTION from the user
+   - "Position yourself" → NOT a step (just preparation)
+   - "Place your hands" → NOT a step (just preparation)
+   - "Look back/check surroundings" → NOT a step (just awareness)
+   - "Ensure/make sure" → NOT a step (just checking)
+   - "Get ready" → NOT a step (preparation)
+   - "Sit upright" → NOT a step (just posture)
+   
+   These preparation instructions should be combined into "note" field of the first physical action step.
+
+2. DO create steps for:
+   - "Push forward/backward" → move_forward/move_backward
+   - "Turn left/right" → turn_left/turn_right
+   - "Stop/stabilize/brake" → brake (ONLY at end or during actual stopping)
+   - "Pop casters/lift front wheels" → pop_casters
+
+3. "brake" action should ONLY be used when:
+   - Actually stopping movement at the end of skill
+   - Holding position during a specific maneuver (like wheelie)
+   - NOT for "get ready", "position yourself", "place hands" type instructions
+
+4. Maximum 3-5 steps per skill (only physical action steps)
+
+5. If a step describes "left OR right" (user can choose either), return BOTH actions: ["turn_left", "turn_right"]
+
+6. If a step requires SEQUENTIAL actions (e.g., "pop casters THEN move forward"), split into 2 steps with different instruction texts
+
+7. Filter out steps for helpers/spotters/assistants - do NOT include them
 
 Return a JSON object with this exact format:
 {{
   "steps": [
     {{
       "step_number": 1,
-      "instruction": "exact instruction text from original step",
-      "expected_actions": ["action_name"],
-      "cue": "any helpful cue or tip"
+      "instruction": "Push forward smoothly on the handrims",
+      "expected_actions": ["move_forward"],
+      "note": "Start at the line with hands at 11 o'clock position"
+    }},
+    {{
+      "step_number": 2,
+      "instruction": "Continue pushing to maintain momentum",
+      "expected_actions": ["move_forward"]
+    }},
+    {{
+      "step_number": 3,
+      "instruction": "Stop and stabilize at the finish line",
+      "expected_actions": ["brake"]
     }}
   ]
 }}
@@ -292,11 +323,14 @@ Return only the JSON, no other text."""
             # Try to get cue from original step
             original_cue = original_steps_map.get(original_step_num, {}).get("cue")
             
+            # GPT can provide either "note" or "cue" field - both map to "cue" for Unity
+            gpt_note_or_cue = gpt_step.get("note") or gpt_step.get("cue")
+            
             final_steps.append({
                 "step_number": idx + 1,  # Always sequential
                 "text": gpt_step.get("instruction", ""),  # Use 'text' for consistency
                 "expected_actions": gpt_step.get("expected_actions", []),
-                "cue": gpt_step.get("cue") or original_cue
+                "cue": gpt_note_or_cue or original_cue
             })
         
         return final_steps
