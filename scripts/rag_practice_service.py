@@ -20,7 +20,12 @@ TEST_SUITES_FILE = DATA_DIR / "test_suites" / "32_skill_tests.json"
 # OpenAI client
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 LLM_MODEL = os.getenv("LLM_MODEL", "gpt-4o-mini")
-client = OpenAI(api_key=OPENAI_API_KEY)
+
+if not OPENAI_API_KEY:
+    logger.warning("OPENAI_API_KEY not set. GPT-based action generation will fall back to keyword-based approach.")
+    client = None
+else:
+    client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Available actions in the wheelchair simulator
 AVAILABLE_ACTIONS = [
@@ -199,6 +204,11 @@ def generate_actions_with_gpt(steps: list[dict]) -> list[dict]:
     if not steps:
         return []
     
+    # Check if OpenAI client is available
+    if not client:
+        logger.warning("OpenAI client not available. Using fallback keyword-based approach.")
+        return _fallback_keyword_based_actions(steps)
+    
     # Build the prompt for GPT
     steps_text = "\n".join([
         f"{i+1}. {step.get('instruction', '')}"
@@ -260,15 +270,15 @@ Return only the JSON, no other text."""
         result = json.loads(response.choices[0].message.content)
         gpt_steps = result.get("steps", [])
         
-        # Merge cues from original steps
+        # Merge cues from original steps using step index mapping
+        # Create a mapping of original steps for quick lookup
+        original_steps_map = {i+1: step for i, step in enumerate(steps)}
+        
         final_steps = []
         for gpt_step in gpt_steps:
-            # Try to find matching original step by instruction similarity
-            original_cue = None
-            for orig_step in steps:
-                if orig_step.get("instruction", "").strip() in gpt_step.get("instruction", ""):
-                    original_cue = orig_step.get("cue")
-                    break
+            step_num = gpt_step.get("step_number", 0)
+            # Try to get cue from original step at same index
+            original_cue = original_steps_map.get(step_num, {}).get("cue")
             
             final_steps.append({
                 "step_number": gpt_step.get("step_number"),
@@ -279,9 +289,11 @@ Return only the JSON, no other text."""
         
         return final_steps
         
+    except json.JSONDecodeError as e:
+        logger.error(f"JSON decode error in GPT response: {e}. Falling back to keyword-based approach.")
+        return _fallback_keyword_based_actions(steps)
     except Exception as e:
-        logger.error(f"Error in generate_actions_with_gpt: {e}. Falling back to keyword-based approach.")
-        # Fallback to keyword-based approach
+        logger.error(f"Unexpected error in generate_actions_with_gpt: {e}. Falling back to keyword-based approach.")
         return _fallback_keyword_based_actions(steps)
 
 
