@@ -13,7 +13,7 @@ from .user_progress import UserProgressManager
 from .skill_steps_parser import get_skill_steps, parse_all_skills, save_parsed_skills
 from .rag_practice_service import (
     extract_numbered_steps,
-    load_skill_json,
+    load_skill_from_test_suite,
     map_steps_to_skill
 )
 
@@ -40,6 +40,11 @@ class AskRequest(BaseModel):
     filters: dict | None = None
     top_k: int = 6
 
+# New model for test suite queries
+class TestQueryRequest(BaseModel):
+    query: str
+    filters: dict | None = None
+    top_k: int = 6
 
 # ==================== User Progress Request Models ====================
 
@@ -49,17 +54,14 @@ class RecordInputRequest(BaseModel):
     actual_input: str
     timestamp: Optional[str] = None
 
-
 class RecordErrorRequest(BaseModel):
     step_number: int
     error_type: str
     expected_action: str
     actual_action: str
 
-
 class CompleteAttemptRequest(BaseModel):
     success: bool
-
 
 # ==================== User Progress Manager ====================
 
@@ -83,16 +85,8 @@ Context:
 
 Respond with:
 1) Brief overview
-2) Steps (3–7) as a numbered list ONLY — use the exact prefix '1.','2.', etc. For each step include the instruction on the same line. If you have a short cue for the step, put it on the following line starting with 'Cue:'. Example:
-
-1. Pop the casters 2–4 inches.
-Cue: Soft elbows
-
-3) Safety cues & common errors
-4) Success criteria
-5) If unsafe, provide an abort path and safer alternative
-
-Make sure the steps are simple actionable sentences and are numbered. Don't include extra headings between numbered items."""
+2) Steps (3–7) as a numbered list ONLY — use the exact prefix '1.','2.', etc. For each step include the instruction on the same line. If you have a short cue for the step, put it on the follow...
+"""
     return user_prompt
 
 def ask_rag(question: str, filters: dict | None = None, top_k: int = 6):
@@ -141,6 +135,45 @@ def ask_rag(question: str, filters: dict | None = None, top_k: int = 6):
 def ask(req: AskRequest):
     return ask_rag(req.question, req.filters, req.top_k)
 
+# New endpoint: semantic (vector) query against test_suites documents
+@app.post("/test_suites/query")
+def query_test_suites(req: TestQueryRequest):
+    """
+    Query the ingested test_suites (data/test_suites/*.json).
+    Returns matched documents (vector search) restricted to docs with metadata.type == 'test_suite'
+    Optional filters can further restrict results (e.g., {"mapped_skill_id":"beginner-wheeling-forward"})
+    """
+    where = {"type": "test_suite"}
+    if req.filters:
+        for k, v in req.filters.items():
+            # allow category / mapped_skill_id filter via 'category' metadata field
+            if k == "mapped_skill_id":
+                where["category"] = v
+            elif k in ("title", "level", "source", "type"):
+                where[k] = v
+            else:
+                # attach any custom primitive filter
+                where[k] = v
+
+    results = collection.query(
+        query_texts=[req.query],
+        n_results=req.top_k,
+        where=where
+    )
+
+    docs = results.get("documents", [[]])[0]
+    metas = results.get("metadatas", [[]])[0]
+    ids = results.get("ids", [[]])[0]
+
+    # Return raw docs + metadata so caller can use label/instructions fields if present
+    return {
+        "query": req.query,
+        "results": [
+            {"id": _id, "document": doc, "metadata": meta}
+            for _id, doc, meta in zip(ids, docs, metas)
+        ],
+        "used_filters": where
+    }
 
 # ==================== User Progress Endpoints ====================
 
@@ -152,7 +185,6 @@ def create_user(user_id: str):
     user = progress_manager.create_user(user_id)
     return {"success": True, "user": user}
 
-
 @app.get("/user/{user_id}/progress")
 def get_user_progress(user_id: str):
     """
@@ -162,7 +194,6 @@ def get_user_progress(user_id: str):
     if not user:
         raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
     return user
-
 
 # ==================== Skill Attempt Endpoints ====================
 
@@ -183,7 +214,6 @@ def start_skill_attempt(user_id: str, skill_id: str):
         "skill_steps": skill_steps
     }
 
-
 @app.post("/attempt/{attempt_id}/record-input")
 def record_input(attempt_id: str, req: RecordInputRequest):
     """
@@ -202,7 +232,6 @@ def record_input(attempt_id: str, req: RecordInputRequest):
     
     return {"success": True, "message": "Input kaydedildi"}
 
-
 @app.post("/attempt/{attempt_id}/record-error")
 def record_error(attempt_id: str, req: RecordErrorRequest):
     """
@@ -220,7 +249,6 @@ def record_error(attempt_id: str, req: RecordErrorRequest):
         raise HTTPException(status_code=404, detail="Deneme bulunamadı")
     
     return {"success": True, "message": "Hata kaydedildi"}
-
 
 @app.post("/attempt/{attempt_id}/complete")
 def complete_attempt(attempt_id: str, req: CompleteAttemptRequest):
@@ -244,7 +272,6 @@ def record_step_telemetry(attempt_id: str, payload: dict = Body(...)):
         raise HTTPException(status_code=404, detail="Attempt not found")
     return {"success": True, "message": "Step telemetry recorded"}
 
-
 # ==================== Analytics Endpoints ====================
 
 @app.get("/user/{user_id}/skill/{skill_id}/stats")
@@ -259,7 +286,6 @@ def get_skill_stats(user_id: str, skill_id: str):
     
     return stats
 
-
 @app.get("/user/{user_id}/common-errors")
 def get_common_errors(user_id: str, skill_id: Optional[str] = None):
     """
@@ -271,7 +297,6 @@ def get_common_errors(user_id: str, skill_id: Optional[str] = None):
     
     errors = progress_manager.get_common_errors(user_id, skill_id)
     return {"errors": errors}
-
 
 @app.get("/user/{user_id}/weak-steps")
 def get_weak_steps(user_id: str, skill_id: str):
@@ -285,7 +310,6 @@ def get_weak_steps(user_id: str, skill_id: str):
     weak_steps = progress_manager.get_weak_steps(user_id, skill_id)
     return {"weak_steps": weak_steps}
 
-
 @app.get("/user/{user_id}/recommended-skills")
 def get_recommended_skills(user_id: str):
     """
@@ -298,7 +322,6 @@ def get_recommended_skills(user_id: str):
     recommendations = progress_manager.get_recommended_skills(user_id)
     return {"recommendations": recommendations}
 
-
 # ==================== Training Plan Endpoints ====================
 
 @app.post("/user/{user_id}/generate-plan")
@@ -308,7 +331,6 @@ def generate_training_plan(user_id: str):
     """
     plan = progress_manager.generate_training_plan(user_id)
     return plan
-
 
 # ==================== Skill Steps Endpoints ====================
 
@@ -324,7 +346,6 @@ def get_skill_steps_endpoint(skill_id: str):
     
     return steps
 
-
 @app.post("/skills/parse")
 def parse_skills():
     """
@@ -339,14 +360,17 @@ def parse_skills():
         "skill_count": len(parsed_skills)
     }
 
+from fastapi import Response
+
 @app.post("/ask/practice")
-def ask_practice(req: AskRequest):
+def ask_practice(req: AskRequest, response: Response):
+    response.headers["X-Code-Version"] = "v5-single-action"
     rag = ask_rag(req.question, req.filters)
 
     # 1️⃣ skill seç (ilk skill citation yeterli)
     skill_id = None
     for c in rag.get("citations", []):
-        if c["type"] == "skill":
+        if c["type"] in ("skill", "test_suite"):
             skill_id = c["id"]
             break
 
@@ -356,11 +380,17 @@ def ask_practice(req: AskRequest):
     # 2️⃣ RAG step'lerini çıkar
     rag_steps = extract_numbered_steps(rag["answer"])
 
-    # 3️⃣ Skill JSON yükle
-    skill_json = load_skill_json(skill_id)
+    # 3️⃣ Skill JSON yükle (Test Suite üzerinden)
+    # RAG returns citations with 'id'. We try to find that ID in 32_skill_tests.json
+    skill_json = load_skill_from_test_suite(skill_id)
+    
+    # If not found directly, maybe it's a 'skill' type citation that maps to 'mapped_skill_id'
+    if not skill_json:
+        # fallback: try to find if any test suite maps to this skill_id
+        skill_json = load_skill_from_test_suite(skill_id)
 
     # 4️⃣ Filtrele + Unity'ye uygun hale getir
-    final_steps = map_steps_to_skill(rag_steps, skill_json)
+    final_steps = map_steps_to_skill(rag_steps, skill_json or {})
 
     return {
         "skill_id": skill_id,

@@ -1,4 +1,6 @@
-import os, json
+import os
+import json
+import shutil
 from dotenv import load_dotenv
 import chromadb
 from chromadb.utils import embedding_functions
@@ -10,20 +12,24 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Tip: set CHROMA_TELEMETRY_DISABLED=1 in .env to silence telemetry warnings
 
-chroma_client = chromadb.PersistentClient(path=INDEX_DIR)
+# If you want to re-create a fresh index each run, you can remove the dir first
+# CAREFUL: This deletes the whole persistent index
+def clear_index_dir(path):
+    if os.path.exists(path):
+        print(f"Removing existing index directory: {path}")
+        try:
+            shutil.rmtree(path)
+        except Exception as e:
+            print(f"Failed to remove index dir: {e}")
+
+# Use the persistent client after optionally clearing index
+def create_chroma_client(path):
+    return chromadb.PersistentClient(path=path)
 
 openai_ef = embedding_functions.OpenAIEmbeddingFunction(
     api_key=OPENAI_API_KEY,
     model_name=EMBEDDING_MODEL
 )
-
-def iter_jsonl(path):
-    with open(path, "r", encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            yield json.loads(line)
 
 def iter_json(path):
     # Handles a JSON file that contains a list or a single object
@@ -33,11 +39,15 @@ def iter_json(path):
         for item in data:
             yield item
     elif isinstance(data, dict):
-        yield data
+        # If file is a dict with key "skills" use it, otherwise yield the dict itself
+        if "skills" in data and isinstance(data["skills"], list):
+            for item in data["skills"]:
+                yield item
+        else:
+            yield data
 
 def to_doc_text(doc):
     # Build a rich, retrievable text from structured fields
-    # Support both existing skill docs and the new test_suites entries
     if doc.get("content") or doc.get("title"):
         lines = [doc.get("title",""), doc.get("content","")]
         s = doc.get("structured", {})
@@ -57,7 +67,6 @@ def to_doc_text(doc):
             if s.get("corrections"): lines.append("Corrections: " + "; ".join(s["corrections"]))
         return "\n".join([l for l in lines if l])
     # Fallback for test_suites JSON schema
-    # Compose from instructions, notes, completion_condition, requires_helpers
     parts = []
     label = doc.get("label") or doc.get("title") or ""
     if label:
@@ -74,38 +83,16 @@ def to_doc_text(doc):
         parts.append("Notes: " + str(doc.get("notes")))
     return "\n".join(parts)
 
-def load_documents():
+def load_documents_only_test_suite(test_suite_path="data/test_suites/32_skill_tests.json"):
     docs = []
-    # existing jsonl sources
-    paths = [
-        "data/skills.jsonl",
-        "data/faq.jsonl",
-        "data/rubrics.jsonl",
-    ]
-    # add any test_suites json files (you added data/test_suites/32_skill_tests.json)
-    test_suite_dir = "data/test_suites"
-    if os.path.isdir(test_suite_dir):
-        for fname in os.listdir(test_suite_dir):
-            if fname.endswith(".json") or fname.endswith(".jsonl"):
-                paths.append(os.path.join(test_suite_dir, fname))
-
-    for path in paths:
-        if not os.path.exists(path):
-            continue
-        try:
-            if path.endswith(".jsonl"):
-                for doc in iter_jsonl(path):
-                    docs.append(doc)
-            elif path.endswith(".json"):
-                for doc in iter_json(path):
-                    docs.append(doc)
-        except Exception as e:
-            print(f"Warning: failed to read {path}: {e}")
+    if not os.path.exists(test_suite_path):
+        raise FileNotFoundError(f"Test suite not found: {test_suite_path}")
+    for doc in iter_json(test_suite_path):
+        docs.append(doc)
     return docs
 
 def clean_metadata(d: dict) -> dict:
     # Chroma requires primitives only; drop None
-    # Enhance to support test_suites metadata
     md = {
         "type": d.get("type"),
         "title": d.get("title") or d.get("label"),
@@ -118,35 +105,44 @@ def clean_metadata(d: dict) -> dict:
         md["type"] = md.get("type") or "test_suite"
     return {k: v for k, v in md.items() if isinstance(v, (str, int, float, bool))}
 
-def main():
+def main(test_suite_path="data/test_suites/32_skill_tests.json", clear_index=False):
+    if clear_index:
+        clear_index_dir(INDEX_DIR)
+
+    chroma_client = create_chroma_client(INDEX_DIR)
+
     collection = chroma_client.get_or_create_collection(
         name="wheelchair_skills",
         embedding_function=openai_ef,
         metadata={"hnsw:space": "cosine"},
     )
-    docs = load_documents()
+
+    docs = load_documents_only_test_suite(test_suite_path)
     ids, metadatas, documents = [], [], []
     for d in docs:
-        # Normalise id & title for older docs vs test_suites
+        # Normalise id & title for test_suites
         if d.get("id"):
             _id = d["id"]
         elif d.get("test_id"):
             _id = d["test_id"]
+        elif d.get("mapped_skill_id"):
+            _id = d["mapped_skill_id"]
         else:
-            # fallback: generate an id from title
+            # fallback: generate an id from title/label
             _id = (d.get("title") or d.get("label") or "")[:200]
         ids.append(_id)
         metadatas.append(clean_metadata(d))
         documents.append(to_doc_text(d))
-    # Upsert
+
+    # Upsert (delete existing ids first to avoid duplicates)
     if ids:
         try:
-            # delete existing ids if present, ignore errors
             collection.delete(ids=ids)
         except Exception:
             pass
         collection.add(ids=ids, documents=documents, metadatas=metadatas)
-    print(f"Ingested {len(ids)} documents into collection 'wheelchair_skills' at {INDEX_DIR}")
+    print(f"Ingested {len(ids)} documents from '{test_suite_path}' into collection 'wheelchair_skills' at {INDEX_DIR}")
 
 if __name__ == "__main__":
-    main()
+    # set clear_index=True the first time to ensure only these docs exist
+    main(test_suite_path="data/test_suites/32_skill_tests.json", clear_index=True)

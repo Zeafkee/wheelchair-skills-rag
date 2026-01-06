@@ -53,15 +53,6 @@ INSTRUCTION_TO_INPUT_MAP = {
     "tip casters": ["X"],
     "pop": ["X"],
     
-    # Öne eğil
-    "lean forward": ["V"],
-    "öne eğil": ["V"],
-    "chest toward": ["V"],
-    
-    # Arkaya eğil
-    "lean back": ["B"],
-    "arkaya eğil": ["B"],
-    
     # Fren / Dur
     "stop": ["SPACE"],
     "dur": ["SPACE"],
@@ -110,20 +101,6 @@ COMMON_ERROR_INPUTS = {
         "error_descriptions": {
             "W": "Durmak yerine ileri gitti",
             "S": "Durmak yerine geri gitti"
-        }
-    },
-    "lean_forward": {
-        "wrong_inputs": ["B", "W"],
-        "error_descriptions": {
-            "B": "Öne eğilmek yerine arkaya eğildi",
-            "W": "Öne eğilmek yerine ileri gitti"
-        }
-    },
-    "lean_backward": {
-        "wrong_inputs": ["V", "S"],
-        "error_descriptions": {
-            "V": "Arkaya eğilmek yerine öne eğildi",
-            "S": "Arkaya eğilmek yerine geri gitti"
         }
     }
 }

@@ -169,8 +169,6 @@ Bu sistem kullanıcıların beceri denemelerini, hatalarını ve ilerlemelerini 
 | `A` | turn_left | Sola dön |
 | `D` | turn_right | Sağa dön |
 | `X` | pop_casters | Ön tekerlekleri kaldır |
-| `V` | lean_forward | Öne eğil |
-| `B` | lean_backward | Arkaya eğil |
 | `SPACE` | brake | Fren / Dur |
 | `Q` | turn_left_wheel_only | Sadece sol tekerlek |
 | `E` | turn_right_wheel_only | Sadece sağ tekerlek |

@@ -19,14 +19,6 @@
     "action": "pop_casters",
     "description": "Ön tekerlekleri kaldır (caster pop)"
   },
-  "V": {
-    "action": "lean_forward",
-    "description": "Öne eğil"
-  },
-  "B": {
-    "action": "lean_backward",
-    "description": "Arkaya eğil"
-  },
   "SPACE": {
     "action": "brake",
     "description": "Fren / Dur"
