@@ -18,6 +18,10 @@ DEFAULT_DB_PATH = os.path.join(DATA_DIR, "user_progress.json")
 ERROR_TYPES_PATH = os.path.join(DATA_DIR, "error_types.json")
 SKILL_STEPS_DIR = os.path.join(DATA_DIR, "skill_steps")
 
+# Analytics constants
+MAX_PROBLEMATIC_ITEMS = 20  # Maximum items to return in problematic steps/actions lists
+COMPARISON_THRESHOLD = 0.05  # Threshold for "average" classification in comparisons
+
 # Thread-safe dosya yazma için kilit
 _file_lock = threading.Lock()
 
@@ -580,6 +584,302 @@ class UserProgressManager:
         
         return new_phase
     
+    # ==================== Global Analytics ====================
+    
+    def get_global_error_stats(self) -> dict:
+        """
+        Tüm kullanıcıların hata istatistiklerini getir.
+        
+        Returns:
+            Global hata istatistikleri
+        """
+        db = self._load_db()
+        attempts = db.get("attempts", [])
+        
+        # Toplam sayılar
+        total_attempts = len(attempts)
+        total_users = len(set(att["user_id"] for att in attempts))
+        
+        # Skill bazlı istatistikler
+        skill_stats = {}
+        for attempt in attempts:
+            skill_id = attempt["skill_id"]
+            if skill_id not in skill_stats:
+                skill_stats[skill_id] = {
+                    "total_attempts": 0,
+                    "failed_attempts": 0,
+                    "errors": [],
+                    "step_errors": {}
+                }
+            
+            skill_stats[skill_id]["total_attempts"] += 1
+            if not attempt.get("success", False):
+                skill_stats[skill_id]["failed_attempts"] += 1
+            
+            # Hataları topla
+            for error in attempt.get("step_errors", []):
+                skill_stats[skill_id]["errors"].append(error)
+                step_num = str(error["step_number"])
+                if step_num not in skill_stats[skill_id]["step_errors"]:
+                    skill_stats[skill_id]["step_errors"][step_num] = []
+                skill_stats[skill_id]["step_errors"][step_num].append(error)
+        
+        # Skill summary oluştur
+        skill_summary = []
+        for skill_id, stats in skill_stats.items():
+            total_errors = len(stats["errors"])
+            failure_rate = stats["failed_attempts"] / stats["total_attempts"] if stats["total_attempts"] > 0 else 0
+            
+            # En problemli adımı bul
+            most_problematic_step = None
+            max_errors = 0
+            for step_num, errors in stats["step_errors"].items():
+                if len(errors) > max_errors:
+                    max_errors = len(errors)
+                    most_problematic_step = step_num
+            
+            skill_summary.append({
+                "skill_id": skill_id,
+                "total_attempts": stats["total_attempts"],
+                "failed_attempts": stats["failed_attempts"],
+                "failure_rate": round(failure_rate, 2),
+                "total_errors": total_errors,
+                "most_problematic_step": most_problematic_step
+            })
+        
+        # Problematic steps - tüm skilllerden en çok hata yapılan adımlar
+        problematic_steps = []
+        for skill_id, stats in skill_stats.items():
+            for step_num, errors in stats["step_errors"].items():
+                # En yaygın hata tipini bul
+                error_types = {}
+                for error in errors:
+                    error_type = error.get("error_type", "unknown")
+                    error_types[error_type] = error_types.get(error_type, 0) + 1
+                
+                most_common_error = max(error_types, key=error_types.get) if error_types else None
+                
+                problematic_steps.append({
+                    "skill_id": skill_id,
+                    "step_number": int(step_num),
+                    "error_count": len(errors),
+                    "most_common_error": most_common_error
+                })
+        
+        # Hata sayısına göre sırala
+        problematic_steps.sort(key=lambda x: x["error_count"], reverse=True)
+        
+        # Action confusion matrix - hangi action yerine ne yapılıyor
+        action_confusion = {}
+        for attempt in attempts:
+            for error in attempt.get("step_errors", []):
+                expected = error.get("expected_action", "")
+                actual = error.get("actual_action", "")
+                
+                if expected and actual and expected != actual:
+                    key = f"{expected}:{actual}"
+                    if key not in action_confusion:
+                        action_confusion[key] = {
+                            "expected": expected,
+                            "actual": actual,
+                            "count": 0,
+                            "description": f"Users press {actual} instead of {expected}"
+                        }
+                    action_confusion[key]["count"] += 1
+        
+        # Sayıya göre sırala
+        action_confusion_list = sorted(
+            action_confusion.values(),
+            key=lambda x: x["count"],
+            reverse=True
+        )
+        
+        return {
+            "total_attempts": total_attempts,
+            "total_users": total_users,
+            "skill_summary": sorted(skill_summary, key=lambda x: x["failure_rate"], reverse=True),
+            "problematic_steps": problematic_steps[:MAX_PROBLEMATIC_ITEMS],
+            "action_confusion": action_confusion_list[:MAX_PROBLEMATIC_ITEMS],
+            "generated_at": _get_timestamp()
+        }
+    
+    def get_skill_error_stats(self, skill_id: str) -> Optional[dict]:
+        """
+        Belirli bir skill için detaylı hata analizi.
+        
+        Args:
+            skill_id: Beceri kimliği
+            
+        Returns:
+            Skill hata istatistikleri
+        """
+        db = self._load_db()
+        attempts = db.get("attempts", [])
+        
+        # Bu skill için denemeleri filtrele
+        skill_attempts = [att for att in attempts if att["skill_id"] == skill_id]
+        
+        if not skill_attempts:
+            return None
+        
+        # Step bazlı istatistikler
+        step_stats = {}
+        for attempt in skill_attempts:
+            for error in attempt.get("step_errors", []):
+                step_num = error["step_number"]
+                if step_num not in step_stats:
+                    step_stats[step_num] = {
+                        "step_number": step_num,
+                        "total_errors": 0,
+                        "error_types": {},
+                        "wrong_actions": []
+                    }
+                
+                step_stats[step_num]["total_errors"] += 1
+                
+                error_type = error.get("error_type", "unknown")
+                step_stats[step_num]["error_types"][error_type] = \
+                    step_stats[step_num]["error_types"].get(error_type, 0) + 1
+                
+                step_stats[step_num]["wrong_actions"].append({
+                    "expected": error.get("expected_action", ""),
+                    "actual": error.get("actual_action", "")
+                })
+        
+        # Step istatistiklerini işle
+        step_error_rates = []
+        for step_num, stats in step_stats.items():
+            # En yaygın hata tipini bul
+            common_errors = sorted(
+                stats["error_types"].items(),
+                key=lambda x: x[1],
+                reverse=True
+            )
+            
+            # En yaygın yanlış actionları bul
+            wrong_action_counts = {}
+            for wa in stats["wrong_actions"]:
+                key = f"{wa['expected']}:{wa['actual']}"
+                wrong_action_counts[key] = wrong_action_counts.get(key, 0) + 1
+            
+            common_wrong_actions = sorted(
+                wrong_action_counts.items(),
+                key=lambda x: x[1],
+                reverse=True
+            )[:3]
+            
+            step_error_rates.append({
+                "step_number": step_num,
+                "error_rate": stats["total_errors"] / len(skill_attempts),
+                "total_errors": stats["total_errors"],
+                "common_error_types": [{"type": et[0], "count": et[1]} for et in common_errors[:3]],
+                "common_wrong_actions": [
+                    {
+                        "expected": cwa[0].split(":")[0],
+                        "actual": cwa[0].split(":")[1],
+                        "count": cwa[1]
+                    }
+                    for cwa in common_wrong_actions
+                ]
+            })
+        
+        # En zor adımı bul
+        most_difficult_step = max(step_error_rates, key=lambda x: x["error_rate"]) if step_error_rates else None
+        
+        return {
+            "skill_id": skill_id,
+            "total_attempts": len(skill_attempts),
+            "step_error_rates": sorted(step_error_rates, key=lambda x: x["error_rate"], reverse=True),
+            "most_difficult_step": most_difficult_step,
+            "generated_at": _get_timestamp()
+        }
+    
+    def clear_user_progress(self, user_id: str) -> bool:
+        """
+        Kullanıcının tüm ilerleme verilerini sil.
+        
+        Args:
+            user_id: Kullanıcı kimliği
+            
+        Returns:
+            Başarılı mı?
+        """
+        db = self._load_db()
+        
+        # Kullanıcı yoksa False döndür
+        if user_id not in db.get("users", {}):
+            return False
+        
+        # Kullanıcının skill_progress'ini sıfırla
+        db["users"][user_id]["skill_progress"] = {}
+        db["users"][user_id]["sessions"] = []
+        db["users"][user_id]["updated_at"] = _get_timestamp()
+        
+        # Bu kullanıcıya ait attempts'leri sil
+        if "attempts" in db:
+            db["attempts"] = [
+                att for att in db["attempts"]
+                if att["user_id"] != user_id
+            ]
+        
+        self._save_db(db)
+        return True
+    
+    def get_skill_comparisons(self, user_id: str) -> list[dict]:
+        """
+        Kullanıcının performansını global ortalamayla karşılaştır.
+        
+        Args:
+            user_id: Kullanıcı kimliği
+            
+        Returns:
+            Karşılaştırma listesi
+        """
+        user = self.get_user(user_id)
+        if not user:
+            return []
+        
+        db = self._load_db()
+        attempts = db.get("attempts", [])
+        
+        # Global success rate'leri hesapla
+        global_rates = {}
+        for attempt in attempts:
+            skill_id = attempt["skill_id"]
+            if skill_id not in global_rates:
+                global_rates[skill_id] = {"total": 0, "success": 0}
+            
+            global_rates[skill_id]["total"] += 1
+            if attempt.get("success", False):
+                global_rates[skill_id]["success"] += 1
+        
+        # Kullanıcının denediği her skill için karşılaştırma yap
+        comparisons = []
+        skill_progress = user.get("skill_progress", {})
+        
+        for skill_id, progress in skill_progress.items():
+            your_success_rate = progress.get("success_rate", 0.0)
+            
+            # Global success rate hesapla
+            if skill_id in global_rates and global_rates[skill_id]["total"] > 0:
+                global_success_rate = global_rates[skill_id]["success"] / global_rates[skill_id]["total"]
+            else:
+                global_success_rate = 0.0
+            
+            # Karşılaştırma yap
+            comparison = "above_average" if your_success_rate > global_success_rate else "below_average"
+            if abs(your_success_rate - global_success_rate) < COMPARISON_THRESHOLD:
+                comparison = "average"
+            
+            comparisons.append({
+                "skill_id": skill_id,
+                "your_success_rate": round(your_success_rate, 2),
+                "global_success_rate": round(global_success_rate, 2),
+                "comparison": comparison
+            })
+        
+        return comparisons
+    
     # ==================== Training Plan ====================
     
     def generate_training_plan(self, user_id: str) -> dict:
@@ -619,6 +919,22 @@ class UserProgressManager:
             reverse=True
         )[:3]
         
+        # Global insights
+        global_stats = self.get_global_error_stats()
+        most_failed_skills = [
+            skill["skill_id"] 
+            for skill in global_stats.get("skill_summary", [])[:3]
+        ]
+        
+        common_mistakes = global_stats.get("action_confusion", [])[:5]
+        problematic_steps = global_stats.get("problematic_steps", [])[:5]
+        
+        # User's common errors
+        your_common_errors = self.get_common_errors(user_id)[:10]
+        
+        # Skill comparisons
+        skill_comparisons = self.get_skill_comparisons(user_id)
+        
         plan = {
             "user_id": user_id,
             "current_phase": current_phase,
@@ -626,7 +942,14 @@ class UserProgressManager:
             "recommended_skills": recommended[:5],
             "focus_skills": focus_skills,
             "session_goals": [],
-            "notes": []
+            "notes": [],
+            "global_insights": {
+                "most_failed_skills": most_failed_skills,
+                "common_mistakes": common_mistakes,
+                "problematic_steps": problematic_steps
+            },
+            "your_common_errors": your_common_errors,
+            "skill_comparisons": skill_comparisons
         }
         
         # Oturum hedeflerini belirle

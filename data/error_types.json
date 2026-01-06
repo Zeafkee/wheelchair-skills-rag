@@ -4,6 +4,36 @@
     "description": "Yanlış tuşa basıldı",
     "severity": "medium"
   },
+  "wrong_direction": {
+    "code": "wrong_direction",
+    "description": "İleri yerine geri veya tam tersi",
+    "severity": "medium"
+  },
+  "wrong_turn_direction": {
+    "code": "wrong_turn_direction",
+    "description": "Sola yerine sağa veya tam tersi",
+    "severity": "medium"
+  },
+  "stopped_instead_of_moving": {
+    "code": "stopped_instead_of_moving",
+    "description": "Durdu ama hareket etmeliydi",
+    "severity": "medium"
+  },
+  "moved_instead_of_stopping": {
+    "code": "moved_instead_of_stopping",
+    "description": "Hareket etti ama durmalıydı",
+    "severity": "medium"
+  },
+  "missed_pop_casters": {
+    "code": "missed_pop_casters",
+    "description": "Pop casters yapılmadı",
+    "severity": "high"
+  },
+  "timeout": {
+    "code": "timeout",
+    "description": "Süre doldu",
+    "severity": "high"
+  },
   "wrong_sequence": {
     "code": "wrong_sequence",
     "description": "Doğru tuşlar ama yanlış sırada",
