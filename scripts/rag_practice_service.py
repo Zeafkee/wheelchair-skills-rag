@@ -194,7 +194,6 @@ def _fallback_keyword_based_actions(steps: list[dict]) -> list[dict]:
         })
     
     return final_steps
-    return final_steps
 
 
 def generate_actions_with_gpt(steps: list[dict]) -> list[dict]:
