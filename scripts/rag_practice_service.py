@@ -188,11 +188,12 @@ def _fallback_keyword_based_actions(steps: list[dict]) -> list[dict]:
         # Take only the first action to avoid duplicates
         final_steps.append({
             "step_number": len(final_steps) + 1,
-            "instruction": instruction,
+            "text": instruction,  # Use 'text' for consistency with GPT output
             "expected_actions": [expected_actions[0]],  # Use only first action
             "cue": step.get("cue")
         })
     
+    return final_steps
     return final_steps
 
 
@@ -215,15 +216,25 @@ def generate_actions_with_gpt(steps: list[dict]) -> list[dict]:
         for i, step in enumerate(steps)
     ])
     
+    # Build actions list from constant
+    actions_descriptions = {
+        "move_forward": "Moving forward/approaching/pushing ahead",
+        "move_backward": "Moving backward/reversing/backing up",
+        "turn_left": "Turning left",
+        "turn_right": "Turning right",
+        "brake": "Stopping/holding position/stabilizing/waiting",
+        "pop_casters": "Lifting front casters/popping wheelie"
+    }
+    
+    actions_text = "\n".join([
+        f"- {action}: {actions_descriptions[action]}"
+        for action in AVAILABLE_ACTIONS
+    ])
+    
     prompt = f"""You are analyzing wheelchair skill training steps. For each step below, determine the expected wheelchair action(s).
 
 Available actions:
-- move_forward (W key): Moving forward/approaching/pushing ahead
-- move_backward (S key): Moving backward/reversing/backing up
-- turn_left (A key): Turning left
-- turn_right (D key): Turning right  
-- brake (SPACE key): Stopping/holding position/stabilizing/waiting
-- pop_casters (X key): Lifting front casters/popping wheelie
+{actions_text}
 
 Steps to analyze:
 {steps_text}
@@ -274,15 +285,16 @@ Return only the JSON, no other text."""
         # Create a mapping of original steps for quick lookup
         original_steps_map = {i+1: step for i, step in enumerate(steps)}
         
+        # Re-number steps sequentially to avoid gaps or duplicates
         final_steps = []
-        for gpt_step in gpt_steps:
-            step_num = gpt_step.get("step_number", 0)
-            # Try to get cue from original step at same index
-            original_cue = original_steps_map.get(step_num, {}).get("cue")
+        for idx, gpt_step in enumerate(gpt_steps):
+            original_step_num = gpt_step.get("step_number", idx + 1)
+            # Try to get cue from original step
+            original_cue = original_steps_map.get(original_step_num, {}).get("cue")
             
             final_steps.append({
-                "step_number": gpt_step.get("step_number"),
-                "instruction": gpt_step.get("instruction", ""),
+                "step_number": idx + 1,  # Always sequential
+                "text": gpt_step.get("instruction", ""),  # Use 'text' for consistency
                 "expected_actions": gpt_step.get("expected_actions", []),
                 "cue": gpt_step.get("cue") or original_cue
             })
@@ -302,16 +314,5 @@ def map_steps_to_skill(rag_steps, skill_json):
     Maps RAG steps to filtered actionable solo steps using GPT-based action generation.
     """
     # Use GPT to analyze and assign actions to all steps at once
-    gpt_steps = generate_actions_with_gpt(rag_steps)
-    
-    # Convert to Unity format
-    final_steps = []
-    for step in gpt_steps:
-        final_steps.append({
-            "step_number": len(final_steps) + 1,
-            "text": step.get("instruction", ""),
-            "cue": step.get("cue"),
-            "expected_actions": step.get("expected_actions", [])
-        })
-    
-    return final_steps
+    # GPT already returns steps in Unity format with sequential numbering
+    return generate_actions_with_gpt(rag_steps)
