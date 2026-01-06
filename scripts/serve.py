@@ -274,6 +274,8 @@ def record_step_telemetry(attempt_id: str, payload: dict = Body(...)):
 
 # ==================== Analytics Endpoints ====================
 
+# ==================== Analytics Endpoints ====================
+
 @app.get("/user/{user_id}/skill/{skill_id}/stats")
 def get_skill_stats(user_id: str, skill_id: str):
     """
@@ -285,6 +287,52 @@ def get_skill_stats(user_id: str, skill_id: str):
         raise HTTPException(status_code=404, detail="İstatistik bulunamadı")
     
     return stats
+
+@app.get("/analytics/global-errors")
+def get_global_error_stats():
+    """
+    Tüm kullanıcıların hata istatistiklerini döndür.
+    
+    Returns:
+        - skill_summary: Skill bazlı başarısızlık oranları
+        - problematic_steps: En çok hata yapılan step'ler
+        - action_confusion: Hangi action yerine ne yapılıyor (confusion matrix)
+        - total_attempts, total_users
+    """
+    stats = progress_manager.get_global_error_stats()
+    return stats
+
+@app.get("/analytics/skill/{skill_id}/errors")
+def get_skill_errors(skill_id: str):
+    """
+    Belirli bir skill için detaylı hata analizi.
+    
+    Returns:
+        - Her step için error rate
+        - Common wrong actions
+        - Most difficult step
+    """
+    stats = progress_manager.get_skill_error_stats(skill_id)
+    
+    if not stats:
+        raise HTTPException(status_code=404, detail="Bu skill için veri bulunamadı")
+    
+    return stats
+
+@app.delete("/user/{user_id}/clear-progress")
+def clear_user_progress(user_id: str):
+    """
+    Kullanıcının tüm ilerleme verilerini sil.
+    
+    - skill_progress sıfırla
+    - Bu kullanıcıya ait attempts'leri sil
+    """
+    success = progress_manager.clear_user_progress(user_id)
+    
+    if not success:
+        raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
+    
+    return {"success": True, "message": f"Kullanıcı {user_id} ilerleme verileri silindi"}
 
 @app.get("/user/{user_id}/common-errors")
 def get_common_errors(user_id: str, skill_id: Optional[str] = None):
