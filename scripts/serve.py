@@ -1,4 +1,5 @@
 # scripts/serve.py (küçük prompt netleştirmesi eklendi)
+import json
 import os
 from typing import Optional
 from dotenv import load_dotenv
@@ -8,6 +9,8 @@ import chromadb
 from chromadb.utils import embedding_functions
 from openai import OpenAI
 from fastapi import Body
+import re
+from typing import Optional, Literal  # Literal ekle! 
 
 from .user_progress import UserProgressManager
 from .skill_steps_parser import get_skill_steps, parse_all_skills, save_parsed_skills
@@ -23,7 +26,31 @@ EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 LLM_MODEL = os.getenv("LLM_MODEL", "gpt-4o-mini")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-client = OpenAI(api_key=OPENAI_API_KEY)
+# OpenRouter ayarları (YENİ)
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+OPENROUTER_BASE_URL = os. getenv("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1")
+OPENROUTER_RAG_MODEL = os.getenv("OPENROUTER_RAG_MODEL", "openai/gpt-4.1-mini")
+
+# Mevcut OpenAI client (fallback ve embedding için)
+openai_client = OpenAI(api_key=OPENAI_API_KEY)
+
+# OpenRouter client (RAG + No-RAG test için)
+openrouter_client = None
+if OPENROUTER_API_KEY:
+    openrouter_client = OpenAI(
+        api_key=OPENROUTER_API_KEY,
+        base_url=OPENROUTER_BASE_URL
+    )
+
+# Ana client seçimi - OpenRouter varsa onu kullan, yoksa OpenAI
+client = openrouter_client if openrouter_client else openai_client
+
+# OpenRouter modelleri (No-RAG test için)
+# OpenRouter modelleri (No-RAG test için)
+OPENROUTER_MODELS = {
+    "gpt-5-mini": "openai/gpt-5-mini",
+    "gemini-3-flash":  "google/gemini-3-flash-preview"
+}
 chroma_client = chromadb.PersistentClient(path=INDEX_DIR)
 openai_ef = embedding_functions.OpenAIEmbeddingFunction(
     api_key=OPENAI_API_KEY,
@@ -34,6 +61,15 @@ collection = chroma_client.get_or_create_collection(
     embedding_function=openai_ef,
     metadata={"hnsw:space":"cosine"}
 )
+# ==================== No-RAG Request Models ====================
+
+class NoRagRequest(BaseModel):
+    question: str
+    model:  Literal["gpt-4.1-mini", "gemini-3-flash"] = "gpt-4.1-mini"
+
+class CompareRequest(BaseModel):
+    question: str
+    models: list[str] = ["gpt-5-mini", "gemini-3-flash"]
 
 class AskRequest(BaseModel):
     question: str
@@ -91,7 +127,7 @@ Respond with:
 
 def ask_rag(question: str, filters: dict | None = None, top_k: int = 6):
     where = None
-    if filters:
+    if filters: 
         where = {}
         for k, v in filters.items():
             if k in ("type", "title", "level", "category", "source"):
@@ -103,32 +139,49 @@ def ask_rag(question: str, filters: dict | None = None, top_k: int = 6):
         where=where
     )
 
-    docs = results.get("documents", [[]])[0]
+    docs = results. get("documents", [[]])[0]
     metas = results.get("metadatas", [[]])[0]
     ids = results.get("ids", [[]])[0]
 
     prompt = build_prompt(question, docs)
 
-    chat = client.chat.completions.create(
-        model=LLM_MODEL,
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": prompt}
-        ],
-        temperature=0.2
-    )
+    # OpenRouter varsa onu kullan, yoksa OpenAI
+    if openrouter_client:
+        chat = openrouter_client.chat.completions.create(
+            model=OPENROUTER_RAG_MODEL,  # openai/gpt-4.1-mini
+            messages=[
+                {"role": "system", "content":  SYSTEM_PROMPT},
+                {"role": "user", "content":  prompt}
+            ],
+            temperature=0.2,
+            extra_headers={
+                "HTTP-Referer": "https://wheelchair-skills-rag.local",
+                "X-Title": "Wheelchair Skills RAG"
+            }
+        )
+    else:
+        # Fallback: OpenAI direkt
+        chat = openai_client.chat.completions.create(
+            model=LLM_MODEL,
+            messages=[
+                {"role":  "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.2
+        )
 
     answer = chat.choices[0].message.content
 
     citations = [
-        {"id": _id, "title": meta.get("title"), "type": meta.get("type")}
+        {"id": _id, "title": meta. get("title"), "type": meta.get("type")}
         for _id, meta in zip(ids, metas)
     ]
 
     return {
         "answer": answer,
         "citations": citations,
-        "used_filters": where or {}
+        "used_filters": where or {},
+        "model_used":  OPENROUTER_RAG_MODEL if openrouter_client else LLM_MODEL
     }
 
 @app.post("/ask")
@@ -444,3 +497,237 @@ def ask_practice(req: AskRequest, response: Response):
         "skill_id": skill_id,
         "steps": final_steps
     }
+
+# ==================== No-RAG Test Endpoints ====================
+
+@app.post("/ask/practice/no-rag")
+def ask_practice_no_rag(req: NoRagRequest, response: Response):
+    """
+    RAG olmadan sadece LLM ile step üret. 
+    OpenRouter üzerinden farklı modeller test edilebilir.
+    """
+    if not openrouter_client: 
+        raise HTTPException(status_code=500, detail="OpenRouter client not configured.  Set OPENROUTER_API_KEY in .env")
+    
+    model_name = OPENROUTER_MODELS.get(req.model)
+    if not model_name:
+        raise HTTPException(status_code=400, detail=f"Unknown model:  {req.model}. Available: {list(OPENROUTER_MODELS.keys())}")
+    
+    response. headers["X-Model"] = model_name
+    response.headers["X-RAG-Used"] = "false"
+    
+    user_prompt = f"""User question: {req. question}
+
+Provide step-by-step wheelchair skill guidance as JSON. 
+Remember: Only physical action steps, 3-5 steps total."""
+
+    try:
+        chat = openrouter_client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": NO_RAG_SYSTEM_PROMPT},
+                {"role": "user", "content": user_prompt}
+            ],
+            temperature=0.2,
+            extra_headers={
+                "HTTP-Referer": "https://wheelchair-skills-rag.local",
+                "X-Title": "Wheelchair Skills No-RAG Test"
+            }
+        )
+        
+        raw_answer = chat.choices[0].message.content
+        
+        # JSON parse et
+        json_match = re.search(r'```json\s*([\s\S]*? )\s*```', raw_answer)
+        if json_match:
+            json_str = json_match. group(1)
+        else:
+            json_str = raw_answer. strip()
+        
+        try:
+            parsed = json.loads(json_str)
+            steps = parsed.get("steps", [])
+        except json.JSONDecodeError:
+            return {
+                "model":  model_name,
+                "rag_used": False,
+                "raw_answer": raw_answer,
+                "steps": [],
+                "error":  "Failed to parse JSON response"
+            }
+        
+        # Steps'i formatla
+        final_steps = []
+        for i, step in enumerate(steps):
+            final_steps.append({
+                "step_number": step.get("step_number", i + 1),
+                "text": step.get("instruction", ""),
+                "cue": step.get("cue"),
+                "expected_actions": [step.get("expected_action", "")]
+            })
+        
+        return {
+            "model": model_name,
+            "rag_used":  False,
+            "steps": final_steps,
+            "step_count": len(final_steps),
+            "raw_answer": raw_answer
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"OpenRouter API error: {str(e)}")
+
+
+@app.post("/ask/practice/compare")
+def compare_rag_vs_no_rag(req: CompareRequest, response: Response):
+    """
+    RAG ve No-RAG sonuçlarını karşılaştır.
+    """
+    results = {}
+    
+    # 1. RAG ile (mevcut sistem - artık OpenRouter üzerinden gpt-4.1-mini)
+    try:
+        rag_result = ask_rag(req.question)
+        rag_steps = extract_numbered_steps(rag_result["answer"])
+        
+        skill_id = None
+        for c in rag_result. get("citations", []):
+            if c["type"] in ("skill", "test_suite"):
+                skill_id = c["id"]
+                break
+        
+        skill_json = load_skill_from_test_suite(skill_id) if skill_id else {}
+        final_rag_steps = map_steps_to_skill(rag_steps, skill_json)
+        
+        results["rag"] = {
+            "model": rag_result. get("model_used", OPENROUTER_RAG_MODEL),
+            "rag_used": True,
+            "skill_id": skill_id,
+            "steps": final_rag_steps,
+            "step_count": len(final_rag_steps)
+        }
+    except Exception as e: 
+        results["rag"] = {"error": str(e)}
+    
+    # 2-3. No-RAG modelleri
+    for model_key in req.models:
+        if model_key not in OPENROUTER_MODELS: 
+            results[model_key] = {"error": f"Unknown model: {model_key}"}
+            continue
+            
+        if not openrouter_client:
+            results[model_key] = {"error": "OpenRouter not configured"}
+            continue
+            
+        try:
+            model_name = OPENROUTER_MODELS[model_key]
+            
+            user_prompt = f"""User question: {req.question}
+
+Provide step-by-step wheelchair skill guidance as JSON.
+Remember: Only physical action steps, 3-5 steps total."""
+
+            chat = openrouter_client.chat.completions.create(
+                model=model_name,
+                messages=[
+                    {"role": "system", "content":  NO_RAG_SYSTEM_PROMPT},
+                    {"role": "user", "content": user_prompt}
+                ],
+                temperature=0.2,
+                extra_headers={
+                    "HTTP-Referer": "https://wheelchair-skills-rag.local",
+                    "X-Title": "Wheelchair Skills Compare Test"
+                }
+            )
+            
+            raw_answer = chat.choices[0].message.content
+            
+            # JSON parse
+            json_match = re.search(r'```json\s*([\s\S]*?)\s*```', raw_answer)
+            if json_match:
+                json_str = json_match.group(1)
+            else:
+                json_str = raw_answer.strip()
+            
+            try: 
+                parsed = json. loads(json_str)
+                steps = parsed.get("steps", [])
+            except json.JSONDecodeError:
+                results[model_key] = {
+                    "model": model_name,
+                    "rag_used": False,
+                    "steps": [],
+                    "error": "JSON parse failed",
+                    "raw_answer": raw_answer
+                }
+                continue
+            
+            final_steps = []
+            for i, step in enumerate(steps):
+                final_steps.append({
+                    "step_number": step.get("step_number", i + 1),
+                    "text":  step.get("instruction", ""),
+                    "cue":  step.get("cue"),
+                    "expected_actions":  [step.get("expected_action", "")]
+                })
+            
+            results[model_key] = {
+                "model": model_name,
+                "rag_used": False,
+                "steps":  final_steps,
+                "step_count": len(final_steps)
+            }
+            
+        except Exception as e:
+            results[model_key] = {"error": str(e)}
+    
+    return {
+        "question": req.question,
+        "comparison":  results
+    }
+
+
+@app.get("/models/available")
+def get_available_models():
+    """Mevcut modelleri listele"""
+    return {
+        "rag_model":  OPENROUTER_RAG_MODEL if openrouter_client else LLM_MODEL,
+        "no_rag_models": OPENROUTER_MODELS,
+        "openrouter_configured": openrouter_client is not None,
+        "fallback_model": LLM_MODEL
+    }
+
+# ==================== No-RAG System Prompt ====================
+
+NO_RAG_SYSTEM_PROMPT = """You are a wheelchair skills coach for a VR training application. 
+
+The user will ask how to perform a wheelchair skill.  You must provide step-by-step guidance. 
+
+Available user input actions (Unity controls):
+- move_forward (W key): Push wheelchair forward
+- move_backward (S key): Push wheelchair backward
+- turn_left (A key): Turn wheelchair left
+- turn_right (D key): Turn wheelchair right
+- brake (SPACE key): Stop/hold position
+- pop_casters (X key): Lift front casters for obstacles
+
+IMPORTANT RULES:
+1. Each step must require exactly ONE physical action from the list above
+2. Do NOT include preparation steps like "position yourself" or "place your hands"
+3. Only include steps where user must press a key
+4. Keep steps between 3-5 total
+5. For turning skills, pick ONE direction (left OR right)
+
+Response format - JSON only:
+{
+  "steps": [
+    {
+      "step_number": 1,
+      "instruction": "Push forward on both handrims to start moving",
+      "expected_action": "move_forward",
+      "cue": "Even pressure on both wheels"
+    }
+  ]
+}
+
+Respond ONLY with valid JSON, no additional text."""
