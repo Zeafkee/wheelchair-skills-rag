@@ -20,6 +20,36 @@ Total Skills to Test:  10
 
   Grading:  PASS >= 70%, WARNING 40-69%, FAIL < 40%
 
+========================================
+  WHEELCHAIR SKILLS RAG PARSING TEST
+========================================
+
+Testing Skill 1: Rolls forwards 10m...
+  Score: 52/75 (69%) - WARNING
+Testing Skill 2: Rolls backwards 2m...
+  Score: 27/75 (36%) - FAIL
+Testing Skill 3: Turns while moving forwards 90deg...
+  Score: 37/75 (49%) - WARNING
+Testing Skill 4: Turns while moving backwards 90deg...
+  Score: 9/75 (12%) - FAIL
+Testing Skill 5: Rolls 100m...
+  Score: 39/75 (52%) - WARNING
+Testing Skill 15: Ascends 5deg incline...
+  Score: 41/75 (55%) - WARNING
+Testing Skill 16: Descends 5deg incline...
+  Score: 37/75 (49%) - WARNING
+Testing Skill 25: Ascends curb 15cm...
+  Score: 24/75 (32%) - FAIL
+Testing Skill 26: Descends curb...
+  Score: 15/75 (20%) - FAIL
+Testing Skill 30: Avoids moving obstacles...
+  Score: 40/75 (53%) - WARNING
+
+========================================
+           TEST COMPLETE
+========================================
+Overall Score:  321 / 750 (43%)
+
 ===============================================================================
                           QUICK RESULTS TABLE
 ===============================================================================
