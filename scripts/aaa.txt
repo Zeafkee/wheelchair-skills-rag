@@ -1,0 +1,5228 @@
+{
+  "users": {
+    "sefa001": {
+      "user_id": "sefa001",
+      "current_phase": "Foundation",
+      "skill_progress": {
+        "a01_10m_forward": {
+          "skill_id": "a01_10m_forward",
+          "attempts": 1,
+          "successful_attempts": 1,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-07T13:41:56.629470Z"
+        }
+      },
+      "sessions": [],
+      "created_at": "2026-01-07T13:36:58.840268Z",
+      "updated_at": "2026-01-07T13:41:56.630804Z"
+    },
+    "user_beginner_02": {
+      "user_id": "user_beginner_02",
+      "current_phase": "Foundation",
+      "skill_progress": {
+        "a17_ascend_10deg": {
+          "skill_id": "a17_ascend_10deg",
+          "attempts": 5,
+          "successful_attempts": 4,
+          "success_rate": 0.8,
+          "step_errors": {
+            "3": [
+              {
+                "error_type": "moved_instead_of_stopping",
+                "expected_action": "brake",
+                "actual_action": "move_forward",
+                "timestamp": "2026-01-01T21:19:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T21:20:00Z"
+        },
+        "a05_turn_in_place_180": {
+          "skill_id": "a05_turn_in_place_180",
+          "attempts": 5,
+          "successful_attempts": 3,
+          "success_rate": 0.6,
+          "step_errors": {
+            "2": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "turn_left",
+                "actual_action": "turn_right",
+                "timestamp": "2026-01-01T17:28:00Z"
+              }
+            ],
+            "1": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "turn_left",
+                "actual_action": "turn_right",
+                "timestamp": "2026-01-01T19:06:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-02T01:58:00Z"
+        },
+        "a02_2m_backward": {
+          "skill_id": "a02_2m_backward",
+          "attempts": 6,
+          "successful_attempts": 3,
+          "success_rate": 0.5,
+          "step_errors": {
+            "3": [
+              {
+                "error_type": "moved_instead_of_stopping",
+                "expected_action": "brake",
+                "actual_action": "move_backward",
+                "timestamp": "2026-01-01T22:40:00Z"
+              },
+              {
+                "error_type": "moved_instead_of_stopping",
+                "expected_action": "brake",
+                "actual_action": "move_backward",
+                "timestamp": "2026-01-02T01:23:00Z"
+              }
+            ],
+            "1": [
+              {
+                "error_type": "stopped_instead_of_moving",
+                "expected_action": "move_backward",
+                "actual_action": "brake",
+                "timestamp": "2026-01-02T02:51:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-02T02:52:00Z"
+        },
+        "a18_descend_10deg": {
+          "skill_id": "a18_descend_10deg",
+          "attempts": 2,
+          "successful_attempts": 1,
+          "success_rate": 0.5,
+          "step_errors": {
+            "4": [
+              {
+                "error_type": "moved_instead_of_stopping",
+                "expected_action": "brake",
+                "actual_action": "move_forward",
+                "timestamp": "2026-01-01T17:52:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T17:53:00Z"
+        },
+        "a04_turn_backward_90": {
+          "skill_id": "a04_turn_backward_90",
+          "attempts": 3,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "2": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "turn_left",
+                "actual_action": "turn_right",
+                "timestamp": "2026-01-01T15:01:00Z"
+              }
+            ],
+            "3": [
+              {
+                "error_type": "stopped_instead_of_moving",
+                "expected_action": "move_backward",
+                "actual_action": "brake",
+                "timestamp": "2026-01-01T16:11:00Z"
+              },
+              {
+                "error_type": "wrong_input",
+                "expected_action": "move_backward",
+                "actual_action": "turn_right",
+                "timestamp": "2026-01-01T16:36:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T16:37:00Z"
+        },
+        "a01_10m_forward": {
+          "skill_id": "a01_10m_forward",
+          "attempts": 3,
+          "successful_attempts": 3,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-01T22:59:00Z"
+        },
+        "a03_5m_backward": {
+          "skill_id": "a03_5m_backward",
+          "attempts": 2,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "3": [
+              {
+                "error_type": "moved_instead_of_stopping",
+                "expected_action": "brake",
+                "actual_action": "move_forward",
+                "timestamp": "2026-01-02T00:35:00Z"
+              }
+            ],
+            "2": [
+              {
+                "error_type": "wrong_direction",
+                "expected_action": "move_backward",
+                "actual_action": "move_forward",
+                "timestamp": "2026-01-02T01:42:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-02T01:43:00Z"
+        }
+      },
+      "sessions": [],
+      "created_at": "2026-01-01T10:00:00Z",
+      "updated_at": "2026-01-02T02:52:00Z"
+    },
+    "user_intermediate_01": {
+      "user_id": "user_intermediate_01",
+      "current_phase": "Mobility",
+      "skill_progress": {
+        "a02_2m_backward": {
+          "skill_id": "a02_2m_backward",
+          "attempts": 1,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "2": [
+              {
+                "error_type": "stopped_instead_of_moving",
+                "expected_action": "move_backward",
+                "actual_action": "brake",
+                "timestamp": "2026-01-01T10:11:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T10:12:00Z"
+        },
+        "a27_wheelie_30sec": {
+          "skill_id": "a27_wheelie_30sec",
+          "attempts": 3,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "3": [
+              {
+                "error_type": "moved_instead_of_stopping",
+                "expected_action": "brake",
+                "actual_action": "move_backward",
+                "timestamp": "2026-01-01T11:00:00Z"
+              }
+            ],
+            "2": [
+              {
+                "error_type": "missed_pop_casters",
+                "expected_action": "pop_casters",
+                "actual_action": "move_forward",
+                "timestamp": "2026-01-01T13:34:00Z"
+              }
+            ],
+            "1": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "move_backward",
+                "actual_action": "turn_left",
+                "timestamp": "2026-01-02T01:31:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-02T01:32:00Z"
+        },
+        "a25_curb_up_15cm": {
+          "skill_id": "a25_curb_up_15cm",
+          "attempts": 1,
+          "successful_attempts": 1,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-01T11:17:00Z"
+        },
+        "a26_curb_down_15cm": {
+          "skill_id": "a26_curb_down_15cm",
+          "attempts": 3,
+          "successful_attempts": 2,
+          "success_rate": 0.6666666666666666,
+          "step_errors": {
+            "3": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "move_backward",
+                "actual_action": "turn_left",
+                "timestamp": "2026-01-01T22:47:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T23:49:00Z"
+        },
+        "a01_10m_forward": {
+          "skill_id": "a01_10m_forward",
+          "attempts": 1,
+          "successful_attempts": 1,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-01T12:27:00Z"
+        },
+        "a03_5m_backward": {
+          "skill_id": "a03_5m_backward",
+          "attempts": 1,
+          "successful_attempts": 1,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-01T13:02:00Z"
+        },
+        "a04_turn_backward_90": {
+          "skill_id": "a04_turn_backward_90",
+          "attempts": 1,
+          "successful_attempts": 1,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-01T14:29:00Z"
+        },
+        "a21_gap_15cm": {
+          "skill_id": "a21_gap_15cm",
+          "attempts": 3,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "3": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "move_forward",
+                "actual_action": "turn_right",
+                "timestamp": "2026-01-01T20:16:00Z"
+              }
+            ],
+            "2": [
+              {
+                "error_type": "missed_pop_casters",
+                "expected_action": "pop_casters",
+                "actual_action": "move_backward",
+                "timestamp": "2026-01-01T23:57:00Z"
+              },
+              {
+                "error_type": "missed_pop_casters",
+                "expected_action": "pop_casters",
+                "actual_action": "move_forward",
+                "timestamp": "2026-01-02T03:30:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-02T03:31:00Z"
+        },
+        "a18_descend_10deg": {
+          "skill_id": "a18_descend_10deg",
+          "attempts": 1,
+          "successful_attempts": 1,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-01T20:56:00Z"
+        },
+        "a17_ascend_10deg": {
+          "skill_id": "a17_ascend_10deg",
+          "attempts": 1,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "1": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "move_forward",
+                "actual_action": "turn_left",
+                "timestamp": "2026-01-01T20:56:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T20:57:00Z"
+        },
+        "a05_turn_in_place_180": {
+          "skill_id": "a05_turn_in_place_180",
+          "attempts": 1,
+          "successful_attempts": 1,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-02T00:12:00Z"
+        },
+        "a06_sideways_maneuver": {
+          "skill_id": "a06_sideways_maneuver",
+          "attempts": 1,
+          "successful_attempts": 1,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-02T02:37:00Z"
+        }
+      },
+      "sessions": [],
+      "created_at": "2026-01-01T10:00:00Z",
+      "updated_at": "2026-01-02T03:31:00Z"
+    },
+    "user_intermediate_02": {
+      "user_id": "user_intermediate_02",
+      "current_phase": "Mobility",
+      "skill_progress": {
+        "a28_wheelie_turn_180": {
+          "skill_id": "a28_wheelie_turn_180",
+          "attempts": 1,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "3": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "turn_left",
+                "actual_action": "move_forward",
+                "timestamp": "2026-01-01T10:07:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T10:08:00Z"
+        },
+        "a02_2m_backward": {
+          "skill_id": "a02_2m_backward",
+          "attempts": 3,
+          "successful_attempts": 1,
+          "success_rate": 0.3333333333333333,
+          "step_errors": {
+            "3": [
+              {
+                "error_type": "moved_instead_of_stopping",
+                "expected_action": "brake",
+                "actual_action": "move_backward",
+                "timestamp": "2026-01-01T10:22:00Z"
+              }
+            ],
+            "2": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "move_backward",
+                "actual_action": "turn_left",
+                "timestamp": "2026-01-01T22:03:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T22:04:00Z"
+        },
+        "a26_curb_down_15cm": {
+          "skill_id": "a26_curb_down_15cm",
+          "attempts": 1,
+          "successful_attempts": 1,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-01T11:52:00Z"
+        },
+        "a05_turn_in_place_180": {
+          "skill_id": "a05_turn_in_place_180",
+          "attempts": 3,
+          "successful_attempts": 2,
+          "success_rate": 0.6666666666666666,
+          "step_errors": {
+            "1": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "turn_left",
+                "actual_action": "move_forward",
+                "timestamp": "2026-01-01T19:58:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T19:59:00Z"
+        },
+        "a17_ascend_10deg": {
+          "skill_id": "a17_ascend_10deg",
+          "attempts": 5,
+          "successful_attempts": 3,
+          "success_rate": 0.6,
+          "step_errors": {
+            "1": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "move_forward",
+                "actual_action": "turn_left",
+                "timestamp": "2026-01-01T12:03:00Z"
+              }
+            ],
+            "2": [
+              {
+                "error_type": "stopped_instead_of_moving",
+                "expected_action": "move_forward",
+                "actual_action": "brake",
+                "timestamp": "2026-01-01T13:59:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T23:05:00Z"
+        },
+        "a04_turn_backward_90": {
+          "skill_id": "a04_turn_backward_90",
+          "attempts": 1,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "1": [
+              {
+                "error_type": "stopped_instead_of_moving",
+                "expected_action": "move_backward",
+                "actual_action": "brake",
+                "timestamp": "2026-01-01T13:43:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T13:44:00Z"
+        },
+        "a18_descend_10deg": {
+          "skill_id": "a18_descend_10deg",
+          "attempts": 2,
+          "successful_attempts": 2,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-01T22:30:00Z"
+        },
+        "a27_wheelie_30sec": {
+          "skill_id": "a27_wheelie_30sec",
+          "attempts": 1,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "1": [
+              {
+                "error_type": "wrong_direction",
+                "expected_action": "move_backward",
+                "actual_action": "move_forward",
+                "timestamp": "2026-01-01T20:32:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T20:33:00Z"
+        },
+        "a03_5m_backward": {
+          "skill_id": "a03_5m_backward",
+          "attempts": 1,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "1": [
+              {
+                "error_type": "wrong_direction",
+                "expected_action": "move_backward",
+                "actual_action": "move_forward",
+                "timestamp": "2026-01-01T21:39:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T21:40:00Z"
+        },
+        "a06_sideways_maneuver": {
+          "skill_id": "a06_sideways_maneuver",
+          "attempts": 1,
+          "successful_attempts": 1,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-02T03:06:00Z"
+        }
+      },
+      "sessions": [],
+      "created_at": "2026-01-01T10:00:00Z",
+      "updated_at": "2026-01-02T03:06:00Z"
+    },
+    "user_advanced_01": {
+      "user_id": "user_advanced_01",
+      "current_phase": "Advanced",
+      "skill_progress": {
+        "a25_curb_up_15cm": {
+          "skill_id": "a25_curb_up_15cm",
+          "attempts": 3,
+          "successful_attempts": 2,
+          "success_rate": 0.6666666666666666,
+          "step_errors": {
+            "5": [
+              {
+                "error_type": "moved_instead_of_stopping",
+                "expected_action": "brake",
+                "actual_action": "move_forward",
+                "timestamp": "2026-01-01T16:30:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T16:31:00Z"
+        },
+        "a01_10m_forward": {
+          "skill_id": "a01_10m_forward",
+          "attempts": 2,
+          "successful_attempts": 2,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-02T00:52:00Z"
+        },
+        "a21_gap_15cm": {
+          "skill_id": "a21_gap_15cm",
+          "attempts": 2,
+          "successful_attempts": 1,
+          "success_rate": 0.5,
+          "step_errors": {
+            "2": [
+              {
+                "error_type": "missed_pop_casters",
+                "expected_action": "pop_casters",
+                "actual_action": "brake",
+                "timestamp": "2026-01-01T15:51:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T15:52:00Z"
+        },
+        "a27_wheelie_30sec": {
+          "skill_id": "a27_wheelie_30sec",
+          "attempts": 4,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "2": [
+              {
+                "error_type": "missed_pop_casters",
+                "expected_action": "pop_casters",
+                "actual_action": "move_backward",
+                "timestamp": "2026-01-01T12:37:00Z"
+              },
+              {
+                "error_type": "missed_pop_casters",
+                "expected_action": "pop_casters",
+                "actual_action": "brake",
+                "timestamp": "2026-01-02T01:10:00Z"
+              }
+            ],
+            "1": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "move_backward",
+                "actual_action": "turn_left",
+                "timestamp": "2026-01-01T17:16:00Z"
+              }
+            ],
+            "4": [
+              {
+                "error_type": "moved_instead_of_stopping",
+                "expected_action": "brake",
+                "actual_action": "move_forward",
+                "timestamp": "2026-01-02T03:07:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-02T03:08:00Z"
+        },
+        "a26_curb_down_15cm": {
+          "skill_id": "a26_curb_down_15cm",
+          "attempts": 2,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "3": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "move_backward",
+                "actual_action": "turn_left",
+                "timestamp": "2026-01-01T13:31:00Z"
+              }
+            ],
+            "4": [
+              {
+                "error_type": "moved_instead_of_stopping",
+                "expected_action": "brake",
+                "actual_action": "move_backward",
+                "timestamp": "2026-01-01T18:39:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T18:40:00Z"
+        },
+        "a18_descend_10deg": {
+          "skill_id": "a18_descend_10deg",
+          "attempts": 1,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "2": [
+              {
+                "error_type": "moved_instead_of_stopping",
+                "expected_action": "brake",
+                "actual_action": "move_backward",
+                "timestamp": "2026-01-01T16:03:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T16:04:00Z"
+        },
+        "a28_wheelie_turn_180": {
+          "skill_id": "a28_wheelie_turn_180",
+          "attempts": 1,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "2": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "turn_left",
+                "actual_action": "move_forward",
+                "timestamp": "2026-01-01T16:48:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-01T16:49:00Z"
+        },
+        "a03_5m_backward": {
+          "skill_id": "a03_5m_backward",
+          "attempts": 1,
+          "successful_attempts": 1,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-01T19:41:00Z"
+        },
+        "a04_turn_backward_90": {
+          "skill_id": "a04_turn_backward_90",
+          "attempts": 1,
+          "successful_attempts": 1,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-01T21:08:00Z"
+        },
+        "a06_sideways_maneuver": {
+          "skill_id": "a06_sideways_maneuver",
+          "attempts": 2,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "2": [
+              {
+                "error_type": "wrong_direction",
+                "expected_action": "move_forward",
+                "actual_action": "move_backward",
+                "timestamp": "2026-01-01T22:16:00Z"
+              },
+              {
+                "error_type": "wrong_input",
+                "expected_action": "move_forward",
+                "actual_action": "turn_right",
+                "timestamp": "2026-01-02T03:13:00Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-02T03:14:00Z"
+        }
+      },
+      "sessions": [],
+      "created_at": "2026-01-01T10:00:00Z",
+      "updated_at": "2026-01-02T03:14:00Z"
+    }
+  },
+  "attempts": [
+    {
+      "attempt_id": "att_bfd89266",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a28_wheelie_turn_180",
+      "start_time": "2026-01-01T10:00:00Z",
+      "end_time": "2026-01-01T10:08:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:01:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:04:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "turn_left",
+          "actual_input": "move_forward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T10:07:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 3,
+          "error_type": "wrong_input",
+          "expected_action": "turn_left",
+          "actual_action": "move_forward",
+          "timestamp": "2026-01-01T10:07:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_5b12e32c",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a02_2m_backward",
+      "start_time": "2026-01-01T10:05:00Z",
+      "end_time": "2026-01-01T10:12:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:08:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "brake",
+          "is_correct": false,
+          "timestamp": "2026-01-01T10:11:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "stopped_instead_of_moving",
+          "expected_action": "move_backward",
+          "actual_action": "brake",
+          "timestamp": "2026-01-01T10:11:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_d86728cf",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a02_2m_backward",
+      "start_time": "2026-01-01T10:16:00Z",
+      "end_time": "2026-01-01T10:23:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:18:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:19:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "move_backward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T10:22:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 3,
+          "error_type": "moved_instead_of_stopping",
+          "expected_action": "brake",
+          "actual_action": "move_backward",
+          "timestamp": "2026-01-01T10:22:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_85080095",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-01T10:21:00Z",
+      "end_time": "2026-01-01T10:28:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:23:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:24:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:27:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_33824f74",
+      "user_id": "user_advanced_01",
+      "skill_id": "a25_curb_up_15cm",
+      "start_time": "2026-01-01T10:29:00Z",
+      "end_time": "2026-01-01T10:41:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:32:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:34:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:35:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:38:00Z"
+        },
+        {
+          "step_number": 5,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:40:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_e139b658",
+      "user_id": "user_beginner_02",
+      "skill_id": "a17_ascend_10deg",
+      "start_time": "2026-01-01T10:37:00Z",
+      "end_time": "2026-01-01T10:43:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:39:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:40:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:42:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_92acce22",
+      "user_id": "user_advanced_01",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-01T10:45:00Z",
+      "end_time": "2026-01-01T10:53:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:48:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:51:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:52:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_c1e21265",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a27_wheelie_30sec",
+      "start_time": "2026-01-01T10:53:00Z",
+      "end_time": "2026-01-01T11:01:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:55:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T10:57:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "move_backward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T11:00:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 3,
+          "error_type": "moved_instead_of_stopping",
+          "expected_action": "brake",
+          "actual_action": "move_backward",
+          "timestamp": "2026-01-01T11:00:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_2b93cb61",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a25_curb_up_15cm",
+      "start_time": "2026-01-01T11:06:00Z",
+      "end_time": "2026-01-01T11:17:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:09:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:11:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:13:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:15:00Z"
+        },
+        {
+          "step_number": 5,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:16:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_0a1c914f",
+      "user_id": "user_advanced_01",
+      "skill_id": "a21_gap_15cm",
+      "start_time": "2026-01-01T11:16:00Z",
+      "end_time": "2026-01-01T11:26:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:17:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:20:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:22:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:25:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_047108b0",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a26_curb_down_15cm",
+      "start_time": "2026-01-01T11:29:00Z",
+      "end_time": "2026-01-01T11:40:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:32:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:35:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:37:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:39:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_425b026d",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a26_curb_down_15cm",
+      "start_time": "2026-01-01T11:43:00Z",
+      "end_time": "2026-01-01T11:52:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:44:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:46:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:49:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:51:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_104969d4",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a05_turn_in_place_180",
+      "start_time": "2026-01-01T11:49:00Z",
+      "end_time": "2026-01-01T11:54:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:50:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:52:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T11:53:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_d3e98437",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a17_ascend_10deg",
+      "start_time": "2026-01-01T12:00:00Z",
+      "end_time": "2026-01-01T12:04:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "turn_left",
+          "is_correct": false,
+          "timestamp": "2026-01-01T12:03:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_input",
+          "expected_action": "move_forward",
+          "actual_action": "turn_left",
+          "timestamp": "2026-01-01T12:03:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_47e7cf82",
+      "user_id": "user_advanced_01",
+      "skill_id": "a25_curb_up_15cm",
+      "start_time": "2026-01-01T12:08:00Z",
+      "end_time": "2026-01-01T12:19:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:10:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:11:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:12:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:15:00Z"
+        },
+        {
+          "step_number": 5,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:18:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_6a5e865f",
+      "user_id": "user_beginner_02",
+      "skill_id": "a05_turn_in_place_180",
+      "start_time": "2026-01-01T12:13:00Z",
+      "end_time": "2026-01-01T12:22:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:16:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:19:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:21:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_b8cf8c32",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-01T12:21:00Z",
+      "end_time": "2026-01-01T12:27:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:22:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:24:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:26:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_3815efd5",
+      "user_id": "user_advanced_01",
+      "skill_id": "a27_wheelie_30sec",
+      "start_time": "2026-01-01T12:35:00Z",
+      "end_time": "2026-01-01T12:38:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:36:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "move_backward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T12:37:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "missed_pop_casters",
+          "expected_action": "pop_casters",
+          "actual_action": "move_backward",
+          "timestamp": "2026-01-01T12:37:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_5c557b0a",
+      "user_id": "user_beginner_02",
+      "skill_id": "a02_2m_backward",
+      "start_time": "2026-01-01T12:41:00Z",
+      "end_time": "2026-01-01T12:48:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:43:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:46:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:47:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_4d8a633f",
+      "user_id": "sefa001",
+      "skill_id": "a02_2m_backward",
+      "start_time": "2026-01-01T12:51:00Z",
+      "end_time": "2026-01-01T12:55:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "brake",
+          "is_correct": false,
+          "timestamp": "2026-01-01T12:54:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "stopped_instead_of_moving",
+          "expected_action": "move_backward",
+          "actual_action": "brake",
+          "timestamp": "2026-01-01T12:54:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_9d342de3",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a03_5m_backward",
+      "start_time": "2026-01-01T12:56:00Z",
+      "end_time": "2026-01-01T13:02:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T12:57:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T13:00:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T13:01:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_a4ae0472",
+      "user_id": "sefa001",
+      "skill_id": "a18_descend_10deg",
+      "start_time": "2026-01-01T13:09:00Z",
+      "end_time": "2026-01-01T13:11:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_backward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T13:10:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_direction",
+          "expected_action": "move_forward",
+          "actual_action": "move_backward",
+          "timestamp": "2026-01-01T13:10:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_6bc9351a",
+      "user_id": "user_advanced_01",
+      "skill_id": "a26_curb_down_15cm",
+      "start_time": "2026-01-01T13:23:00Z",
+      "end_time": "2026-01-01T13:32:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T13:25:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T13:28:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_backward",
+          "actual_input": "turn_left",
+          "is_correct": false,
+          "timestamp": "2026-01-01T13:31:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 3,
+          "error_type": "wrong_input",
+          "expected_action": "move_backward",
+          "actual_action": "turn_left",
+          "timestamp": "2026-01-01T13:31:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_af47df48",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a27_wheelie_30sec",
+      "start_time": "2026-01-01T13:30:00Z",
+      "end_time": "2026-01-01T13:35:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T13:33:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "move_forward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T13:34:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "missed_pop_casters",
+          "expected_action": "pop_casters",
+          "actual_action": "move_forward",
+          "timestamp": "2026-01-01T13:34:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_1014f9dc",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a04_turn_backward_90",
+      "start_time": "2026-01-01T13:42:00Z",
+      "end_time": "2026-01-01T13:44:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "brake",
+          "is_correct": false,
+          "timestamp": "2026-01-01T13:43:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "stopped_instead_of_moving",
+          "expected_action": "move_backward",
+          "actual_action": "brake",
+          "timestamp": "2026-01-01T13:43:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_432dc740",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a17_ascend_10deg",
+      "start_time": "2026-01-01T13:55:00Z",
+      "end_time": "2026-01-01T14:00:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T13:57:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "brake",
+          "is_correct": false,
+          "timestamp": "2026-01-01T13:59:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "stopped_instead_of_moving",
+          "expected_action": "move_forward",
+          "actual_action": "brake",
+          "timestamp": "2026-01-01T13:59:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_4d6c4c6d",
+      "user_id": "sefa001",
+      "skill_id": "a05_turn_in_place_180",
+      "start_time": "2026-01-01T14:01:00Z",
+      "end_time": "2026-01-01T14:04:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_left",
+          "actual_input": "turn_right",
+          "is_correct": false,
+          "timestamp": "2026-01-01T14:03:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_input",
+          "expected_action": "turn_left",
+          "actual_action": "turn_right",
+          "timestamp": "2026-01-01T14:03:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_39708ee6",
+      "user_id": "user_beginner_02",
+      "skill_id": "a05_turn_in_place_180",
+      "start_time": "2026-01-01T14:06:00Z",
+      "end_time": "2026-01-01T14:13:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:09:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:10:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:12:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_0a2cf21c",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a04_turn_backward_90",
+      "start_time": "2026-01-01T14:21:00Z",
+      "end_time": "2026-01-01T14:29:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:22:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:25:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:27:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:28:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_cd375d53",
+      "user_id": "user_beginner_02",
+      "skill_id": "a18_descend_10deg",
+      "start_time": "2026-01-01T14:34:00Z",
+      "end_time": "2026-01-01T14:40:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:35:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:37:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:38:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:39:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_398db69d",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a02_2m_backward",
+      "start_time": "2026-01-01T14:45:00Z",
+      "end_time": "2026-01-01T14:54:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:48:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:51:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:53:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_c905ab4b",
+      "user_id": "user_beginner_02",
+      "skill_id": "a04_turn_backward_90",
+      "start_time": "2026-01-01T14:56:00Z",
+      "end_time": "2026-01-01T15:02:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T14:58:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_right",
+          "is_correct": false,
+          "timestamp": "2026-01-01T15:01:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "wrong_input",
+          "expected_action": "turn_left",
+          "actual_action": "turn_right",
+          "timestamp": "2026-01-01T15:01:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_4c3fc664",
+      "user_id": "sefa001",
+      "skill_id": "a02_2m_backward",
+      "start_time": "2026-01-01T15:11:00Z",
+      "end_time": "2026-01-01T15:15:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "turn_left",
+          "is_correct": false,
+          "timestamp": "2026-01-01T15:14:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_input",
+          "expected_action": "move_backward",
+          "actual_action": "turn_left",
+          "timestamp": "2026-01-01T15:14:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_973e6a40",
+      "user_id": "user_beginner_02",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-01T15:21:00Z",
+      "end_time": "2026-01-01T15:26:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T15:23:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T15:24:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T15:25:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_dc9308ca",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a17_ascend_10deg",
+      "start_time": "2026-01-01T15:31:00Z",
+      "end_time": "2026-01-01T15:36:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T15:33:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T15:34:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T15:35:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_be9a50d9",
+      "user_id": "user_advanced_01",
+      "skill_id": "a21_gap_15cm",
+      "start_time": "2026-01-01T15:46:00Z",
+      "end_time": "2026-01-01T15:52:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T15:49:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "brake",
+          "is_correct": false,
+          "timestamp": "2026-01-01T15:51:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "missed_pop_casters",
+          "expected_action": "pop_casters",
+          "actual_action": "brake",
+          "timestamp": "2026-01-01T15:51:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_d1a7f877",
+      "user_id": "user_advanced_01",
+      "skill_id": "a18_descend_10deg",
+      "start_time": "2026-01-01T15:57:00Z",
+      "end_time": "2026-01-01T16:04:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T16:00:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "brake",
+          "actual_input": "move_backward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T16:03:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "moved_instead_of_stopping",
+          "expected_action": "brake",
+          "actual_action": "move_backward",
+          "timestamp": "2026-01-01T16:03:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_02df0ec0",
+      "user_id": "user_beginner_02",
+      "skill_id": "a04_turn_backward_90",
+      "start_time": "2026-01-01T16:04:00Z",
+      "end_time": "2026-01-01T16:12:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T16:07:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T16:08:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_backward",
+          "actual_input": "brake",
+          "is_correct": false,
+          "timestamp": "2026-01-01T16:11:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 3,
+          "error_type": "stopped_instead_of_moving",
+          "expected_action": "move_backward",
+          "actual_action": "brake",
+          "timestamp": "2026-01-01T16:11:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_9358f8e3",
+      "user_id": "user_advanced_01",
+      "skill_id": "a25_curb_up_15cm",
+      "start_time": "2026-01-01T16:18:00Z",
+      "end_time": "2026-01-01T16:31:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T16:21:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T16:23:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T16:25:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T16:27:00Z"
+        },
+        {
+          "step_number": 5,
+          "expected_input": "brake",
+          "actual_input": "move_forward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T16:30:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 5,
+          "error_type": "moved_instead_of_stopping",
+          "expected_action": "brake",
+          "actual_action": "move_forward",
+          "timestamp": "2026-01-01T16:30:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_93db4c91",
+      "user_id": "user_beginner_02",
+      "skill_id": "a04_turn_backward_90",
+      "start_time": "2026-01-01T16:31:00Z",
+      "end_time": "2026-01-01T16:37:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T16:32:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T16:34:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_backward",
+          "actual_input": "turn_right",
+          "is_correct": false,
+          "timestamp": "2026-01-01T16:36:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 3,
+          "error_type": "wrong_input",
+          "expected_action": "move_backward",
+          "actual_action": "turn_right",
+          "timestamp": "2026-01-01T16:36:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_73f0f523",
+      "user_id": "user_advanced_01",
+      "skill_id": "a28_wheelie_turn_180",
+      "start_time": "2026-01-01T16:42:00Z",
+      "end_time": "2026-01-01T16:49:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T16:45:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "move_forward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T16:48:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "wrong_input",
+          "expected_action": "turn_left",
+          "actual_action": "move_forward",
+          "timestamp": "2026-01-01T16:48:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_5529e029",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a05_turn_in_place_180",
+      "start_time": "2026-01-01T16:50:00Z",
+      "end_time": "2026-01-01T16:58:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T16:52:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T16:54:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T16:57:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_919d8538",
+      "user_id": "sefa001",
+      "skill_id": "a04_turn_backward_90",
+      "start_time": "2026-01-01T17:01:00Z",
+      "end_time": "2026-01-01T17:08:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T17:03:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T17:04:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T17:05:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T17:07:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_37924aab",
+      "user_id": "user_advanced_01",
+      "skill_id": "a27_wheelie_30sec",
+      "start_time": "2026-01-01T17:14:00Z",
+      "end_time": "2026-01-01T17:17:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "turn_left",
+          "is_correct": false,
+          "timestamp": "2026-01-01T17:16:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_input",
+          "expected_action": "move_backward",
+          "actual_action": "turn_left",
+          "timestamp": "2026-01-01T17:16:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_271dbc3f",
+      "user_id": "user_beginner_02",
+      "skill_id": "a05_turn_in_place_180",
+      "start_time": "2026-01-01T17:26:00Z",
+      "end_time": "2026-01-01T17:29:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T17:27:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_right",
+          "is_correct": false,
+          "timestamp": "2026-01-01T17:28:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "wrong_input",
+          "expected_action": "turn_left",
+          "actual_action": "turn_right",
+          "timestamp": "2026-01-01T17:28:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_61e7d2f9",
+      "user_id": "user_beginner_02",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-01T17:41:00Z",
+      "end_time": "2026-01-01T17:45:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T17:42:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T17:43:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T17:44:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_7aa02291",
+      "user_id": "user_beginner_02",
+      "skill_id": "a18_descend_10deg",
+      "start_time": "2026-01-01T17:46:00Z",
+      "end_time": "2026-01-01T17:53:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T17:49:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T17:50:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T17:51:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "move_forward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T17:52:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 4,
+          "error_type": "moved_instead_of_stopping",
+          "expected_action": "brake",
+          "actual_action": "move_forward",
+          "timestamp": "2026-01-01T17:52:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_7d5b08cf",
+      "user_id": "user_beginner_02",
+      "skill_id": "a17_ascend_10deg",
+      "start_time": "2026-01-01T18:00:00Z",
+      "end_time": "2026-01-01T18:08:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:02:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:05:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:07:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_f1eaed14",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-01T18:09:00Z",
+      "end_time": "2026-01-01T18:16:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:10:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:13:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:15:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_c8c38667",
+      "user_id": "sefa001",
+      "skill_id": "a03_5m_backward",
+      "start_time": "2026-01-01T18:18:00Z",
+      "end_time": "2026-01-01T18:28:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:21:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:24:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:27:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_322d59b6",
+      "user_id": "user_advanced_01",
+      "skill_id": "a26_curb_down_15cm",
+      "start_time": "2026-01-01T18:32:00Z",
+      "end_time": "2026-01-01T18:40:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:33:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:35:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:37:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "move_backward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T18:39:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 4,
+          "error_type": "moved_instead_of_stopping",
+          "expected_action": "brake",
+          "actual_action": "move_backward",
+          "timestamp": "2026-01-01T18:39:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_c4512613",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-01T18:47:00Z",
+      "end_time": "2026-01-01T18:54:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:50:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:51:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:53:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_2741cb06",
+      "user_id": "user_beginner_02",
+      "skill_id": "a17_ascend_10deg",
+      "start_time": "2026-01-01T18:55:00Z",
+      "end_time": "2026-01-01T19:03:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:57:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T18:59:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T19:02:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_9d7ec61b",
+      "user_id": "user_beginner_02",
+      "skill_id": "a05_turn_in_place_180",
+      "start_time": "2026-01-01T19:03:00Z",
+      "end_time": "2026-01-01T19:07:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_left",
+          "actual_input": "turn_right",
+          "is_correct": false,
+          "timestamp": "2026-01-01T19:06:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_input",
+          "expected_action": "turn_left",
+          "actual_action": "turn_right",
+          "timestamp": "2026-01-01T19:06:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_adc45b71",
+      "user_id": "sefa001",
+      "skill_id": "a02_2m_backward",
+      "start_time": "2026-01-01T19:11:00Z",
+      "end_time": "2026-01-01T19:19:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T19:13:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T19:16:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "move_backward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T19:18:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 3,
+          "error_type": "moved_instead_of_stopping",
+          "expected_action": "brake",
+          "actual_action": "move_backward",
+          "timestamp": "2026-01-01T19:18:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_0571a3d5",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a18_descend_10deg",
+      "start_time": "2026-01-01T19:26:00Z",
+      "end_time": "2026-01-01T19:35:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T19:29:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T19:30:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T19:33:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T19:34:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_151593f7",
+      "user_id": "user_advanced_01",
+      "skill_id": "a03_5m_backward",
+      "start_time": "2026-01-01T19:31:00Z",
+      "end_time": "2026-01-01T19:41:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T19:34:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T19:37:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T19:40:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_db727aab",
+      "user_id": "user_beginner_02",
+      "skill_id": "a02_2m_backward",
+      "start_time": "2026-01-01T19:40:00Z",
+      "end_time": "2026-01-01T19:45:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T19:41:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T19:43:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T19:44:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_d4db6fcd",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a05_turn_in_place_180",
+      "start_time": "2026-01-01T19:55:00Z",
+      "end_time": "2026-01-01T19:59:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_left",
+          "actual_input": "move_forward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T19:58:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_input",
+          "expected_action": "turn_left",
+          "actual_action": "move_forward",
+          "timestamp": "2026-01-01T19:58:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_57f0d012",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a21_gap_15cm",
+      "start_time": "2026-01-01T20:10:00Z",
+      "end_time": "2026-01-01T20:17:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T20:12:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T20:15:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_forward",
+          "actual_input": "turn_right",
+          "is_correct": false,
+          "timestamp": "2026-01-01T20:16:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 3,
+          "error_type": "wrong_input",
+          "expected_action": "move_forward",
+          "actual_action": "turn_right",
+          "timestamp": "2026-01-01T20:16:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_a186f34e",
+      "user_id": "user_beginner_02",
+      "skill_id": "a17_ascend_10deg",
+      "start_time": "2026-01-01T20:22:00Z",
+      "end_time": "2026-01-01T20:30:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T20:25:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T20:27:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T20:29:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_23d17c19",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a27_wheelie_30sec",
+      "start_time": "2026-01-01T20:31:00Z",
+      "end_time": "2026-01-01T20:33:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_forward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T20:32:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_direction",
+          "expected_action": "move_backward",
+          "actual_action": "move_forward",
+          "timestamp": "2026-01-01T20:32:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_b774c80f",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a18_descend_10deg",
+      "start_time": "2026-01-01T20:46:00Z",
+      "end_time": "2026-01-01T20:56:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T20:49:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T20:52:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T20:54:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T20:55:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_8a87197c",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a17_ascend_10deg",
+      "start_time": "2026-01-01T20:53:00Z",
+      "end_time": "2026-01-01T20:57:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "turn_left",
+          "is_correct": false,
+          "timestamp": "2026-01-01T20:56:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_input",
+          "expected_action": "move_forward",
+          "actual_action": "turn_left",
+          "timestamp": "2026-01-01T20:56:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_061c0137",
+      "user_id": "user_advanced_01",
+      "skill_id": "a04_turn_backward_90",
+      "start_time": "2026-01-01T20:59:00Z",
+      "end_time": "2026-01-01T21:08:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T21:02:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T21:04:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T21:05:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T21:07:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_cfa9c3ac",
+      "user_id": "user_beginner_02",
+      "skill_id": "a17_ascend_10deg",
+      "start_time": "2026-01-01T21:14:00Z",
+      "end_time": "2026-01-01T21:20:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T21:16:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T21:17:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "move_forward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T21:19:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 3,
+          "error_type": "moved_instead_of_stopping",
+          "expected_action": "brake",
+          "actual_action": "move_forward",
+          "timestamp": "2026-01-01T21:19:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_3fa8cf0c",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a17_ascend_10deg",
+      "start_time": "2026-01-01T21:24:00Z",
+      "end_time": "2026-01-01T21:31:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T21:26:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T21:29:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T21:30:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_79725912",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a03_5m_backward",
+      "start_time": "2026-01-01T21:37:00Z",
+      "end_time": "2026-01-01T21:40:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_forward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T21:39:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_direction",
+          "expected_action": "move_backward",
+          "actual_action": "move_forward",
+          "timestamp": "2026-01-01T21:39:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_a4392c2c",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-01T21:52:00Z",
+      "end_time": "2026-01-01T21:58:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T21:55:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_backward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T21:57:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "wrong_direction",
+          "expected_action": "move_forward",
+          "actual_action": "move_backward",
+          "timestamp": "2026-01-01T21:57:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_4cba218d",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a02_2m_backward",
+      "start_time": "2026-01-01T21:59:00Z",
+      "end_time": "2026-01-01T22:04:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:01:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "turn_left",
+          "is_correct": false,
+          "timestamp": "2026-01-01T22:03:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "wrong_input",
+          "expected_action": "move_backward",
+          "actual_action": "turn_left",
+          "timestamp": "2026-01-01T22:03:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_6ca95602",
+      "user_id": "user_advanced_01",
+      "skill_id": "a06_sideways_maneuver",
+      "start_time": "2026-01-01T22:10:00Z",
+      "end_time": "2026-01-01T22:17:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_right",
+          "actual_input": "turn_right",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:13:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_backward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T22:16:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "wrong_direction",
+          "expected_action": "move_forward",
+          "actual_action": "move_backward",
+          "timestamp": "2026-01-01T22:16:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_b7a0a04b",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a18_descend_10deg",
+      "start_time": "2026-01-01T22:21:00Z",
+      "end_time": "2026-01-01T22:30:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:23:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:25:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:27:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:29:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_6ab067cd",
+      "user_id": "user_beginner_02",
+      "skill_id": "a02_2m_backward",
+      "start_time": "2026-01-01T22:33:00Z",
+      "end_time": "2026-01-01T22:41:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:35:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:38:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "move_backward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T22:40:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 3,
+          "error_type": "moved_instead_of_stopping",
+          "expected_action": "brake",
+          "actual_action": "move_backward",
+          "timestamp": "2026-01-01T22:40:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_5383954e",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a26_curb_down_15cm",
+      "start_time": "2026-01-01T22:42:00Z",
+      "end_time": "2026-01-01T22:48:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:43:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:45:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_backward",
+          "actual_input": "turn_left",
+          "is_correct": false,
+          "timestamp": "2026-01-01T22:47:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 3,
+          "error_type": "wrong_input",
+          "expected_action": "move_backward",
+          "actual_action": "turn_left",
+          "timestamp": "2026-01-01T22:47:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_fffbe940",
+      "user_id": "sefa001",
+      "skill_id": "a05_turn_in_place_180",
+      "start_time": "2026-01-01T22:48:00Z",
+      "end_time": "2026-01-01T22:56:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:50:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:52:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:55:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_181124e5",
+      "user_id": "user_beginner_02",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-01T22:53:00Z",
+      "end_time": "2026-01-01T22:59:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:54:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:57:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T22:58:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_309a30b9",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a17_ascend_10deg",
+      "start_time": "2026-01-01T22:59:00Z",
+      "end_time": "2026-01-01T23:05:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T23:01:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T23:03:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T23:04:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_822650cd",
+      "user_id": "user_beginner_02",
+      "skill_id": "a02_2m_backward",
+      "start_time": "2026-01-01T23:09:00Z",
+      "end_time": "2026-01-01T23:17:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T23:12:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T23:14:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T23:16:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_a960d4ae",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-01T23:23:00Z",
+      "end_time": "2026-01-01T23:29:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T23:25:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T23:27:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T23:28:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_06b73c17",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a26_curb_down_15cm",
+      "start_time": "2026-01-01T23:37:00Z",
+      "end_time": "2026-01-01T23:49:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T23:40:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-01T23:43:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T23:46:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-01T23:48:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_69846387",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a21_gap_15cm",
+      "start_time": "2026-01-01T23:51:00Z",
+      "end_time": "2026-01-01T23:58:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-01T23:54:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "move_backward",
+          "is_correct": false,
+          "timestamp": "2026-01-01T23:57:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "missed_pop_casters",
+          "expected_action": "pop_casters",
+          "actual_action": "move_backward",
+          "timestamp": "2026-01-01T23:57:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_eeb4b10f",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a05_turn_in_place_180",
+      "start_time": "2026-01-02T00:04:00Z",
+      "end_time": "2026-01-02T00:12:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-02T00:06:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-02T00:08:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-02T00:11:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_112b9533",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-02T00:16:00Z",
+      "end_time": "2026-01-02T00:25:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T00:19:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T00:21:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-02T00:24:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_bd87cb28",
+      "user_id": "user_beginner_02",
+      "skill_id": "a03_5m_backward",
+      "start_time": "2026-01-02T00:29:00Z",
+      "end_time": "2026-01-02T00:36:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T00:30:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T00:32:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "move_forward",
+          "is_correct": false,
+          "timestamp": "2026-01-02T00:35:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 3,
+          "error_type": "moved_instead_of_stopping",
+          "expected_action": "brake",
+          "actual_action": "move_forward",
+          "timestamp": "2026-01-02T00:35:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_8f27777c",
+      "user_id": "user_advanced_01",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-02T00:44:00Z",
+      "end_time": "2026-01-02T00:52:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T00:45:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T00:48:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-02T00:51:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_71987592",
+      "user_id": "sefa001",
+      "skill_id": "a18_descend_10deg",
+      "start_time": "2026-01-02T00:56:00Z",
+      "end_time": "2026-01-02T01:07:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T00:58:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-02T01:01:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T01:03:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-02T01:06:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_bb411f2d",
+      "user_id": "user_advanced_01",
+      "skill_id": "a27_wheelie_30sec",
+      "start_time": "2026-01-02T01:08:00Z",
+      "end_time": "2026-01-02T01:11:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T01:09:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "brake",
+          "is_correct": false,
+          "timestamp": "2026-01-02T01:10:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "missed_pop_casters",
+          "expected_action": "pop_casters",
+          "actual_action": "brake",
+          "timestamp": "2026-01-02T01:10:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_014df563",
+      "user_id": "user_beginner_02",
+      "skill_id": "a02_2m_backward",
+      "start_time": "2026-01-02T01:17:00Z",
+      "end_time": "2026-01-02T01:24:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T01:20:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T01:22:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "move_backward",
+          "is_correct": false,
+          "timestamp": "2026-01-02T01:23:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 3,
+          "error_type": "moved_instead_of_stopping",
+          "expected_action": "brake",
+          "actual_action": "move_backward",
+          "timestamp": "2026-01-02T01:23:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_c9b8d62c",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a27_wheelie_30sec",
+      "start_time": "2026-01-02T01:28:00Z",
+      "end_time": "2026-01-02T01:32:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "turn_left",
+          "is_correct": false,
+          "timestamp": "2026-01-02T01:31:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_input",
+          "expected_action": "move_backward",
+          "actual_action": "turn_left",
+          "timestamp": "2026-01-02T01:31:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_297d6c45",
+      "user_id": "user_beginner_02",
+      "skill_id": "a03_5m_backward",
+      "start_time": "2026-01-02T01:38:00Z",
+      "end_time": "2026-01-02T01:43:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T01:39:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_forward",
+          "is_correct": false,
+          "timestamp": "2026-01-02T01:42:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "wrong_direction",
+          "expected_action": "move_backward",
+          "actual_action": "move_forward",
+          "timestamp": "2026-01-02T01:42:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_42591d82",
+      "user_id": "user_beginner_02",
+      "skill_id": "a05_turn_in_place_180",
+      "start_time": "2026-01-02T01:52:00Z",
+      "end_time": "2026-01-02T01:58:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-02T01:53:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-02T01:54:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-02T01:57:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_323e718d",
+      "user_id": "sefa001",
+      "skill_id": "a05_turn_in_place_180",
+      "start_time": "2026-01-02T02:03:00Z",
+      "end_time": "2026-01-02T02:06:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_left",
+          "actual_input": "turn_right",
+          "is_correct": false,
+          "timestamp": "2026-01-02T02:05:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_input",
+          "expected_action": "turn_left",
+          "actual_action": "turn_right",
+          "timestamp": "2026-01-02T02:05:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_17e54e57",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-02T02:17:00Z",
+      "end_time": "2026-01-02T02:26:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T02:19:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T02:22:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-02T02:25:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_a812bcbf",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a06_sideways_maneuver",
+      "start_time": "2026-01-02T02:27:00Z",
+      "end_time": "2026-01-02T02:37:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_right",
+          "actual_input": "turn_right",
+          "is_correct": true,
+          "timestamp": "2026-01-02T02:28:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T02:31:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-02T02:33:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T02:36:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_a1e47309",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-02T02:38:00Z",
+      "end_time": "2026-01-02T02:46:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T02:40:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T02:43:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-02T02:45:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_bc2e62a6",
+      "user_id": "user_beginner_02",
+      "skill_id": "a02_2m_backward",
+      "start_time": "2026-01-02T02:49:00Z",
+      "end_time": "2026-01-02T02:52:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "brake",
+          "is_correct": false,
+          "timestamp": "2026-01-02T02:51:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "stopped_instead_of_moving",
+          "expected_action": "move_backward",
+          "actual_action": "brake",
+          "timestamp": "2026-01-02T02:51:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_ed477855",
+      "user_id": "user_intermediate_02",
+      "skill_id": "a06_sideways_maneuver",
+      "start_time": "2026-01-02T02:54:00Z",
+      "end_time": "2026-01-02T03:06:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_right",
+          "actual_input": "turn_right",
+          "is_correct": true,
+          "timestamp": "2026-01-02T02:57:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T02:59:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "turn_left",
+          "actual_input": "turn_left",
+          "is_correct": true,
+          "timestamp": "2026-01-02T03:02:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T03:05:00Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_933824e0",
+      "user_id": "user_advanced_01",
+      "skill_id": "a27_wheelie_30sec",
+      "start_time": "2026-01-02T03:01:00Z",
+      "end_time": "2026-01-02T03:08:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T03:03:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "pop_casters",
+          "is_correct": true,
+          "timestamp": "2026-01-02T03:05:00Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-02T03:06:00Z"
+        },
+        {
+          "step_number": 4,
+          "expected_input": "brake",
+          "actual_input": "move_forward",
+          "is_correct": false,
+          "timestamp": "2026-01-02T03:07:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 4,
+          "error_type": "moved_instead_of_stopping",
+          "expected_action": "brake",
+          "actual_action": "move_forward",
+          "timestamp": "2026-01-02T03:07:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_960e1854",
+      "user_id": "user_advanced_01",
+      "skill_id": "a06_sideways_maneuver",
+      "start_time": "2026-01-02T03:11:00Z",
+      "end_time": "2026-01-02T03:14:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "turn_right",
+          "actual_input": "turn_right",
+          "is_correct": true,
+          "timestamp": "2026-01-02T03:12:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "turn_right",
+          "is_correct": false,
+          "timestamp": "2026-01-02T03:13:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "wrong_input",
+          "expected_action": "move_forward",
+          "actual_action": "turn_right",
+          "timestamp": "2026-01-02T03:13:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_a5155868",
+      "user_id": "user_intermediate_01",
+      "skill_id": "a21_gap_15cm",
+      "start_time": "2026-01-02T03:26:00Z",
+      "end_time": "2026-01-02T03:31:00Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-02T03:29:00Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "pop_casters",
+          "actual_input": "move_forward",
+          "is_correct": false,
+          "timestamp": "2026-01-02T03:30:00Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 2,
+          "error_type": "missed_pop_casters",
+          "expected_action": "pop_casters",
+          "actual_action": "move_forward",
+          "timestamp": "2026-01-02T03:30:00Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_5a2ecd01",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-07T13:41:51.150723Z",
+      "end_time": "2026-01-07T13:41:56.629470Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-07T13:41:53.366309Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-07T13:41:54.755593Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-07T13:41:56.623472Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    }
+  ]
+}"""
+Test Data Generator for User Progress
+Generates realistic wheelchair skills training data
+"""
+
+import json
+import os
+import random
+import uuid
+from datetime import datetime, timedelta, timezone
+
+# Skill tanımları
+SKILLS = {
+    "a01_10m_forward": {
+        "name": "Rolls forwards 10m",
+        "steps": [
+            {"step":  1, "action": "move_forward"},
+            {"step": 2, "action": "move_forward"},
+            {"step": 3, "action":  "brake"}
+        ],
+        "difficulty": "easy",
+        "success_rate_base": 0.85
+    },
+    "a02_2m_backward": {
+        "name": "Rolls backwards 2m",
+        "steps": [
+            {"step":  1, "action": "move_backward"},
+            {"step": 2, "action": "move_backward"},
+            {"step": 3, "action": "brake"}
+        ],
+        "difficulty": "easy",
+        "success_rate_base": 0.80
+    },
+    "a03_5m_backward": {
+        "name": "Rolls backwards 5m",
+        "steps":  [
+            {"step": 1, "action": "move_backward"},
+            {"step": 2, "action": "move_backward"},
+            {"step": 3, "action": "brake"}
+        ],
+        "difficulty":  "easy",
+        "success_rate_base": 0.75
+    },
+    "a04_turn_backward_90": {
+        "name": "Turns while moving backwards 90deg",
+        "steps": [
+            {"step": 1, "action": "move_backward"},
+            {"step": 2, "action": "turn_left"},
+            {"step": 3, "action": "move_backward"},
+            {"step": 4, "action": "brake"}
+        ],
+        "difficulty":  "medium",
+        "success_rate_base": 0.60
+    },
+    "a05_turn_in_place_180":  {
+        "name": "Turns in place 180deg",
+        "steps": [
+            {"step": 1, "action": "turn_left"},
+            {"step": 2, "action": "turn_left"},
+            {"step": 3, "action": "brake"}
+        ],
+        "difficulty": "medium",
+        "success_rate_base": 0.70
+    },
+    "a06_sideways_maneuver":  {
+        "name": "Maneuvers sideways 0.5m",
+        "steps": [
+            {"step":  1, "action": "turn_right"},
+            {"step": 2, "action": "move_forward"},
+            {"step": 3, "action": "turn_left"},
+            {"step": 4, "action": "move_forward"}
+        ],
+        "difficulty": "hard",
+        "success_rate_base":  0.45
+    },
+    "a17_ascend_10deg": {
+        "name": "Ascends 10deg incline",
+        "steps": [
+            {"step": 1, "action": "move_forward"},
+            {"step": 2, "action": "move_forward"},
+            {"step": 3, "action": "brake"}
+        ],
+        "difficulty": "medium",
+        "success_rate_base":  0.65
+    },
+    "a18_descend_10deg":  {
+        "name": "Descends 10deg incline",
+        "steps": [
+            {"step": 1, "action": "move_forward"},
+            {"step": 2, "action": "brake"},
+            {"step": 3, "action": "move_forward"},
+            {"step":  4, "action": "brake"}
+        ],
+        "difficulty": "medium",
+        "success_rate_base": 0.60
+    },
+    "a21_gap_15cm": {
+        "name": "Gets over gap 15cm",
+        "steps":  [
+            {"step": 1, "action": "move_forward"},
+            {"step": 2, "action": "pop_casters"},
+            {"step": 3, "action": "move_forward"},
+            {"step": 4, "action": "brake"}
+        ],
+        "difficulty": "hard",
+        "success_rate_base":  0.50
+    },
+    "a25_curb_up_15cm": {
+        "name":  "Ascends curb 15cm",
+        "steps": [
+            {"step": 1, "action":  "move_forward"},
+            {"step":  2, "action": "pop_casters"},
+            {"step": 3, "action":  "move_forward"},
+            {"step":  4, "action": "move_forward"},
+            {"step":  5, "action": "brake"}
+        ],
+        "difficulty": "hard",
+        "success_rate_base":  0.40
+    },
+    "a26_curb_down_15cm": {
+        "name":  "Descends curb 15cm",
+        "steps":  [
+            {"step": 1, "action": "move_backward"},
+            {"step": 2, "action": "pop_casters"},
+            {"step": 3, "action": "move_backward"},
+            {"step": 4, "action":  "brake"}
+        ],
+        "difficulty": "hard",
+        "success_rate_base": 0.35
+    },
+    "a27_wheelie_30sec":  {
+        "name": "Performs stationary wheelie 30sec",
+        "steps": [
+            {"step": 1, "action": "move_backward"},
+            {"step": 2, "action": "pop_casters"},
+            {"step": 3, "action":  "brake"},
+            {"step": 4, "action": "brake"}
+        ],
+        "difficulty": "expert",
+        "success_rate_base":  0.25
+    },
+    "a28_wheelie_turn_180":  {
+        "name": "Turns in wheelie position 180deg",
+        "steps": [
+            {"step":  1, "action": "pop_casters"},
+            {"step": 2, "action":  "turn_left"},
+            {"step": 3, "action": "turn_left"},
+            {"step": 4, "action": "brake"}
+        ],
+        "difficulty":  "expert",
+        "success_rate_base": 0.20
+    }
+}
+
+# Kullanıcı profilleri
+USERS = {
+    "user_beginner_01": {"skill_level": 0.3, "name":  "Beginner Ali"},
+    "user_beginner_02": {"skill_level": 0.4, "name": "Beginner Ayse"},
+    "user_intermediate_01":  {"skill_level":  0.6, "name": "Intermediate Mehmet"},
+    "user_intermediate_02": {"skill_level": 0.7, "name": "Intermediate Zeynep"},
+    "user_advanced_01": {"skill_level": 0.9, "name": "Advanced Can"}
+}
+
+# Yaygın hata türleri
+ERROR_TYPES = {
+    "wrong_input": 0.4,
+    "wrong_direction": 0.25,
+    "stopped_instead_of_moving":  0.15,
+    "moved_instead_of_stopping": 0.1,
+    "missed_pop_casters": 0.1
+}
+
+# Action karışıklıkları (hangi action yerine ne yapılıyor)
+ACTION_CONFUSIONS = {
+    "move_forward":  ["move_backward", "turn_left", "turn_right", "brake"],
+    "move_backward": ["move_forward", "turn_left", "turn_right", "brake"],
+    "turn_left": ["turn_right", "move_forward"],
+    "turn_right": ["turn_left", "move_forward"],
+    "brake": ["move_forward", "move_backward"],
+    "pop_casters": ["move_forward", "brake", "move_backward"]
+}
+
+
+def get_timestamp(base_time, offset_minutes):
+    """ISO 8601 timestamp üret"""
+    dt = base_time + timedelta(minutes=offset_minutes)
+    return dt.isoformat().replace("+00:00", "Z")
+
+
+def generate_attempt_id():
+    """Benzersiz attempt ID üret"""
+    return f"att_{uuid.uuid4().hex[:8]}"
+
+
+def should_succeed(skill_id, user_skill_level):
+    """Kullanıcının bu skill'de başarılı olup olmayacağını belirle"""
+    skill = SKILLS[skill_id]
+    base_rate = skill["success_rate_base"]
+    
+    # Kullanıcı seviyesine göre ayarla
+    adjusted_rate = base_rate * (0.5 + user_skill_level * 0.5)
+    
+    return random.random() < adjusted_rate
+
+
+def get_wrong_action(expected_action):
+    """Yanlış action seç"""
+    options = ACTION_CONFUSIONS. get(expected_action, ["brake"])
+    return random.choice(options)
+
+
+def get_error_type(expected_action, actual_action):
+    """Hata tipini belirle"""
+    if expected_action in ["move_forward", "move_backward"] and actual_action == "brake":
+        return "stopped_instead_of_moving"
+    if expected_action == "brake" and actual_action in ["move_forward", "move_backward"]:
+        return "moved_instead_of_stopping"
+    if expected_action == "pop_casters" and actual_action != "pop_casters": 
+        return "missed_pop_casters"
+    if expected_action in ["move_forward", "move_backward"] and actual_action in ["move_forward", "move_backward"]:
+        return "wrong_direction"
+    return "wrong_input"
+
+
+def generate_attempt(user_id, skill_id, base_time, attempt_offset):
+    """Tek bir attempt üret"""
+    user = USERS[user_id]
+    skill = SKILLS[skill_id]
+    
+    attempt_id = generate_attempt_id()
+    start_time = get_timestamp(base_time, attempt_offset)
+    
+    step_inputs = []
+    step_errors = []
+    success = True
+    failed_step = None
+    
+    # Başarılı olacak mı?
+    will_succeed = should_succeed(skill_id, user["skill_level"])
+    
+    if not will_succeed: 
+        # Hangi step'te fail olacak?  (Zor step'lerde daha olası)
+        fail_weights = []
+        for i, step in enumerate(skill["steps"]):
+            # pop_casters ve turn action'ları daha zor
+            if step["action"] == "pop_casters":
+                fail_weights.append(3)
+            elif step["action"] in ["turn_left", "turn_right"]: 
+                fail_weights.append(2)
+            else: 
+                fail_weights. append(1)
+        
+        total_weight = sum(fail_weights)
+        fail_probs = [w / total_weight for w in fail_weights]
+        failed_step = random. choices(range(len(skill["steps"])), weights=fail_probs)[0]
+    
+    current_time_offset = attempt_offset
+    
+    for i, step in enumerate(skill["steps"]):
+        current_time_offset += random.randint(1, 3)  # 1-3 saniye arasında
+        
+        expected_action = step["action"]
+        
+        if failed_step is not None and i == failed_step: 
+            # Bu step'te hata yap
+            actual_action = get_wrong_action(expected_action)
+            error_type = get_error_type(expected_action, actual_action)
+            
+            step_inputs.append({
+                "step_number": step["step"],
+                "expected_input": expected_action,
+                "actual_input":  actual_action,
+                "is_correct": False,
+                "timestamp": get_timestamp(base_time, current_time_offset)
+            })
+            
+            step_errors. append({
+                "step_number": step["step"],
+                "error_type":  error_type,
+                "expected_action": expected_action,
+                "actual_action": actual_action,
+                "timestamp": get_timestamp(base_time, current_time_offset)
+            })
+            
+            success = False
+            break  # Hata sonrası attempt biter
+        else:
+            # Doğru yap
+            step_inputs.append({
+                "step_number": step["step"],
+                "expected_input": expected_action,
+                "actual_input": expected_action,
+                "is_correct":  True,
+                "timestamp": get_timestamp(base_time, current_time_offset)
+            })
+    
+    end_time = get_timestamp(base_time, current_time_offset + 1)
+    
+    return {
+        "attempt_id": attempt_id,
+        "user_id": user_id,
+        "skill_id": skill_id,
+        "start_time":  start_time,
+        "end_time": end_time,
+        "step_inputs": step_inputs,
+        "step_errors": step_errors,
+        "success": success
+    }
+
+
+def calculate_skill_progress(attempts):
+    """Kullanıcının skill progress'ini hesapla"""
+    skill_progress = {}
+    
+    for attempt in attempts:
+        skill_id = attempt["skill_id"]
+        
+        if skill_id not in skill_progress:
+            skill_progress[skill_id] = {
+                "skill_id": skill_id,
+                "attempts":  0,
+                "successful_attempts": 0,
+                "success_rate": 0.0,
+                "step_errors": {},
+                "last_attempt":  None
+            }
+        
+        progress = skill_progress[skill_id]
+        progress["attempts"] += 1
+        
+        if attempt["success"]: 
+            progress["successful_attempts"] += 1
+        
+        progress["success_rate"] = progress["successful_attempts"] / progress["attempts"]
+        progress["last_attempt"] = attempt["end_time"]
+        
+        # Step errors ekle
+        for error in attempt["step_errors"]:
+            step_key = str(error["step_number"])
+            if step_key not in progress["step_errors"]:
+                progress["step_errors"][step_key] = []
+            progress["step_errors"][step_key].append({
+                "error_type": error["error_type"],
+                "expected_action": error["expected_action"],
+                "actual_action": error["actual_action"],
+                "timestamp":  error["timestamp"]
+            })
+    
+    return skill_progress
+
+
+def generate_test_data(num_attempts=100):
+    """Tam test verisi üret"""
+    base_time = datetime(2026, 1, 1, 10, 0, 0, tzinfo=timezone. utc)
+    
+    users_data = {}
+    all_attempts = []
+    
+    # Kullanıcıları oluştur
+    for user_id, user_info in USERS.items():
+        phase = "Foundation"
+        if user_info["skill_level"] >= 0.8:
+            phase = "Advanced"
+        elif user_info["skill_level"] >= 0.5:
+            phase = "Mobility"
+        
+        users_data[user_id] = {
+            "user_id": user_id,
+            "current_phase": phase,
+            "skill_progress": {},
+            "sessions": [],
+            "created_at": get_timestamp(base_time, 0),
+            "updated_at": None
+        }
+    
+    # Attempt'leri üret
+    attempt_offset = 0
+    skill_ids = list(SKILLS.keys())
+    user_ids = list(USERS.keys())
+    
+    for i in range(num_attempts):
+        # Rastgele kullanıcı ve skill seç
+        user_id = random.choice(user_ids)
+        
+        # Kullanıcı seviyesine göre skill seç
+        user_level = USERS[user_id]["skill_level"]
+        
+        if user_level < 0.5:
+            # Beginner:  kolay skill'ler
+            available_skills = [s for s, info in SKILLS.items() if info["difficulty"] in ["easy", "medium"]]
+        elif user_level < 0.8:
+            # Intermediate: tüm skill'ler
+            available_skills = skill_ids
+        else:
+            # Advanced: zor skill'lere ağırlık
+            weights = [3 if SKILLS[s]["difficulty"] in ["hard", "expert"] else 1 for s in skill_ids]
+            skill_id = random.choices(skill_ids, weights=weights)[0]
+            available_skills = [skill_id]
+        
+        if len(available_skills) > 1:
+            skill_id = random.choice(available_skills)
+        else:
+            skill_id = available_skills[0]
+        
+        attempt = generate_attempt(user_id, skill_id, base_time, attempt_offset)
+        all_attempts.append(attempt)
+        
+        attempt_offset += random.randint(5, 15)  # 5-15 dakika arasında
+    
+    # Her kullanıcı için skill progress hesapla
+    for user_id in users_data:
+        user_attempts = [a for a in all_attempts if a["user_id"] == user_id]
+        users_data[user_id]["skill_progress"] = calculate_skill_progress(user_attempts)
+        
+        if user_attempts:
+            users_data[user_id]["updated_at"] = max(a["end_time"] for a in user_attempts)
+    
+    return {
+        "users": users_data,
+        "attempts": all_attempts
+    }
+
+
+def main():
+    """Ana fonksiyon"""
+    print("=" * 60)
+    print("  WHEELCHAIR SKILLS TEST DATA GENERATOR")
+    print("=" * 60)
+    print()
+    
+    # 100 attempt üret
+    data = generate_test_data(num_attempts=100)
+    
+    # İstatistikleri göster
+    print(f"Generated Data Statistics:")
+    print(f"   Users: {len(data['users'])}")
+    print(f"   Attempts:  {len(data['attempts'])}")
+    print()
+    
+    # Skill bazlı istatistikler
+    skill_stats = {}
+    for attempt in data["attempts"]:
+        skill_id = attempt["skill_id"]
+        if skill_id not in skill_stats:
+            skill_stats[skill_id] = {"total":  0, "success":  0, "errors": 0}
+        skill_stats[skill_id]["total"] += 1
+        if attempt["success"]: 
+            skill_stats[skill_id]["success"] += 1
+        skill_stats[skill_id]["errors"] += len(attempt["step_errors"])
+    
+    print("Skill Statistics:")
+    for skill_id, stats in sorted(skill_stats. items(), key=lambda x:  x[1]["total"], reverse=True):
+        success_rate = (stats["success"] / stats["total"] * 100) if stats["total"] > 0 else 0
+        print(f"   {skill_id}: {stats['total']} attempts, {success_rate:.0f}% success, {stats['errors']} errors")
+    print()
+    
+    # Kullanıcı bazlı istatistikler
+    print("User Statistics:")
+    for user_id, user_data in data["users"].items():
+        user_attempts = [a for a in data["attempts"] if a["user_id"] == user_id]
+        success_count = sum(1 for a in user_attempts if a["success"])
+        success_rate = (success_count / len(user_attempts) * 100) if user_attempts else 0
+        print(f"   {user_id}: {len(user_attempts)} attempts, {success_rate:.0f}% success, Phase: {user_data['current_phase']}")
+    print()
+    
+    # Dosyaya kaydet
+    output_path = os.path.join(os. path.dirname(__file__), "..", "data", "user_progress.json")
+    
+    # Backup mevcut dosyayı
+    if os.path.exists(output_path):
+        backup_path = output_path. replace(".json", "_backup.json")
+        os.rename(output_path, backup_path)
+        print(f"Backed up existing file to: {backup_path}")
+    
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    
+    print(f"Data saved to: {output_path}")
+    print()
+    print("=" * 60)
+
+
+if __name__ == "__main__": 
+    main()
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UI;
+using TMPro;
+
+public class TrainingPlanManager : MonoBehaviour
+{
+    [Header("Backend Settings")]
+    public string backendBaseUrl = "http://localhost:8000";
+    public string userId = "sefa001";
+
+    [Header("UI References - Buttons")]
+    public Button generatePlanButton;
+    public Button viewGlobalStatsButton;
+    public Button clearProgressButton;
+    public Button closePanelButton;
+
+    [Header("UI References - Panel")]
+    public GameObject trainingPlanPanel;
+    public TextMeshProUGUI panelTitleText;
+    public TextMeshProUGUI planContentText;
+
+    [Header("UI References - Loading")]
+    public GameObject loadingIndicator;
+
+    private void Start()
+    {
+        SetupEventListeners();
+        
+        // Hide panel initially
+        if (trainingPlanPanel != null)
+        {
+            trainingPlanPanel.SetActive(false);
+        }
+        
+        // Hide loading indicator initially
+        if (loadingIndicator != null)
+        {
+            loadingIndicator.SetActive(false);
+        }
+    }
+
+    private void SetupEventListeners()
+    {
+        if (generatePlanButton != null)
+        {
+            generatePlanButton.onClick.AddListener(OnGeneratePlanClicked);
+        }
+
+        if (viewGlobalStatsButton != null)
+        {
+            viewGlobalStatsButton.onClick.AddListener(OnViewGlobalStatsClicked);
+        }
+
+        if (clearProgressButton != null)
+        {
+            clearProgressButton.onClick.AddListener(OnClearProgressClicked);
+        }
+
+        if (closePanelButton != null)
+        {
+            closePanelButton.onClick.AddListener(OnClosePanelClicked);
+        }
+    }
+
+    private void OnGeneratePlanClicked()
+    {
+        StartCoroutine(GenerateTrainingPlan());
+    }
+
+    private void OnViewGlobalStatsClicked()
+    {
+        StartCoroutine(ViewGlobalStats());
+    }
+
+    private void OnClearProgressClicked()
+    {
+        StartCoroutine(ClearProgress());
+    }
+
+    private void OnClosePanelClicked()
+    {
+        if (trainingPlanPanel != null)
+        {
+            trainingPlanPanel.SetActive(false);
+        }
+    }
+
+    private IEnumerator GenerateTrainingPlan()
+    {
+        ShowLoading(true);
+        
+        string url = backendBaseUrl + "/user/" + userId + "/generate-plan";
+        const string emptyJsonBody = "{}";
+        
+        using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
+        {
+            request.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(emptyJsonBody));
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+            
+            yield return request.SendWebRequest();
+            
+            ShowLoading(false);
+            
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                try
+                {
+                    TrainingPlanResponse response = JsonUtility.FromJson<TrainingPlanResponse>(request.downloadHandler.text);
+                    DisplayTrainingPlan(response);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"Failed to parse training plan response: {e.Message}");
+                    ShowError("Failed to parse training plan data.");
+                }
+            }
+            else
+            {
+                Debug.LogError($"Failed to generate training plan: {request.error}");
+                ShowError($"Failed to generate training plan: {request.error}");
+            }
+        }
+    }
+
+    private IEnumerator ViewGlobalStats()
+    {
+        ShowLoading(true);
+        
+        string url = backendBaseUrl + "/analytics/global-errors";
+        
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        {
+            yield return request.SendWebRequest();
+            
+            ShowLoading(false);
+            
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                try
+                {
+                    GlobalErrorStats response = JsonUtility.FromJson<GlobalErrorStats>(request.downloadHandler.text);
+                    DisplayGlobalStats(response);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"Failed to parse global stats response: {e.Message}");
+                    ShowError("Failed to parse global stats data.");
+                }
+            }
+            else
+            {
+                Debug.LogError($"Failed to view global stats: {request.error}");
+                ShowError($"Failed to view global stats: {request.error}");
+            }
+        }
+    }
+
+    private IEnumerator ClearProgress()
+    {
+        ShowLoading(true);
+        
+        string url = backendBaseUrl + "/user/" + userId + "/clear-progress";
+        
+        using (UnityWebRequest request = UnityWebRequest.Delete(url))
+        {
+            yield return request.SendWebRequest();
+            
+            ShowLoading(false);
+            
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                ShowMessage("Progress Cleared", "Your training progress has been cleared successfully.");
+            }
+            else
+            {
+                Debug.LogError($"Failed to clear progress: {request.error}");
+                ShowError($"Failed to clear progress: {request.error}");
+            }
+        }
+    }
+
+    private void DisplayTrainingPlan(TrainingPlanResponse plan)
+    {
+        if (trainingPlanPanel != null)
+        {
+            trainingPlanPanel.SetActive(true);
+        }
+
+        if (panelTitleText != null)
+        {
+            panelTitleText.text = "Training Plan";
+        }
+
+        StringBuilder content = new StringBuilder();
+        
+        // Header
+        content.AppendLine("═══════════════════════════════════════");
+        content.AppendLine($"  👤 User: {plan.user_id}");
+        content.AppendLine($"  📊 Phase: {plan.current_phase}");
+        content.AppendLine($"  🕐 Generated: {FormatTimestamp(plan.generated_at)}");
+        content.AppendLine("═══════════════════════════════════════");
+        content.AppendLine();
+
+        // Recommended Skills
+        if (plan.recommended_skills != null && plan.recommended_skills.Length > 0)
+        {
+            content.AppendLine("🎯 RECOMMENDED SKILLS TO PRACTICE");
+            content.AppendLine("───────────────────────────────────────");
+            foreach (var skill in plan.recommended_skills)
+            {
+                content.AppendLine($"  🔴 {skill.skill_name}");
+                content.AppendLine($"      Reason: {skill.reason}");
+                content.AppendLine($"      Attempts: {skill.attempts} | Success Rate: {(skill.success_rate * 100):F0}%");
+                content.AppendLine();
+            }
+        }
+
+        // Focus Skills
+        if (plan.focus_skills != null && plan.focus_skills.Length > 0)
+        {
+            content.AppendLine("⚠️ SKILLS NEEDING IMPROVEMENT");
+            content.AppendLine("───────────────────────────────────────");
+            foreach (var skill in plan.focus_skills)
+            {
+                content.AppendLine($"  ❌ {skill.skill_id}");
+                content.AppendLine($"      Total Errors: {skill.total_errors}");
+                
+                if (skill.error_types != null && skill.error_types.Length > 0)
+                {
+                    content.AppendLine($"      Error Types: {string.Join(", ", skill.error_types)}");
+                }
+                content.AppendLine();
+            }
+        }
+
+        // Common Errors
+        if (plan.your_common_errors != null && plan.your_common_errors.Length > 0)
+        {
+            content.AppendLine("🔍 YOUR COMMON MISTAKES");
+            content.AppendLine("───────────────────────────────────────");
+            foreach (var error in plan.your_common_errors)
+            {
+                content.AppendLine($"  • Step {error.step_number} in {error.skill_id}");
+                content.AppendLine($"    Expected: {error.expected_action} → You did: {error.actual_action}");
+                content.AppendLine($"    Occurrences: {error.occurrences}x");
+                content.AppendLine();
+            }
+        }
+
+        // Skill Comparisons
+        if (plan.skill_comparisons != null && plan.skill_comparisons.Length > 0)
+        {
+            content.AppendLine("📈 YOUR PERFORMANCE VS OTHERS");
+            content.AppendLine("───────────────────────────────────────");
+            foreach (var comparison in plan.skill_comparisons)
+            {
+                string indicator = comparison.your_success_rate >= comparison.global_avg_success_rate ? "⬆️" : "⬇️";
+                string performance = comparison.your_success_rate >= comparison.global_avg_success_rate ? "Above Average" : "Below Average";
+                
+                content.AppendLine($"  {indicator} {comparison.skill_id}");
+                content.AppendLine($"      You: {(comparison.your_success_rate * 100):F0}% | Global: {(comparison.global_avg_success_rate * 100):F0}% ({performance})");
+                content.AppendLine();
+            }
+        }
+
+        // Session Goals
+        if (plan.session_goals != null && plan.session_goals.Length > 0)
+        {
+            content.AppendLine("🎯 SESSION GOALS");
+            content.AppendLine("───────────────────────────────────────");
+            foreach (var goal in plan.session_goals)
+            {
+                content.AppendLine($"  • {goal}");
+            }
+            content.AppendLine();
+        }
+
+        // Notes
+        if (plan.notes != null && plan.notes.Length > 0)
+        {
+            content.AppendLine("📝 NOTES");
+            content.AppendLine("───────────────────────────────────────");
+            foreach (var note in plan.notes)
+            {
+                content.AppendLine($"  • {note}");
+            }
+        }
+
+        if (planContentText != null)
+        {
+            planContentText.text = content.ToString();
+        }
+    }
+
+    private void DisplayGlobalStats(GlobalErrorStats stats)
+    {
+        if (trainingPlanPanel != null)
+        {
+            trainingPlanPanel.SetActive(true);
+        }
+
+        if (panelTitleText != null)
+        {
+            panelTitleText.text = "Global Error Statistics";
+        }
+
+        StringBuilder content = new StringBuilder();
+        
+        // Header
+        content.AppendLine("═══════════════════════════════════════");
+        content.AppendLine($"  📊 Total Attempts: {stats.total_attempts}");
+        content.AppendLine($"  👥 Total Users: {stats.total_users}");
+        content.AppendLine("═══════════════════════════════════════");
+        content.AppendLine();
+
+        // Skill Summary
+        if (stats.skill_summary != null && stats.skill_summary.Length > 0)
+        {
+            content.AppendLine("📋 SKILL SUMMARY");
+            content.AppendLine("───────────────────────────────────────");
+            foreach (var skill in stats.skill_summary)
+            {
+                float successRate = skill.total_attempts > 0 ? (float)skill.successful_attempts / skill.total_attempts : 0;
+                content.AppendLine($"  • {skill.skill_id}");
+                content.AppendLine($"    Attempts: {skill.total_attempts} | Success Rate: {(successRate * 100):F0}%");
+                content.AppendLine($"    Errors: {skill.total_errors}");
+                content.AppendLine();
+            }
+        }
+
+        // Problematic Steps
+        if (stats.problematic_steps != null && stats.problematic_steps.Length > 0)
+        {
+            content.AppendLine("⚠️ MOST PROBLEMATIC STEPS");
+            content.AppendLine("───────────────────────────────────────");
+            foreach (var step in stats.problematic_steps)
+            {
+                content.AppendLine($"  • Step {step.step_number} in {step.skill_id}");
+                content.AppendLine($"    Error Count: {step.error_count}");
+                
+                if (step.common_error_types != null && step.common_error_types.Length > 0)
+                {
+                    content.AppendLine($"    Common Errors: {string.Join(", ", step.common_error_types)}");
+                }
+                content.AppendLine();
+            }
+        }
+
+        // Action Confusion
+        if (stats.action_confusion != null && stats.action_confusion.Length > 0)
+        {
+            content.AppendLine("🔀 COMMON ACTION CONFUSIONS");
+            content.AppendLine("───────────────────────────────────────");
+            foreach (var confusion in stats.action_confusion)
+            {
+                content.AppendLine($"  • Expected: {confusion.expected_action}");
+                content.AppendLine($"    Often confused with: {confusion.actual_action}");
+                content.AppendLine($"    Occurrences: {confusion.count}x");
+                content.AppendLine();
+            }
+        }
+
+        if (planContentText != null)
+        {
+            planContentText.text = content.ToString();
+        }
+    }
+
+    #region Helper Methods
+
+    private string FormatTimestamp(string timestamp)
+    {
+        try
+        {
+            // Try to parse ISO 8601 format
+            DateTime dt = DateTime.Parse(timestamp);
+            return dt.ToString("MMM dd, yyyy HH:mm");
+        }
+        catch
+        {
+            return timestamp;
+        }
+    }
+
+    private string GetProgressBar(float value, int length = 10)
+    {
+        int filledCount = Mathf.RoundToInt(value * length);
+        StringBuilder bar = new StringBuilder("[");
+        
+        for (int i = 0; i < length; i++)
+        {
+            bar.Append(i < filledCount ? "█" : "░");
+        }
+        
+        bar.Append("]");
+        return bar.ToString();
+    }
+
+    private void ShowLoading(bool show)
+    {
+        if (loadingIndicator != null)
+        {
+            loadingIndicator.SetActive(show);
+        }
+    }
+
+    private void ShowError(string message)
+    {
+        ShowMessage("Error", message);
+    }
+
+    private void ShowMessage(string title, string message)
+    {
+        if (trainingPlanPanel != null)
+        {
+            trainingPlanPanel.SetActive(true);
+        }
+
+        if (panelTitleText != null)
+        {
+            panelTitleText.text = title;
+        }
+
+        if (planContentText != null)
+        {
+            planContentText.text = message;
+        }
+    }
+
+    #endregion
+
+    #region JSON Response Models
+
+    [Serializable]
+    public class TrainingPlanResponse
+    {
+        public string user_id;
+        public string current_phase;
+        public string generated_at;
+        public RecommendedSkill[] recommended_skills;
+        public FocusSkill[] focus_skills;
+        public string[] session_goals;
+        public string[] notes;
+        public CommonError[] your_common_errors;
+        public SkillComparison[] skill_comparisons;
+    }
+
+    [Serializable]
+    public class RecommendedSkill
+    {
+        public string skill_name;
+        public string skill_id;
+        public string reason;
+        public int attempts;
+        public float success_rate;
+        public float priority_score;
+    }
+
+    [Serializable]
+    public class FocusSkill
+    {
+        public string skill_id;
+        public int total_errors;
+        public string[] error_types;
+    }
+
+    [Serializable]
+    public class CommonError
+    {
+        public string skill_id;
+        public int step_number;
+        public string expected_action;
+        public string actual_action;
+        public int occurrences;
+    }
+
+    [Serializable]
+    public class SkillComparison
+    {
+        public string skill_id;
+        public float your_success_rate;
+        public float global_avg_success_rate;
+    }
+
+    [Serializable]
+    public class GlobalErrorStats
+    {
+        public int total_attempts;
+        public int total_users;
+        public SkillSummary[] skill_summary;
+        public ProblematicStep[] problematic_steps;
+        public ActionConfusion[] action_confusion;
+    }
+
+    [Serializable]
+    public class SkillSummary
+    {
+        public string skill_id;
+        public int total_attempts;
+        public int successful_attempts;
+        public int total_errors;
+    }
+
+    [Serializable]
+    public class ProblematicStep
+    {
+        public string skill_id;
+        public int step_number;
+        public int error_count;
+        public string[] common_error_types;
+    }
+
+    [Serializable]
+    public class ActionConfusion
+    {
+        public string expected_action;
+        public string actual_action;
+        public int count;
+    }
+
+    #endregion
+
+    private void OnDestroy()
+    {
+        // Clean up event listeners
+        if (generatePlanButton != null)
+        {
+            generatePlanButton.onClick.RemoveListener(OnGeneratePlanClicked);
+        }
+
+        if (viewGlobalStatsButton != null)
+        {
+            viewGlobalStatsButton.onClick.RemoveListener(OnViewGlobalStatsClicked);
+        }
+
+        if (clearProgressButton != null)
+        {
+            clearProgressButton.onClick.RemoveListener(OnClearProgressClicked);
+        }
+
+        if (closePanelButton != null)
+        {
+            closePanelButton.onClick.RemoveListener(OnClosePanelClicked);
+        }
+    }
+}
+

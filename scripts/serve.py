@@ -11,6 +11,7 @@ from openai import OpenAI
 from fastapi import Body
 import re
 from typing import Optional, Literal  # Literal ekle! 
+from datetime import datetime
 
 from .user_progress import UserProgressManager
 from .skill_steps_parser import get_skill_steps, parse_all_skills, save_parsed_skills
@@ -748,5 +749,115 @@ def get_available_models():
         "default_rag_model":  OPENROUTER_RAG_MODEL,
         "openrouter_configured": openrouter_client is not None
     }
+DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "user_progress.json")
 
+@app.get("/analytics/global-errors-fixed")
+def get_global_error_stats_fixed():
+    """
+    Daha açık/uyumlu bir global istatistik endpoint'i.
+    Döndürülen skill_summary içinde artık:
+      - total_attempts
+      - successful_attempts
+      - failed_attempts
+      - success_rate  (0..1 float)
+      - failure_rate  (0..1 float)
+      - total_errors
+      - most_problematic_step
+    """
+    try:
+        with open(DATA_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to read user_progress: {e}")
+
+    attempts = data.get("attempts", [])
+    users = data.get("users", {})
+
+    # per-skill aggregates
+    skills = {}
+    problematic_steps = {}
+    action_confusion = {}
+
+    for a in attempts:
+        sid = a.get("skill_id")
+        if not sid:
+            continue
+        s = skills.setdefault(sid, {
+            "skill_id": sid,
+            "total_attempts": 0,
+            "successful_attempts": 0,
+            "failed_attempts": 0,
+            "total_errors": 0,
+            "step_error_counts": {}
+        })
+        s["total_attempts"] += 1
+        if a.get("success"):
+            s["successful_attempts"] += 1
+        else:
+            s["failed_attempts"] += 1
+
+        # step errors
+        for err in a.get("step_errors", []):
+            s["total_errors"] += 1
+            step_no = str(err.get("step_number", "0"))
+            s["step_error_counts"][step_no] = s["step_error_counts"].get(step_no, 0) + 1
+
+            # action confusion
+            expected = err.get("expected_action")
+            actual = err.get("actual_action")
+            if expected:
+                key = (expected, actual)
+                action_confusion[key] = action_confusion.get(key, 0) + 1
+
+            # problematic_steps global
+            ps_key = (sid, step_no)
+            problematic_steps[ps_key] = problematic_steps.get(ps_key, {"skill_id": sid, "step_number": int(step_no), "error_count": 0})
+            problematic_steps[ps_key]["error_count"] += 1
+
+    # build skill_summary list
+    skill_summary = []
+    for sid, s in skills.items():
+        ta = s["total_attempts"]
+        fa = s["failed_attempts"]
+        sa = s["successful_attempts"]
+        total_errors = s["total_errors"]
+        failure_rate = (fa / ta) if ta > 0 else 0.0
+        success_rate = (sa / ta) if ta > 0 else 0.0
+
+        # most problematic step
+        most_problematic_step = None
+        if s["step_error_counts"]:
+            most_problematic_step = max(s["step_error_counts"].items(), key=lambda kv: kv[1])[0]
+
+        skill_summary.append({
+            "skill_id": sid,
+            "total_attempts": ta,
+            "successful_attempts": sa,
+            "failed_attempts": fa,
+            "success_rate": round(success_rate, 3),
+            "failure_rate": round(failure_rate, 3),
+            "total_errors": total_errors,
+            "most_problematic_step": most_problematic_step
+        })
+
+    # build problematic_steps list (sorted)
+    problematic_steps_list = sorted(
+        [{"skill_id": k[0], "step_number": v["step_number"], "error_count": v["error_count"]} for k, v in problematic_steps.items()],
+        key=lambda x: x["error_count"], reverse=True
+    )
+
+    # action confusion list
+    action_confusion_list = sorted(
+        [{"expected": k[0], "actual": k[1], "count": v, "description": f"Users press {k[1]} instead of {k[0]}"} for k, v in action_confusion.items()],
+        key=lambda x: x["count"], reverse=True
+    )
+
+    return {
+        "total_attempts": len(attempts),
+        "total_users": len(users),
+        "skill_summary": sorted(skill_summary, key=lambda x: x["total_attempts"], reverse=True),
+        "problematic_steps": problematic_steps_list,
+        "action_confusion": action_confusion_list,
+        "generated_at": datetime.utcnow().isoformat() + "Z"
+    }
 

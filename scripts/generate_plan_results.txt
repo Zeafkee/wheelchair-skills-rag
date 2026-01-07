@@ -1,81 +1,94 @@
 ═══════════════════════════════════════
-  👤 User: sefa001
-  📊 Phase: Foundation
-  🕐 Generated: Oca 07, 2026 15:36
+  👤 User: user_intermediate_02
+  📊 Phase: Mobility
+  🕐 Generated: Oca 07, 2026 17:12
 ═══════════════════════════════════════
 
 ⚠ SKILLS NEEDING IMPROVEMENT
 ───────────────────────────────────────
-  ❌ a26_15cm_climb_up
-      Total Errors: 4
+  ❌ a02_2m_backward
+      Total Errors: 2
+      Error Types: moved_instead_of_stopping, wrong_input
+
+  ❌ a17_ascend_10deg
+      Total Errors: 2
       Error Types: wrong_input, stopped_instead_of_moving
+
+  ❌ a28_wheelie_turn_180
+      Total Errors: 1
+      Error Types: wrong_input
 
 🔍 YOUR COMMON MISTAKES
 ───────────────────────────────────────
-  • Step 1 in a26_15cm_climb_up
+  • Step 3 in a28_wheelie_turn_180
+    Expected: turn_left → You did: move_forward
+    Occurrences: 0x
+
+  • Step 3 in a02_2m_backward
+    Expected: brake → You did: move_backward
+    Occurrences: 0x
+
+  • Step 2 in a02_2m_backward
+    Expected: move_backward → You did: turn_left
+    Occurrences: 0x
+
+  • Step 1 in a05_turn_in_place_180
+    Expected: turn_left → You did: move_forward
+    Occurrences: 0x
+
+  • Step 1 in a17_ascend_10deg
     Expected: move_forward → You did: turn_left
     Occurrences: 0x
 
-  • Step 3 in a26_15cm_climb_up
+  • Step 2 in a17_ascend_10deg
     Expected: move_forward → You did: brake
+    Occurrences: 0x
+
+  • Step 1 in a04_turn_backward_90
+    Expected: move_backward → You did: brake
+    Occurrences: 0x
+
+  • Step 1 in a27_wheelie_30sec
+    Expected: move_backward → You did: move_forward
+    Occurrences: 0x
+
+  • Step 1 in a03_5m_backward
+    Expected: move_backward → You did: move_forward
     Occurrences: 0x
 
 📈 YOUR PERFORMANCE VS OTHERS
 ───────────────────────────────────────
-  ⬆ a03_5m_backward
+  ⬆ a28_wheelie_turn_180
+      You: 0% | Global: 0% (Above Average)
+
+  ⬆ a02_2m_backward
+      You: 33% | Global: 0% (Above Average)
+
+  ⬆ a26_curb_down_15cm
       You: 100% | Global: 0% (Above Average)
 
-  ⬆ a01_10m_forward
-      You: 83% | Global: 0% (Above Average)
+  ⬆ a05_turn_in_place_180
+      You: 67% | Global: 0% (Above Average)
 
-  ⬆ a26_15cm_climb_up
+  ⬆ a17_ascend_10deg
+      You: 60% | Global: 0% (Above Average)
+
+  ⬆ a04_turn_backward_90
       You: 0% | Global: 0% (Above Average)
+
+  ⬆ a18_descend_10deg
+      You: 100% | Global: 0% (Above Average)
+
+  ⬆ a27_wheelie_30sec
+      You: 0% | Global: 0% (Above Average)
+
+  ⬆ a03_5m_backward
+      You: 0% | Global: 0% (Above Average)
+
+  ⬆ a06_sideways_maneuver
+      You: 100% | Global: 0% (Above Average)
 
 📝 NOTES
 ───────────────────────────────────────
-  • Dikkat: 'a26_15cm_climb_up' becerisinde sık hata yapılıyor
-  • Temel hareketlere odaklanın: ileri, geri, dönüş
- 
-══════════════════════════════════════════════════════════════════════════════
- GLOBAL ERROR STATICS
-═══════════════════════════════════════
-  📊 Total Attempts: 14
-  👥 Total Users: 1
-═══════════════════════════════════════
-
-📋 SKILL SUMMARY
-───────────────────────────────────────
-  • a26_15cm_climb_up
-    Attempts: 4 | Success Rate: 0%
-    Errors: 4
-
-  • a01_10m_forward
-    Attempts: 6 | Success Rate: 0%
-    Errors: 0
-
-  • a03_5m_backward
-    Attempts: 4 | Success Rate: 0%
-    Errors: 0
-
-⚠ MOST PROBLEMATIC STEPS
-───────────────────────────────────────
-  • Step 1 in a26_15cm_climb_up
-    Error Count: 3
-
-  • Step 3 in a26_15cm_climb_up
-    Error Count: 1
-
-🔀 COMMON ACTION CONFUSIONS
-───────────────────────────────────────
-  • Expected: 
-    Often confused with: 
-    Occurrences: 2x
-
-  • Expected: 
-    Often confused with: 
-    Occurrences: 1x
-
-  • Expected: 
-    Often confused with: 
-    Occurrences: 1x
-
+  • Dikkat: 'a02_2m_backward' becerisinde sık hata yapılıyor
+  • Arazi becerileri ve engellerle çalışın
