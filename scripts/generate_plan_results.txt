@@ -1,0 +1,81 @@
+═══════════════════════════════════════
+  👤 User: sefa001
+  📊 Phase: Foundation
+  🕐 Generated: Oca 07, 2026 15:36
+═══════════════════════════════════════
+
+⚠ SKILLS NEEDING IMPROVEMENT
+───────────────────────────────────────
+  ❌ a26_15cm_climb_up
+      Total Errors: 4
+      Error Types: wrong_input, stopped_instead_of_moving
+
+🔍 YOUR COMMON MISTAKES
+───────────────────────────────────────
+  • Step 1 in a26_15cm_climb_up
+    Expected: move_forward → You did: turn_left
+    Occurrences: 0x
+
+  • Step 3 in a26_15cm_climb_up
+    Expected: move_forward → You did: brake
+    Occurrences: 0x
+
+📈 YOUR PERFORMANCE VS OTHERS
+───────────────────────────────────────
+  ⬆ a03_5m_backward
+      You: 100% | Global: 0% (Above Average)
+
+  ⬆ a01_10m_forward
+      You: 83% | Global: 0% (Above Average)
+
+  ⬆ a26_15cm_climb_up
+      You: 0% | Global: 0% (Above Average)
+
+📝 NOTES
+───────────────────────────────────────
+  • Dikkat: 'a26_15cm_climb_up' becerisinde sık hata yapılıyor
+  • Temel hareketlere odaklanın: ileri, geri, dönüş
+ 
+══════════════════════════════════════════════════════════════════════════════
+ GLOBAL ERROR STATICS
+═══════════════════════════════════════
+  📊 Total Attempts: 14
+  👥 Total Users: 1
+═══════════════════════════════════════
+
+📋 SKILL SUMMARY
+───────────────────────────────────────
+  • a26_15cm_climb_up
+    Attempts: 4 | Success Rate: 0%
+    Errors: 4
+
+  • a01_10m_forward
+    Attempts: 6 | Success Rate: 0%
+    Errors: 0
+
+  • a03_5m_backward
+    Attempts: 4 | Success Rate: 0%
+    Errors: 0
+
+⚠ MOST PROBLEMATIC STEPS
+───────────────────────────────────────
+  • Step 1 in a26_15cm_climb_up
+    Error Count: 3
+
+  • Step 3 in a26_15cm_climb_up
+    Error Count: 1
+
+🔀 COMMON ACTION CONFUSIONS
+───────────────────────────────────────
+  • Expected: 
+    Often confused with: 
+    Occurrences: 2x
+
+  • Expected: 
+    Often confused with: 
+    Occurrences: 1x
+
+  • Expected: 
+    Often confused with: 
+    Occurrences: 1x
+

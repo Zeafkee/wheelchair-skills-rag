@@ -1,0 +1,492 @@
+{
+  "users": {
+    "sefa001": {
+      "user_id": "sefa001",
+      "current_phase": "Foundation",
+      "skill_progress": {
+        "a03_5m_backward": {
+          "skill_id": "a03_5m_backward",
+          "attempts": 4,
+          "successful_attempts": 4,
+          "success_rate": 1.0,
+          "step_errors": {},
+          "last_attempt": "2026-01-07T09:46:38.857492Z"
+        },
+        "a01_10m_forward": {
+          "skill_id": "a01_10m_forward",
+          "attempts": 6,
+          "successful_attempts": 5,
+          "success_rate": 0.8333333333333334,
+          "step_errors": {},
+          "last_attempt": "2026-01-07T09:46:05.300110Z"
+        },
+        "a26_15cm_climb_up": {
+          "skill_id": "a26_15cm_climb_up",
+          "attempts": 4,
+          "successful_attempts": 0,
+          "success_rate": 0.0,
+          "step_errors": {
+            "1": [
+              {
+                "error_type": "wrong_input",
+                "expected_action": "move_forward",
+                "actual_action": "turn_left",
+                "timestamp": "2026-01-06T23:47:11.853751Z"
+              },
+              {
+                "error_type": "wrong_input",
+                "expected_action": "move_forward",
+                "actual_action": "turn_left",
+                "timestamp": "2026-01-07T09:43:42.216920Z"
+              },
+              {
+                "error_type": "wrong_input",
+                "expected_action": "move_forward",
+                "actual_action": "pop_casters",
+                "timestamp": "2026-01-07T09:47:06.667576Z"
+              }
+            ],
+            "3": [
+              {
+                "error_type": "stopped_instead_of_moving",
+                "expected_action": "move_forward",
+                "actual_action": "brake",
+                "timestamp": "2026-01-07T09:44:21.957775Z"
+              }
+            ]
+          },
+          "last_attempt": "2026-01-07T09:47:06.674832Z"
+        }
+      },
+      "sessions": [],
+      "created_at": "2026-01-06T20:58:52.679714Z",
+      "updated_at": "2026-01-07T09:47:06.675318Z"
+    }
+  },
+  "attempts": [
+    {
+      "attempt_id": "att_db1b8422",
+      "user_id": "sefa001",
+      "skill_id": "a03_5m_backward",
+      "start_time": "2026-01-06T20:58:52.680260Z",
+      "end_time": "2026-01-06T20:59:03.857851Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-06T20:58:59.597374Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-06T20:59:02.077183Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-06T20:59:03.853655Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_5da2fd7c",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-06T20:59:19.636630Z",
+      "end_time": "2026-01-06T20:59:30.869820Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-06T20:59:21.645468Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-06T20:59:28.994405Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-06T20:59:30.866504Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_dbbe6b45",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-06T20:59:45.613946Z",
+      "end_time": "2026-01-06T20:59:47.923259Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-06T20:59:47.456831Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "turn_right",
+          "is_correct": false,
+          "timestamp": "2026-01-06T20:59:47.918100Z"
+        }
+      ],
+      "step_errors": [],
+      "success": false
+    },
+    {
+      "attempt_id": "att_41e6a630",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-06T23:46:23.426323Z",
+      "end_time": "2026-01-06T23:46:31.503776Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-06T23:46:26.563352Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-06T23:46:29.466732Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-06T23:46:31.499357Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_48b71e6b",
+      "user_id": "sefa001",
+      "skill_id": "a03_5m_backward",
+      "start_time": "2026-01-06T23:46:45.549681Z",
+      "end_time": "2026-01-06T23:46:52.379035Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-06T23:46:48.702394Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-06T23:46:51.021885Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-06T23:46:52.375695Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_141908a7",
+      "user_id": "sefa001",
+      "skill_id": "a26_15cm_climb_up",
+      "start_time": "2026-01-06T23:47:08.986764Z",
+      "end_time": "2026-01-06T23:47:11.857254Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "turn_left",
+          "is_correct": false,
+          "timestamp": "2026-01-06T23:47:11.849545Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_input",
+          "expected_action": "move_forward",
+          "actual_action": "turn_left",
+          "timestamp": "2026-01-06T23:47:11.853751Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_fc10685b",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-06T23:53:50.784455Z",
+      "end_time": "2026-01-06T23:53:55.798209Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-06T23:53:52.875304Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-06T23:53:54.316651Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-06T23:53:55.794362Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_49d909f0",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-07T09:42:46.443609Z",
+      "end_time": "2026-01-07T09:42:59.097451Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-07T09:42:55.692808Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-07T09:42:57.234616Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-07T09:42:59.092439Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_25ca1134",
+      "user_id": "sefa001",
+      "skill_id": "a03_5m_backward",
+      "start_time": "2026-01-07T09:43:17.500403Z",
+      "end_time": "2026-01-07T09:43:28.735796Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-07T09:43:25.008210Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-07T09:43:26.384670Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-07T09:43:28.728736Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_085f7790",
+      "user_id": "sefa001",
+      "skill_id": "a26_15cm_climb_up",
+      "start_time": "2026-01-07T09:43:40.857012Z",
+      "end_time": "2026-01-07T09:43:42.221648Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "turn_left",
+          "is_correct": false,
+          "timestamp": "2026-01-07T09:43:42.205825Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_input",
+          "expected_action": "move_forward",
+          "actual_action": "turn_left",
+          "timestamp": "2026-01-07T09:43:42.216920Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_e5994c99",
+      "user_id": "sefa001",
+      "skill_id": "a26_15cm_climb_up",
+      "start_time": "2026-01-07T09:44:17.683860Z",
+      "end_time": "2026-01-07T09:44:21.969205Z",
+      "step_inputs": [
+        {
+          "step_number": 3,
+          "expected_input": "move_forward",
+          "actual_input": "brake",
+          "is_correct": false,
+          "timestamp": "2026-01-07T09:44:21.946417Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 3,
+          "error_type": "stopped_instead_of_moving",
+          "expected_action": "move_forward",
+          "actual_action": "brake",
+          "timestamp": "2026-01-07T09:44:21.957775Z"
+        }
+      ],
+      "success": false
+    },
+    {
+      "attempt_id": "att_5fff27ae",
+      "user_id": "sefa001",
+      "skill_id": "a01_10m_forward",
+      "start_time": "2026-01-07T09:45:54.501693Z",
+      "end_time": "2026-01-07T09:46:05.300110Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-07T09:46:00.886635Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-07T09:46:02.350536Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-07T09:46:05.292530Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_f29f8c09",
+      "user_id": "sefa001",
+      "skill_id": "a03_5m_backward",
+      "start_time": "2026-01-07T09:46:26.442329Z",
+      "end_time": "2026-01-07T09:46:38.857492Z",
+      "step_inputs": [
+        {
+          "step_number": 1,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-07T09:46:35.950855Z"
+        },
+        {
+          "step_number": 2,
+          "expected_input": "move_backward",
+          "actual_input": "move_backward",
+          "is_correct": true,
+          "timestamp": "2026-01-07T09:46:37.290254Z"
+        },
+        {
+          "step_number": 3,
+          "expected_input": "brake",
+          "actual_input": "brake",
+          "is_correct": true,
+          "timestamp": "2026-01-07T09:46:38.854684Z"
+        }
+      ],
+      "step_errors": [],
+      "success": true
+    },
+    {
+      "attempt_id": "att_f76917d1",
+      "user_id": "sefa001",
+      "skill_id": "a26_15cm_climb_up",
+      "start_time": "2026-01-07T09:47:04.059862Z",
+      "end_time": "2026-01-07T09:47:06.674832Z",
+      "step_inputs": [
+        {
+          "step_number": 3,
+          "expected_input": "move_forward",
+          "actual_input": "move_forward",
+          "is_correct": true,
+          "timestamp": "2026-01-07T09:47:04.448755Z"
+        },
+        {
+          "step_number": 1,
+          "expected_input": "move_forward",
+          "actual_input": "pop_casters",
+          "is_correct": false,
+          "timestamp": "2026-01-07T09:47:06.661283Z"
+        }
+      ],
+      "step_errors": [
+        {
+          "step_number": 1,
+          "error_type": "wrong_input",
+          "expected_action": "move_forward",
+          "actual_action": "pop_casters",
+          "timestamp": "2026-01-07T09:47:06.667576Z"
+        }
+      ],
+      "success": false
+    }
+  ]
+}

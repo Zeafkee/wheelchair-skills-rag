@@ -29,7 +29,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 # OpenRouter ayarları (YENİ)
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_BASE_URL = os. getenv("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1")
-OPENROUTER_RAG_MODEL = os.getenv("OPENROUTER_RAG_MODEL", "openai/gpt-4.1-mini")
+OPENROUTER_RAG_MODEL = os.getenv("OPENROUTER_RAG_MODEL", "openai/gpt-5-mini")
 
 # Mevcut OpenAI client (fallback ve embedding için)
 openai_client = OpenAI(api_key=OPENAI_API_KEY)
@@ -51,6 +51,10 @@ OPENROUTER_MODELS = {
     "gpt-5-mini": "openai/gpt-5-mini",
     "gemini-3-flash":  "google/gemini-3-flash-preview"
 }
+OPENROUTER_RAG_MODELS = {
+    "gpt-5-mini": "openai/gpt-5-mini",
+    "gemini-3-flash": "google/gemini-3-flash-preview"
+}
 chroma_client = chromadb.PersistentClient(path=INDEX_DIR)
 openai_ef = embedding_functions.OpenAIEmbeddingFunction(
     api_key=OPENAI_API_KEY,
@@ -65,11 +69,12 @@ collection = chroma_client.get_or_create_collection(
 
 class NoRagRequest(BaseModel):
     question: str
-    model:  Literal["gpt-4.1-mini", "gemini-3-flash"] = "gpt-4.1-mini"
+    model:  Literal["gpt-5-mini", "gemini-3-flash"] = "gpt-5-mini"
 
 class CompareRequest(BaseModel):
     question: str
     models: list[str] = ["gpt-5-mini", "gemini-3-flash"]
+    rag_models: list[str] = ["gpt-5-mini", "gemini-3-flash"]  # YENİ:  RAG için de model seç
 
 class AskRequest(BaseModel):
     question: str
@@ -111,7 +116,40 @@ SYSTEM_PROMPT = """You are a wheelchair skills coach. Use the provided context t
 - Emphasize safety & spotter use when needed
 - Warn about common errors; [...]
 """
+# ==================== No-RAG System Prompt ====================
 
+NO_RAG_SYSTEM_PROMPT = """You are a wheelchair skills coach for a VR training application. 
+
+The user will ask how to perform a wheelchair skill.  You must provide step-by-step guidance. 
+
+Available user input actions (Unity controls):
+- move_forward (W key): Push wheelchair forward
+- move_backward (S key): Push wheelchair backward
+- turn_left (A key): Turn wheelchair left
+- turn_right (D key): Turn wheelchair right
+- brake (SPACE key): Stop/hold position
+- pop_casters (X key): Lift front casters for obstacles
+
+IMPORTANT RULES:
+1. Each step must require exactly ONE physical action from the list above
+2. Do NOT include preparation steps like "position yourself" or "place your hands"
+3. Only include steps where user must press a key
+4. Keep steps between 3-5 total
+5. For turning skills, pick ONE direction (left OR right)
+
+Response format - JSON only:
+{
+  "steps": [
+    {
+      "step_number": 1,
+      "instruction": "Push forward on both handrims to start moving",
+      "expected_action": "move_forward",
+      "cue": "Even pressure on both wheels"
+    }
+  ]
+}
+
+Respond ONLY with valid JSON, no additional text."""
 def build_prompt(question: str, context_chunks: list[str]):
     context_text = "\n\n---\n\n".join(context_chunks)
     user_prompt = f"""User question: {question}
@@ -125,11 +163,15 @@ Respond with:
 """
     return user_prompt
 
-def ask_rag(question: str, filters: dict | None = None, top_k: int = 6):
+def ask_rag(question:  str, filters: dict | None = None, top_k: int = 6, model: str | None = None):
+    """
+    RAG ile soru cevapla. 
+    model: Kullanılacak model (None ise default OPENROUTER_RAG_MODEL)
+    """
     where = None
     if filters: 
         where = {}
-        for k, v in filters.items():
+        for k, v in filters. items():
             if k in ("type", "title", "level", "category", "source"):
                 where[k] = v
 
@@ -139,19 +181,22 @@ def ask_rag(question: str, filters: dict | None = None, top_k: int = 6):
         where=where
     )
 
-    docs = results. get("documents", [[]])[0]
+    docs = results.get("documents", [[]])[0]
     metas = results.get("metadatas", [[]])[0]
     ids = results.get("ids", [[]])[0]
 
     prompt = build_prompt(question, docs)
 
-    # OpenRouter varsa onu kullan, yoksa OpenAI
+    # Model seçimi
+    selected_model = model or OPENROUTER_RAG_MODEL
+    
+    # OpenRouter varsa onu kullan
     if openrouter_client:
-        chat = openrouter_client.chat.completions.create(
-            model=OPENROUTER_RAG_MODEL,  # openai/gpt-4.1-mini
+        chat = openrouter_client.chat. completions.create(
+            model=selected_model,
             messages=[
                 {"role": "system", "content":  SYSTEM_PROMPT},
-                {"role": "user", "content":  prompt}
+                {"role":  "user", "content": prompt}
             ],
             temperature=0.2,
             extra_headers={
@@ -164,7 +209,7 @@ def ask_rag(question: str, filters: dict | None = None, top_k: int = 6):
         chat = openai_client.chat.completions.create(
             model=LLM_MODEL,
             messages=[
-                {"role":  "system", "content": SYSTEM_PROMPT},
+                {"role": "system", "content":  SYSTEM_PROMPT},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.2
@@ -173,15 +218,15 @@ def ask_rag(question: str, filters: dict | None = None, top_k: int = 6):
     answer = chat.choices[0].message.content
 
     citations = [
-        {"id": _id, "title": meta. get("title"), "type": meta.get("type")}
+        {"id": _id, "title": meta.get("title"), "type": meta.get("type")}
         for _id, meta in zip(ids, metas)
     ]
 
     return {
         "answer": answer,
-        "citations": citations,
+        "citations":  citations,
         "used_filters": where or {},
-        "model_used":  OPENROUTER_RAG_MODEL if openrouter_client else LLM_MODEL
+        "model_used": selected_model if openrouter_client else LLM_MODEL
     }
 
 @app.post("/ask")
@@ -579,44 +624,51 @@ Remember: Only physical action steps, 3-5 steps total."""
 
 
 @app.post("/ask/practice/compare")
-def compare_rag_vs_no_rag(req: CompareRequest, response: Response):
+def compare_rag_vs_no_rag(req: CompareRequest, response:  Response):
     """
     RAG ve No-RAG sonuçlarını karşılaştır.
+    Artık RAG için de birden fazla model test edilebilir. 
     """
     results = {}
     
-    # 1. RAG ile (mevcut sistem - artık OpenRouter üzerinden gpt-4.1-mini)
-    try:
-        rag_result = ask_rag(req.question)
-        rag_steps = extract_numbered_steps(rag_result["answer"])
-        
-        skill_id = None
-        for c in rag_result. get("citations", []):
-            if c["type"] in ("skill", "test_suite"):
-                skill_id = c["id"]
-                break
-        
-        skill_json = load_skill_from_test_suite(skill_id) if skill_id else {}
-        final_rag_steps = map_steps_to_skill(rag_steps, skill_json)
-        
-        results["rag"] = {
-            "model": rag_result. get("model_used", OPENROUTER_RAG_MODEL),
-            "rag_used": True,
-            "skill_id": skill_id,
-            "steps": final_rag_steps,
-            "step_count": len(final_rag_steps)
-        }
-    except Exception as e: 
-        results["rag"] = {"error": str(e)}
-    
-    # 2-3. No-RAG modelleri
-    for model_key in req.models:
-        if model_key not in OPENROUTER_MODELS: 
-            results[model_key] = {"error": f"Unknown model: {model_key}"}
+    # 1. RAG modelleri
+    for rag_model_key in req.rag_models:
+        rag_model_name = OPENROUTER_RAG_MODELS.get(rag_model_key)
+        if not rag_model_name:
+            results[f"rag-{rag_model_key}"] = {"error": f"Unknown RAG model: {rag_model_key}"}
             continue
             
-        if not openrouter_client:
-            results[model_key] = {"error": "OpenRouter not configured"}
+        try:
+            rag_result = ask_rag(req.question, model=rag_model_name)
+            rag_steps = extract_numbered_steps(rag_result["answer"])
+            
+            skill_id = None
+            for c in rag_result. get("citations", []):
+                if c["type"] in ("skill", "test_suite"):
+                    skill_id = c["id"]
+                    break
+            
+            skill_json = load_skill_from_test_suite(skill_id) if skill_id else {}
+            final_rag_steps = map_steps_to_skill(rag_steps, skill_json)
+            
+            results[f"rag-{rag_model_key}"] = {
+                "model": rag_model_name,
+                "rag_used": True,
+                "skill_id": skill_id,
+                "steps": final_rag_steps,
+                "step_count": len(final_rag_steps)
+            }
+        except Exception as e:
+            results[f"rag-{rag_model_key}"] = {"error": str(e)}
+    
+    # 2. No-RAG modelleri
+    for model_key in req. models:
+        if model_key not in OPENROUTER_MODELS:
+            results[f"norag-{model_key}"] = {"error": f"Unknown model: {model_key}"}
+            continue
+            
+        if not openrouter_client: 
+            results[f"norag-{model_key}"] = {"error": "OpenRouter not configured"}
             continue
             
         try:
@@ -624,7 +676,7 @@ def compare_rag_vs_no_rag(req: CompareRequest, response: Response):
             
             user_prompt = f"""User question: {req.question}
 
-Provide step-by-step wheelchair skill guidance as JSON.
+Provide step-by-step wheelchair skill guidance as JSON. 
 Remember: Only physical action steps, 3-5 steps total."""
 
             chat = openrouter_client.chat.completions.create(
@@ -643,17 +695,17 @@ Remember: Only physical action steps, 3-5 steps total."""
             raw_answer = chat.choices[0].message.content
             
             # JSON parse
-            json_match = re.search(r'```json\s*([\s\S]*?)\s*```', raw_answer)
+            json_match = re.search(r'```json\s*([\s\S]*? )\s*```', raw_answer)
             if json_match:
-                json_str = json_match.group(1)
+                json_str = json_match. group(1)
             else:
-                json_str = raw_answer.strip()
+                json_str = raw_answer. strip()
             
-            try: 
-                parsed = json. loads(json_str)
+            try:
+                parsed = json.loads(json_str)
                 steps = parsed.get("steps", [])
             except json.JSONDecodeError:
-                results[model_key] = {
+                results[f"norag-{model_key}"] = {
                     "model": model_name,
                     "rag_used": False,
                     "steps": [],
@@ -666,20 +718,20 @@ Remember: Only physical action steps, 3-5 steps total."""
             for i, step in enumerate(steps):
                 final_steps.append({
                     "step_number": step.get("step_number", i + 1),
-                    "text":  step.get("instruction", ""),
-                    "cue":  step.get("cue"),
-                    "expected_actions":  [step.get("expected_action", "")]
+                    "text": step.get("instruction", ""),
+                    "cue": step.get("cue"),
+                    "expected_actions": [step.get("expected_action", "")]
                 })
             
-            results[model_key] = {
+            results[f"norag-{model_key}"] = {
                 "model": model_name,
                 "rag_used": False,
-                "steps":  final_steps,
+                "steps": final_steps,
                 "step_count": len(final_steps)
             }
             
         except Exception as e:
-            results[model_key] = {"error": str(e)}
+            results[f"norag-{model_key}"] = {"error": str(e)}
     
     return {
         "question": req.question,
@@ -691,43 +743,10 @@ Remember: Only physical action steps, 3-5 steps total."""
 def get_available_models():
     """Mevcut modelleri listele"""
     return {
-        "rag_model":  OPENROUTER_RAG_MODEL if openrouter_client else LLM_MODEL,
-        "no_rag_models": OPENROUTER_MODELS,
-        "openrouter_configured": openrouter_client is not None,
-        "fallback_model": LLM_MODEL
+        "rag_models":  OPENROUTER_RAG_MODELS,
+        "norag_models": OPENROUTER_MODELS,
+        "default_rag_model":  OPENROUTER_RAG_MODEL,
+        "openrouter_configured": openrouter_client is not None
     }
 
-# ==================== No-RAG System Prompt ====================
 
-NO_RAG_SYSTEM_PROMPT = """You are a wheelchair skills coach for a VR training application. 
-
-The user will ask how to perform a wheelchair skill.  You must provide step-by-step guidance. 
-
-Available user input actions (Unity controls):
-- move_forward (W key): Push wheelchair forward
-- move_backward (S key): Push wheelchair backward
-- turn_left (A key): Turn wheelchair left
-- turn_right (D key): Turn wheelchair right
-- brake (SPACE key): Stop/hold position
-- pop_casters (X key): Lift front casters for obstacles
-
-IMPORTANT RULES:
-1. Each step must require exactly ONE physical action from the list above
-2. Do NOT include preparation steps like "position yourself" or "place your hands"
-3. Only include steps where user must press a key
-4. Keep steps between 3-5 total
-5. For turning skills, pick ONE direction (left OR right)
-
-Response format - JSON only:
-{
-  "steps": [
-    {
-      "step_number": 1,
-      "instruction": "Push forward on both handrims to start moving",
-      "expected_action": "move_forward",
-      "cue": "Even pressure on both wheels"
-    }
-  ]
-}
-
-Respond ONLY with valid JSON, no additional text."""

@@ -1,0 +1,429 @@
+===============================================================================
+         RAG vs NO-RAG DETAILED ANALYSIS REPORT
+         Wheelchair Skills VR Training System
+===============================================================================
+
+Test Date: 2026-01-07
+Total Skills Tested: 14
+Models Tested: 
+  - RAG + GPT-5-mini (OpenRouter)
+  - No-RAG GPT-5-mini (OpenRouter)
+  - No-RAG Gemini-3-Flash-Preview (OpenRouter)
+
+===============================================================================
+                    SKILL-BY-SKILL SCORING (1-10)
+===============================================================================
+
+-------------------------------------------------------------------------------
+SKILL #1: Rolls forwards 10m
+-------------------------------------------------------------------------------
+Question: How do I roll forwards 10 meters in a wheelchair?
+
+RAG + GPT-5-mini: 9/10
+  Steps: forward → forward → forward (corrective) → brake
+  Analysis: Correct sequence.  Added corrective strokes for steering. 
+  
+No-RAG GPT-5-mini:  9/10
+  Steps: forward → forward → forward → brake
+  Analysis: Clean and correct.  Simple but effective. 
+
+No-RAG Gemini-3-Flash:  9/10
+  Steps: forward → forward → forward → brake
+  Analysis: Clean and correct.  Mentions momentum well.
+
+Winner: TIE (All correct)
+
+-------------------------------------------------------------------------------
+SKILL #4: Turns while moving backwards 90deg
+-------------------------------------------------------------------------------
+Question: How do I turn 90 degrees while moving backwards in a wheelchair? 
+
+RAG + GPT-5-mini: 7/10
+  Steps: backward → turn_left → backward → brake
+  Analysis: Chose left turn only. Acceptable but no direction choice given.
+  
+No-RAG GPT-5-mini:  7/10
+  Steps: backward → turn_right → backward → brake
+  Analysis: Chose right turn only. Same limitation.
+
+No-RAG Gemini-3-Flash: 7/10
+  Steps: backward → turn_left → brake
+  Analysis:  Chose left turn.  Fewer steps but correct concept.
+
+Winner: TIE (All chose single direction - acceptable)
+
+-------------------------------------------------------------------------------
+SKILL #5: Turns in place 180deg
+-------------------------------------------------------------------------------
+Question: How do I turn 180 degrees in place while sitting in a wheelchair? 
+
+RAG + GPT-5-mini:  10/10 ★ WINNER
+  Steps:  pop_casters → turn_left + turn_right → backward → brake
+  Analysis:  EXCELLENT! Included both turn directions AND pop_casters for
+            pivot technique. Most complete and technically accurate. 
+  
+No-RAG GPT-5-mini: 5/10
+  Steps: turn_right → turn_right → brake
+  Analysis: Only one direction, repetitive. Missing pivot technique.
+
+No-RAG Gemini-3-Flash:  5/10
+  Steps: turn_left → turn_left → brake
+  Analysis: Only one direction.  Same limitation as GPT. 
+
+Winner: RAG (+5 points over No-RAG)
+Reason: RAG knew the wheelchair pivot technique requires both hands
+        working in opposite directions, not just one direction.
+
+-------------------------------------------------------------------------------
+SKILL #6: Maneuvers sideways 0.5m
+-------------------------------------------------------------------------------
+Question: How do I maneuver my wheelchair sideways by half a meter?
+
+RAG + GPT-5-mini: 3/10 ✗ FAILED
+  Steps: forward → forward → brake
+  Analysis:  WRONG! No turn actions. Cannot move sideways with only forward. 
+            Missing the essential zigzag technique. 
+  
+No-RAG GPT-5-mini: 8/10
+  Steps: turn_right → forward → turn_left → forward → brake
+  Analysis:  Correct zigzag technique!  Turn-move-turn pattern.
+
+No-RAG Gemini-3-Flash: 8/10
+  Steps: turn_right → forward → turn_left
+  Analysis: Correct technique.  90-degree turns for sideways movement. 
+
+Winner: No-RAG (+5 points over RAG)
+Reason: RAG retrieved wrong document or has no sideways maneuvering info. 
+        No-RAG models used general physics knowledge correctly.
+
+-------------------------------------------------------------------------------
+SKILL #7: Gets through hinged door
+-------------------------------------------------------------------------------
+Question: How do I get through a hinged door while in a wheelchair?
+
+RAG + GPT-5-mini: 5/10
+  Steps: forward → brake → forward → forward → brake
+  Analysis: Basic approach but missing turn maneuvers for door clearance.
+  
+No-RAG GPT-5-mini: 4/10
+  Steps: forward → pop_casters → forward → brake
+  Analysis: Pop_casters for a door?  Incorrect technique.
+
+No-RAG Gemini-3-Flash: 5/10
+  Steps: forward → brake → forward
+  Analysis: Simple but missing the door manipulation complexity.
+
+Winner: TIE (All struggled - door navigation is complex)
+Note: This skill requires backward movement and turns that none captured well.
+
+-------------------------------------------------------------------------------
+SKILL #17: Ascends 10deg incline
+-------------------------------------------------------------------------------
+Question: How do I ascend a 10 degree incline ramp in a wheelchair? 
+
+RAG + GPT-5-mini: 9/10
+  Steps: forward (strong arcs) → forward (aligned) → brake
+  Analysis: Good technique with emphasis on short, strong pushes.
+  
+No-RAG GPT-5-mini: 9/10
+  Steps: forward → forward (longer strokes) → brake
+  Analysis:  Correct.  Mentioned controlled strokes for incline.
+
+No-RAG Gemini-3-Flash:  9/10
+  Steps: forward → brake (between pushes) → forward → brake
+  Analysis:  Smart!  Added brake between pushes to prevent rollback.
+
+Winner: TIE (All correct, Gemini had nice safety detail)
+
+-------------------------------------------------------------------------------
+SKILL #19: Rolls across side-slope 5deg
+-------------------------------------------------------------------------------
+Question: How do I roll across a 5 degree side slope in a wheelchair? 
+
+RAG + GPT-5-mini:  4/10 ✗ FAILED
+  Steps:  forward → brake → forward → brake
+  Analysis:  WRONG! No turn compensation for downhill drift.
+            On a side-slope, you MUST turn toward uphill to stay straight.
+  
+No-RAG GPT-5-mini:  7/10
+  Steps: forward → turn_left (uphill) → forward → brake
+  Analysis:  Correct!  Included uphill turn to counter drift.
+
+No-RAG Gemini-3-Flash:  7/10
+  Steps: forward → turn_left (counteract) → forward
+  Analysis: Correct!  Explicitly mentioned counteracting the slope.
+
+Winner: No-RAG (+3 points over RAG)
+Reason: No-RAG models understood physics of side-slope drift.
+        RAG document may not include this technique.
+
+-------------------------------------------------------------------------------
+SKILL #21: Gets over gap 15cm
+-------------------------------------------------------------------------------
+Question: How do I get over a 15 centimeter gap in a wheelchair?
+
+RAG + GPT-5-mini: 9/10
+  Steps: forward → pop_casters → (weight shift) → forward → brake
+  Analysis:  Correct technique with weight shift detail.
+  
+No-RAG GPT-5-mini:  9/10
+  Steps: backward → pop_casters → forward → brake
+  Analysis:  Interesting backward approach, but still correct.
+
+No-RAG Gemini-3-Flash: 9/10
+  Steps: forward → pop_casters → forward
+  Analysis: Clean and correct. 
+
+Winner: TIE (All correct)
+
+-------------------------------------------------------------------------------
+SKILL #22: Gets over threshold 2cm
+-------------------------------------------------------------------------------
+Question: How do I get over a 2 centimeter threshold in a wheelchair? 
+
+RAG + GPT-5-mini: 9/10
+  Steps: forward → forward → pop_casters → forward → brake
+  Analysis: Correct.  Momentum then pop for small obstacle.
+  
+No-RAG GPT-5-mini:  9/10
+  Steps: pop_casters → forward → brake
+  Analysis: Direct approach - pop first, then forward.
+
+No-RAG Gemini-3-Flash: 9/10
+  Steps: forward → pop_casters → forward
+  Analysis:  Momentum approach with pop. 
+
+Winner: TIE (All correct)
+
+-------------------------------------------------------------------------------
+SKILL #25: Ascends curb 15cm
+-------------------------------------------------------------------------------
+Question: How do I ascend a 15 centimeter curb in a wheelchair?
+
+RAG + GPT-5-mini: 10/10
+  Steps: forward → pop_casters → forward → forward → brake
+  Analysis: Perfect curb ascent technique. 
+  
+No-RAG GPT-5-mini: 10/10
+  Steps: pop_casters → forward → forward → brake
+  Analysis: Perfect.  Pop first approach. 
+
+No-RAG Gemini-3-Flash: 10/10
+  Steps: forward → pop_casters → forward → brake
+  Analysis:  Perfect. 
+
+Winner: TIE (All perfect)
+
+-------------------------------------------------------------------------------
+SKILL #27: Performs stationary wheelie 30sec
+-------------------------------------------------------------------------------
+Question: How do I perform a stationary wheelie for 30 seconds in a wheelchair?
+
+RAG + GPT-5-mini: 10/10
+  Steps: backward → pop_casters → brake (balance) → forward (lower)
+  Analysis: Complete wheelie technique with balance and exit.
+  
+No-RAG GPT-5-mini:  10/10
+  Steps: backward → pop_casters → forward (balance) → brake
+  Analysis: Same technique, well explained.
+
+No-RAG Gemini-3-Flash: 10/10
+  Steps: backward → pop_casters → forward → brake
+  Analysis:  Complete technique. 
+
+Winner: TIE (All perfect)
+
+-------------------------------------------------------------------------------
+SKILL #28: Turns in place in wheelie position 180deg
+-------------------------------------------------------------------------------
+Question: How do I turn 180 degrees in place while in a wheelie position?
+
+RAG + GPT-5-mini: 4/10 ✗ FAILED
+  Steps: pop_casters → forward + brake → forward → brake → brake
+  Analysis:  WRONG! No turn actions at all!  How do you turn without turn? 
+            Used forward/brake for "pivot" which doesn't make sense.
+  
+No-RAG GPT-5-mini: 4/10
+  Steps: turn_right → turn_right → brake
+  Analysis: Has turn action but MISSING pop_casters!  Not in wheelie! 
+
+No-RAG Gemini-3-Flash: 7/10 ★ WINNER
+  Steps: pop_casters → turn_right → turn_right → brake
+  Analysis:  Correct! Pop into wheelie THEN turn.  Best answer.
+
+Winner: Gemini (+3 points over others)
+Reason: Only Gemini combined pop_casters (wheelie) with turn action. 
+
+-------------------------------------------------------------------------------
+SKILL #29: Ascends 10deg incline in wheelie position
+-------------------------------------------------------------------------------
+Question: How do I ascend a 10 degree incline while in a wheelie position?
+
+RAG + GPT-5-mini: 10/10
+  Steps: forward → pop_casters → forward → brake → brake
+  Analysis:  Correct sequence - establish wheelie then push up.
+  
+No-RAG GPT-5-mini: 10/10
+  Steps: pop_casters → forward → forward → brake
+  Analysis: Same technique. 
+
+No-RAG Gemini-3-Flash: 10/10
+  Steps: pop_casters → forward → forward → brake
+  Analysis: Same technique. 
+
+Winner: TIE (All perfect)
+
+-------------------------------------------------------------------------------
+SKILL #30: Ascends curb in wheelie position 15cm
+-------------------------------------------------------------------------------
+Question: How do I ascend a 15 centimeter curb while in a wheelie position?
+
+RAG + GPT-5-mini: 10/10
+  Steps:  forward → pop_casters → (weight shift) → forward → brake
+  Analysis: Correct technique with weight management.
+  
+No-RAG GPT-5-mini:  10/10
+  Steps: pop_casters → forward → backward → brake
+  Analysis: Correct.  Used backward to lower casters.
+
+No-RAG Gemini-3-Flash: 10/10
+  Steps: pop_casters → forward → forward → brake
+  Analysis: Correct. 
+
+Winner: TIE (All perfect)
+
+
+===============================================================================
+                         FINAL SCORING SUMMARY
+===============================================================================
+
+SKILL SCORES BY MODEL: 
+
+Skill                              | RAG | GPT-5 | Gemini |
+-----------------------------------|-----|-------|--------|
+#1  Rolls forwards 10m             |  9  |   9   |   9    |
+#4  Turns backwards 90deg          |  7  |   7   |   7    |
+#5  Turns in place 180deg          | 10  |   5   |   5    |
+#6  Maneuvers sideways 0.5m        |  3  |   8   |   8    |
+#7  Gets through hinged door       |  5  |   4   |   5    |
+#17 Ascends 10deg incline          |  9  |   9   |   9    |
+#19 Rolls across side-slope 5deg   |  4  |   7   |   7    |
+#21 Gets over gap 15cm             |  9  |   9   |   9    |
+#22 Gets over threshold 2cm        |  9  |   9   |   9    |
+#25 Ascends curb 15cm              | 10  |  10   |  10    |
+#27 Stationary wheelie 30sec       | 10  |  10   |  10    |
+#28 Turns in wheelie 180deg        |  4  |   4   |   7    |
+#29 Ascends incline in wheelie     | 10  |  10   |  10    |
+#30 Ascends curb in wheelie        | 10  |  10   |  10    |
+-----------------------------------|-----|-------|--------|
+TOTAL                              |109  | 111   | 115    |
+AVERAGE                            |7.8  | 7.9   | 8.2    |
+
+
+===============================================================================
+                           FINAL RANKING
+===============================================================================
+
+  ╔═══════════════════════════════════════════════════════════╗
+  ║                                                           ║
+  ║   1st PLACE: No-RAG Gemini-3-Flash    8. 2/10 (115/140)   ║
+  ║                                                           ║
+  ║   2nd PLACE: No-RAG GPT-5-mini        7.9/10 (111/140)   ║
+  ║                                                           ║
+  ║   3rd PLACE: RAG + GPT-5-mini         7.8/10 (109/140)   ║
+  ║                                                           ║
+  ╚═══════════════════════════════════════════════════════════╝
+
+
+===============================================================================
+                         KEY FINDINGS
+===============================================================================
+
+SKILLS WHERE RAG WON:
+---------------------
+• #5 Turns in place 180deg:  RAG 10/10 vs No-RAG 5/10 (+5 points)
+  Reason: RAG knew wheelchair pivot technique requires both turn_left 
+          AND turn_right (opposite hand movements), plus pop_casters. 
+
+SKILLS WHERE RAG LOST:
+----------------------
+• #6 Maneuvers sideways:  RAG 3/10 vs No-RAG 8/10 (-5 points)
+  Reason: RAG only used forward, missing essential zigzag turn pattern. 
+  
+• #19 Side-slope 5deg: RAG 4/10 vs No-RAG 7/10 (-3 points)
+  Reason:  RAG missed uphill turn compensation for drift. 
+
+• #28 Turn in wheelie 180deg: RAG 4/10 vs Gemini 7/10 (-3 points)
+  Reason: RAG used forward/brake instead of turn actions. 
+
+SKILLS WHERE ALL TIED:
+----------------------
+• Basic forward/backward skills: All scored 9-10/10
+• Curb and threshold skills: All scored 9-10/10
+• Wheelie skills (except turning): All scored 10/10
+
+
+===============================================================================
+                       ANALYSIS & CONCLUSIONS
+===============================================================================
+
+WHY DID RAG UNDERPERFORM? 
+-------------------------
+1. DOCUMENT GAPS: RAG likely missing documents for: 
+   - Sideways maneuvering (zigzag technique)
+   - Side-slope drift compensation
+   - Wheelie turning mechanics
+
+2. RETRIEVAL ERRORS: RAG may retrieve wrong documents for: 
+   - "Sideways" query → retrieves "forward movement" docs
+   - "Side-slope" query → retrieves "incline" docs (different technique!)
+
+3. STRONG BASE MODELS: GPT-5-mini and Gemini-3-Flash have good 
+   general knowledge of wheelchair physics from training data. 
+   RAG provides marginal benefit when base model is already competent.
+
+WHERE RAG EXCELS:
+-----------------
+• WSP-specific techniques (pivot turn with both hands)
+• Complex multi-step procedures
+• Safety-critical skills with specific protocols
+
+RECOMMENDATIONS:
+----------------
+1. ADD DOCUMENTS TO RAG: 
+   - sideways_maneuvering.txt (zigzag technique)
+   - side_slope_crossing.txt (uphill turn compensation)
+   - wheelie_turning.txt (turn actions in wheelie position)
+
+2. IMPROVE RAG RETRIEVAL:
+   - Better keyword matching for "sideways", "side-slope"
+   - Skill-specific document tagging
+
+3. HYBRID APPROACH:
+   - Simple skills:  Use No-RAG (faster, cheaper)
+   - Complex/safety skills: Use RAG (domain expertise)
+
+4. MODEL SELECTION:
+   - Gemini-3-Flash showed best overall performance
+   - Consider as primary model for production
+
+
+===============================================================================
+                           TEST METADATA
+===============================================================================
+
+Test Configuration:
+  - Backend: FastAPI + OpenRouter
+  - RAG Database: ChromaDB with OpenAI embeddings
+  - OpenRouter Models: 
+    * openai/gpt-5-mini
+    * google/gemini-3-flash-preview
+  - Temperature: 0.2
+  - RAG Top-K: 6 documents
+
+Report Generated: 2026-01-07
+Report Version: 1.0
+
+===============================================================================
+                              END OF REPORT
+===============================================================================

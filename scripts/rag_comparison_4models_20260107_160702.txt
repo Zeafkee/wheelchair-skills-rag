@@ -1,0 +1,647 @@
+﻿===============================================================================
+         RAG vs NO-RAG COMPARISON TEST REPORT (4 MODELS)
+===============================================================================
+
+Test Date: 2026-01-07 15:52:58
+Total Skills Tested: 14
+
+Models Tested:
+  - RAG + GPT-5-mini (openai/gpt-5-mini)
+  - RAG + Gemini-3-Flash (google/gemini-3-flash-preview)
+  - No-RAG GPT-5-mini (openai/gpt-5-mini)
+  - No-RAG Gemini-3-Flash (google/gemini-3-flash-preview)
+
+-------------------------------------------------------------------------------
+SKILL #1: Rolls forwards 10m
+QUESTION: How do I roll forwards 10 meters in a wheelchair?
+EXPECTED ACTIONS:  move_forward, brake
+-------------------------------------------------------------------------------
+
+[rag-gpt-5-mini] RAG - Model: openai/gpt-5-mini
+Steps: 3
+  Step 1: [move_forward] Push forward smoothly on the handrims
+  Step 2: [move_forward] Continue pushing to maintain momentum
+  Step 3: [brake] Stop and stabilize at the finish line
+  Found: move_forward, brake
+  ACCURACY: 2/2 (100%)
+
+[rag-gemini-3-flash] RAG - Model: google/gemini-3-flash-preview
+Steps: 3
+  Step 1: [move_forward] Push forward smoothly on the handrims
+  Step 2: [move_forward] Continue pushing to maintain momentum
+  Step 3: [brake] Stop and stabilize at the finish line
+  Found: move_forward, brake
+  ACCURACY: 2/2 (100%)
+
+[norag-gpt-5-mini] No-RAG - Model: openai/gpt-5-mini
+Steps: 4
+  Step 1: [move_forward] Push forward on both handrims to start moving
+  Step 2: [move_forward] Push forward again to build and maintain speed
+  Step 3: [move_forward] Push forward with consistent strokes to cover the remai...
+  Step 4: [brake] Hold the brake to stop at the 10 m mark
+  Found: move_forward, brake
+  ACCURACY: 2/2 (100%)
+
+[norag-gemini-3-flash] No-RAG - Model: google/gemini-3-flash-preview
+Steps: 4
+  Step 1: [move_forward] Push forward on both handrims to gain initial momentum
+  Step 2: [move_forward] Continue pushing forward to maintain your speed
+  Step 3: [move_forward] Perform one final push to reach the 10-meter mark
+  Step 4: [brake] Apply the brakes to come to a complete stop
+  Found: move_forward, brake
+  ACCURACY: 2/2 (100%)
+
+-------------------------------------------------------------------------------
+SKILL #4: Turns while moving backwards 90deg
+QUESTION: How do I turn 90 degrees while moving backwards in a wheelchair?
+EXPECTED ACTIONS:  move_backward, turn_left, turn_right
+-------------------------------------------------------------------------------
+
+[rag-gpt-5-mini] RAG - Model: openai/gpt-5-mini
+Steps: 5
+  Step 1: [move_backward] Start a steady backward roll with small, even strokes o...
+  Step 2: [turn_left] Initiate the turn to rotate left while moving backward
+  Step 3: [brake] Control the rate of rotation with short, controlled pus...
+  Step 4: [move_backward] Complete the 90Â° turn and level out the strokes
+  Step 5: [brake] Stop and stabilize in the new orientation
+  Found: move_backward, turn_left, brake
+  MISSING: turn_right
+  ACCURACY: 2/3 (67%)
+
+[rag-gemini-3-flash] RAG - Model: google/gemini-3-flash-preview
+Steps: 5
+  Step 1: [move_backward] Begin rolling backward steadily using small, controlled...
+  Step 2: [brake] Apply more braking force or a shorter stroke to the whe...
+  Step 3: [move_backward] Continue using a longer, steady backward stroke on the ...
+  Step 4: [move_backward] Complete the 90-degree rotation while maintaining backw...
+  Step 5: [move_backward] Smoothly transition back to equal backward strokes to c...
+  Found: move_backward, brake
+  MISSING: turn_left, turn_right
+  ACCURACY: 1/3 (33%)
+
+[norag-gpt-5-mini] No-RAG - Model: openai/gpt-5-mini
+Steps: 4
+  Step 1: [move_backward] Push backward to begin moving rearward.
+  Step 2: [turn_right] Turn right while continuing the backward motion to star...
+  Step 3: [move_backward] Push backward to carry the turn through until you reach...
+  Step 4: [brake] Brake to stop and hold once the chair faces the new dir...
+  Found: move_backward, turn_right, brake
+  MISSING: turn_left
+  ACCURACY: 2/3 (67%)
+
+[norag-gemini-3-flash] No-RAG - Model: google/gemini-3-flash-preview
+Steps: 3
+  Step 1: [move_backward] Push backward on both handrims to gain momentum
+  Step 2: [turn_left] Pull back on the left handrim to initiate the turn
+  Step 3: [brake] Apply the brakes to stop the rotation at 90 degrees
+  Found: move_backward, turn_left, brake
+  MISSING: turn_right
+  ACCURACY: 2/3 (67%)
+
+-------------------------------------------------------------------------------
+SKILL #5: Turns in place 180deg
+QUESTION: How do I turn 180 degrees in place while sitting in a wheelchair?
+EXPECTED ACTIONS:  turn_left, turn_right
+-------------------------------------------------------------------------------
+
+[rag-gpt-5-mini] RAG - Model: openai/gpt-5-mini
+Steps: 5
+  Step 1: [move_forward] Push forward briefly with your right hand
+  Step 2: [move_backward] Pull back with your left hand in short, controlled stro...
+  Step 3: [turn_left] Repeat until you reach 180Â°
+  Step 4: [pop_casters] Pop into a balanced wheelie
+  Step 5: [brake] Lower wheels down and stabilize
+  Found: move_forward, move_backward, turn_left, pop_casters, brake
+  MISSING: turn_right
+  ACCURACY: 1/2 (50%)
+
+[rag-gemini-3-flash] RAG - Model: google/gemini-3-flash-preview
+Steps: 5
+  Step 1: [brake] Bring the wheelchair to a complete stop on a level surf...
+  Step 2: [move_forward] Push one handrim forward
+  Step 3: [move_backward] Pull the other handrim backward with equal force
+  Step 4: [turn_left, turn_right] Continue these opposite-hand strokes until you have rot...
+  Step 5: [brake] Stop the rotation by gripping both handrims firmly
+  Found: brake, move_forward, move_backward, turn_left, turn_right
+  ACCURACY: 2/2 (100%)
+
+[norag-gpt-5-mini] No-RAG - Model: openai/gpt-5-mini
+Steps: 4
+  Step 1: [turn_right] Turn right to start rotating in place
+  Step 2: [turn_right] Turn right to continue rotating toward halfway (about 9...
+  Step 3: [turn_right] Turn right to complete the 180Â° rotation
+  Step 4: [brake] Brake to stop and hold the new orientation
+  Found: turn_right, brake
+  MISSING: turn_left
+  ACCURACY: 1/2 (50%)
+
+[norag-gemini-3-flash] ERROR: JSON parse failed
+
+-------------------------------------------------------------------------------
+SKILL #6: Maneuvers sideways 0.5m
+QUESTION: How do I maneuver my wheelchair sideways by half a meter?
+EXPECTED ACTIONS:  move_forward, move_backward, turn_left, turn_right
+-------------------------------------------------------------------------------
+
+[rag-gpt-5-mini] RAG - Model: openai/gpt-5-mini
+Steps: 4
+  Step 1: [move_forward] Push the right rim forward briefly
+  Step 2: [move_backward] Push the left rim backward briefly
+  Step 3: [move_forward, move_backward] Continue alternating strokes slowly until you have move...
+  Step 4: [brake] Pause and stabilize the wheels
+  Found: move_forward, move_backward, brake
+  MISSING: turn_left, turn_right
+  ACCURACY: 2/4 (50%)
+
+[rag-gemini-3-flash] RAG - Model: google/gemini-3-flash-preview
+Steps: 4
+  Step 1: [move_forward] Push forward with one wheel while pulling back slightly...
+  Step 2: [move_backward] Pull back on the first wheel and push forward on the se...
+  Step 3: [move_forward, move_backward] Continue alternating the rocking strokes to inch the ch...
+  Step 4: [brake] Stop and stabilize once you have covered the half-meter...
+  Found: move_forward, move_backward, brake
+  MISSING: turn_left, turn_right
+  ACCURACY: 2/4 (50%)
+
+[norag-gpt-5-mini] No-RAG - Model: openai/gpt-5-mini
+Steps: 4
+  Step 1: [move_backward] Push backward briefly to create room for the pivot
+  Step 2: [turn_right] Turn right to angle the wheels toward the desired sidew...
+  Step 3: [move_forward] Push forward briefly so the angled wheels translate you...
+  Step 4: [brake] Brake to stop and hold your new sideways position
+  Found: move_backward, turn_right, move_forward, brake
+  MISSING: turn_left
+  ACCURACY: 3/4 (75%)
+
+[norag-gemini-3-flash] No-RAG - Model: google/gemini-3-flash-preview
+Steps: 3
+  Step 1: [turn_right] Turn the wheelchair 90 degrees to the right
+  Step 2: [move_forward] Push forward to move the required distance
+  Step 3: [turn_left] Turn the wheelchair 90 degrees back to the left
+  Found: turn_right, move_forward, turn_left
+  MISSING: move_backward
+  ACCURACY: 3/4 (75%)
+
+-------------------------------------------------------------------------------
+SKILL #7: Gets through hinged door
+QUESTION: How do I get through a hinged door while in a wheelchair?
+EXPECTED ACTIONS:  move_forward, move_backward, turn_left, turn_right, brake
+-------------------------------------------------------------------------------
+
+[rag-gpt-5-mini] RAG - Model: openai/gpt-5-mini
+Steps: 5
+  Step 1: [move_forward] Push forward smoothly on the handrims
+  Step 2: [brake] Stop short if you must open the door
+  Step 3: [brake] Lock brakes and position your chair so the handle is re...
+  Step 4: [move_forward] Push through the doorway with steady, even force aiming...
+  Step 5: [brake] Stop beyond the doorway and lock brakes
+  Found: move_forward, brake
+  MISSING: move_backward, turn_left, turn_right
+  ACCURACY: 2/5 (40%)
+
+[rag-gemini-3-flash] RAG - Model: google/gemini-3-flash-preview
+Steps: 4
+  Step 1: [move_forward] Approach the door centered and at a controlled speed
+  Step 2: [move_forward] Push forward forcefully on the handrim to create moment...
+  Step 3: [pop_casters] Pop casters to clear the threshold if needed
+  Step 4: [brake] Stop and stabilize after passing through the door
+  Found: move_forward, pop_casters, brake
+  MISSING: move_backward, turn_left, turn_right
+  ACCURACY: 2/5 (40%)
+
+[norag-gpt-5-mini] No-RAG - Model: openai/gpt-5-mini
+Steps: 4
+  Step 1: [move_forward] Push forward to move into the doorway
+  Step 2: [pop_casters] Press X to lift the front casters up over the threshold
+  Step 3: [turn_right] Turn right to align the chair with the door opening
+  Step 4: [move_forward] Push forward to pass fully through the hinged door
+  Found: move_forward, pop_casters, turn_right
+  MISSING: move_backward, turn_left, brake
+  ACCURACY: 2/5 (40%)
+
+[norag-gemini-3-flash] No-RAG - Model: google/gemini-3-flash-preview
+Steps: 3
+  Step 1: [move_forward] Push forward to approach the door handle
+  Step 2: [brake] Hold your position while you pull or push the door open
+  Step 3: [move_forward] Push forward to move through the doorway
+  Found: move_forward, brake
+  MISSING: move_backward, turn_left, turn_right
+  ACCURACY: 2/5 (40%)
+
+-------------------------------------------------------------------------------
+SKILL #17: Ascends 10deg incline
+QUESTION: How do I ascend a 10 degree incline ramp in a wheelchair?
+EXPECTED ACTIONS:  move_forward, brake
+-------------------------------------------------------------------------------
+
+[rag-gpt-5-mini] RAG - Model: openai/gpt-5-mini
+Steps: 5
+  Step 1: [brake] Stop with hands on rims and check path clear and brakes...
+  Step 2: [pop_casters] Lean slightly forward to help drive the rear wheels up
+  Step 3: [move_forward] Push strongly using short, quick arcs on the rims
+  Step 4: [turn_left, turn_right] Maintain direction with small steering motions
+  Step 5: [brake] Stop smoothly at the top of the ramp
+  Found: brake, pop_casters, move_forward, turn_left, turn_right
+  ACCURACY: 2/2 (100%)
+
+[rag-gemini-3-flash] RAG - Model: google/gemini-3-flash-preview
+Steps: 5
+  Step 1: [move_forward] Push forward smoothly on the handrims
+  Step 2: [pop_casters] Lean your torso forward deeply to shift your center of ...
+  Step 3: [move_forward] Use short, powerful push arcs to maintain constant upwa...
+  Step 4: [move_forward] Continue pushing rhythmically until you reach the top o...
+  Step 5: [brake] Stop and stabilize your position on the flat surface
+  Found: move_forward, pop_casters, brake
+  ACCURACY: 2/2 (100%)
+
+[norag-gpt-5-mini] No-RAG - Model: openai/gpt-5-mini
+Steps: 4
+  Step 1: [move_forward] Push forward on both handrims with steady, strong strok...
+  Step 2: [pop_casters] Lift the front casters slightly (pop the casters) as yo...
+  Step 3: [move_forward] Push forward on both handrims with controlled, powerful...
+  Step 4: [brake] Hold the brakes to stop and secure your position once y...
+  Found: move_forward, pop_casters, brake
+  ACCURACY: 2/2 (100%)
+
+[norag-gemini-3-flash] No-RAG - Model: google/gemini-3-flash-preview
+Steps: 3
+  Step 1: [move_forward] Push forward forcefully on both handrims to begin the a...
+  Step 2: [brake] Hold the handrims firmly between pushes to prevent roll...
+  Step 3: [move_forward] Perform another strong forward push to reach the top of...
+  Found: move_forward, brake
+  ACCURACY: 2/2 (100%)
+
+-------------------------------------------------------------------------------
+SKILL #19: Rolls across side-slope 5deg
+QUESTION: How do I roll across a 5 degree side slope in a wheelchair?
+EXPECTED ACTIONS:  move_forward, turn_left, turn_right
+-------------------------------------------------------------------------------
+
+[rag-gpt-5-mini] RAG - Model: openai/gpt-5-mini
+Steps: 3
+  Step 1: [move_forward] Push in short, controlled strokes on both rims
+  Step 2: [move_forward] Steer by varying push force to correct heading
+  Step 3: [brake] Stop and stabilize using a controlled brake
+  Found: move_forward, brake
+  MISSING: turn_left, turn_right
+  ACCURACY: 1/3 (33%)
+
+[rag-gemini-3-flash] RAG - Model: google/gemini-3-flash-preview
+Steps: 5
+  Step 1: [move_forward] Push forward using short, controlled pushes to drive 2 ...
+  Step 2: [move_forward] Apply more force to the rim on the downhill side to pre...
+  Step 3: [move_forward] Use the uphill hand to provide slight resistance or sho...
+  Step 4: [brake] Lean your upper body slightly toward the uphill side to...
+  Step 5: [brake] Stop and stabilize the chair on the flat surface after ...
+  Found: move_forward, brake
+  MISSING: turn_left, turn_right
+  ACCURACY: 1/3 (33%)
+
+[norag-gpt-5-mini] No-RAG - Model: openai/gpt-5-mini
+Steps: 4
+  Step 1: [move_forward] Move forward with short, controlled pushes to begin cro...
+  Step 2: [turn_left] Turn left slightly to steer uphill and counter downhill...
+  Step 3: [move_forward] Move forward with short, controlled pushes to continue ...
+  Step 4: [brake] Brake to stop and hold position once across or at a saf...
+  Found: move_forward, turn_left, brake
+  MISSING: turn_right
+  ACCURACY: 2/3 (67%)
+
+[norag-gemini-3-flash] No-RAG - Model: google/gemini-3-flash-preview
+Steps: 4
+  Step 1: [move_forward] Push forward to gain momentum across the slope
+  Step 2: [turn_left] Turn toward the uphill side to counteract the downhill ...
+  Step 3: [move_forward] Push forward again to maintain your line across the slo...
+  Step 4: [brake] Apply the brake once you have reached level ground
+  Found: move_forward, turn_left, brake
+  MISSING: turn_right
+  ACCURACY: 2/3 (67%)
+
+-------------------------------------------------------------------------------
+SKILL #21: Gets over gap 15cm
+QUESTION: How do I get over a 15 centimeter gap in a wheelchair?
+EXPECTED ACTIONS:  move_forward, pop_casters
+-------------------------------------------------------------------------------
+
+[rag-gpt-5-mini] RAG - Model: openai/gpt-5-mini
+Steps: 4
+  Step 1: [move_forward] Push forward smoothly on the handrims
+  Step 2: [pop_casters] Pop casters to lift the front wheels about 2â4 in (5â...
+  Step 3: [move_forward] Push smoothly and firmly on the rims to drive the rear ...
+  Step 4: [brake] Stop and stabilize when both wheels are securely on the...
+  Found: move_forward, pop_casters, brake
+  ACCURACY: 2/2 (100%)
+
+[rag-gemini-3-flash] RAG - Model: google/gemini-3-flash-preview
+Steps: 5
+  Step 1: [move_forward] Push forward smoothly on the handrims
+  Step 2: [move_forward] Continue pushing to maintain momentum
+  Step 3: [pop_casters] Pop the front casters as you reach the edge
+  Step 4: [move_forward] Push the rear wheels firmly to drive them over the gap
+  Step 5: [brake] Stop and stabilize your position once all wheels are on...
+  Found: move_forward, pop_casters, brake
+  ACCURACY: 2/2 (100%)
+
+[norag-gpt-5-mini] No-RAG - Model: openai/gpt-5-mini
+Steps: 4
+  Step 1: [move_forward] Press W to approach the gap with steady, even pushes
+  Step 2: [pop_casters] Press X to lift the front casters just before the gap
+  Step 3: [move_forward] Press W to drive the rear wheels over the gap and forwa...
+  Step 4: [brake] Press SPACE to stop once you are fully past the gap
+  Found: move_forward, pop_casters, brake
+  ACCURACY: 2/2 (100%)
+
+[norag-gemini-3-flash] No-RAG - Model: google/gemini-3-flash-preview
+Steps: 3
+  Step 1: [move_forward] Push forward to gain a small amount of momentum
+  Step 2: [pop_casters] Pull back quickly to lift your front casters over the g...
+  Step 3: [move_forward] Push forward hard to drive the rear wheels across the o...
+  Found: move_forward, pop_casters
+  ACCURACY: 2/2 (100%)
+
+-------------------------------------------------------------------------------
+SKILL #22: Gets over threshold 2cm
+QUESTION: How do I get over a 2 centimeter threshold in a wheelchair?
+EXPECTED ACTIONS:  move_forward, pop_casters
+-------------------------------------------------------------------------------
+
+[rag-gpt-5-mini] RAG - Model: openai/gpt-5-mini
+Steps: 5
+  Step 1: [move_forward] Push forward smoothly on the handrims
+  Step 2: [pop_casters] Pop casters by leaning forward and pulling the rims
+  Step 3: [move_forward] Roll the rear wheels up and over the threshold
+  Step 4: [move_forward] Continue forward gently until both rear wheels are full...
+  Step 5: [brake] Stop and stabilize after crossing the threshold
+  Found: move_forward, pop_casters, brake
+  ACCURACY: 2/2 (100%)
+
+[rag-gemini-3-flash] RAG - Model: google/gemini-3-flash-preview
+Steps: 5
+  Step 1: [move_forward] Push forward smoothly on the handrims
+  Step 2: [move_forward] Continue pushing to maintain momentum
+  Step 3: [pop_casters] Lift the front casters slightly
+  Step 4: [move_forward] Lean slightly forward as the large wheels make contact
+  Step 5: [brake] Stop and stabilize after passing the threshold
+  Found: move_forward, pop_casters, brake
+  ACCURACY: 2/2 (100%)
+
+[norag-gpt-5-mini] No-RAG - Model: openai/gpt-5-mini
+Steps: 3
+  Step 1: [pop_casters] Pop the front casters up to lift them off the ground
+  Step 2: [move_forward] Push forward to roll the drive wheels up and over the t...
+  Step 3: [brake] Apply the brake to hold your position after clearing th...
+  Found: pop_casters, move_forward, brake
+  ACCURACY: 2/2 (100%)
+
+[norag-gemini-3-flash] No-RAG - Model: google/gemini-3-flash-preview
+Steps: 3
+  Step 1: [move_forward] Push forward to approach the threshold with momentum
+  Step 2: [pop_casters] Lift the front casters just before hitting the threshol...
+  Step 3: [move_forward] Push forward again to bring the rear wheels over the th...
+  Found: move_forward, pop_casters
+  ACCURACY: 2/2 (100%)
+
+-------------------------------------------------------------------------------
+SKILL #25: Ascends curb 15cm
+QUESTION: How do I ascend a 15 centimeter curb in a wheelchair?
+EXPECTED ACTIONS:  move_forward, pop_casters
+-------------------------------------------------------------------------------
+
+[rag-gpt-5-mini] RAG - Model: openai/gpt-5-mini
+Steps: 5
+  Step 1: [move_forward] Push forward smoothly on the handrims
+  Step 2: [pop_casters] Pop casters to lift the front wheels
+  Step 3: [] Lean slightly forward to shift weight over the front wh...
+  Step 4: [move_forward] Push the rear wheels up using short, strong pushes on t...
+  Step 5: [brake] Stop and stabilize if needed
+  Found: move_forward, pop_casters, brake
+  ACCURACY: 2/2 (100%)
+
+[rag-gemini-3-flash] RAG - Model: google/gemini-3-flash-preview
+Steps: 5
+  Step 1: [move_forward] Push forward smoothly towards the curb with enough mome...
+  Step 2: [pop_casters] Pop the front casters 2â4 inches higher than the curb...
+  Step 3: [] Lean your torso forward aggressively to shift weight of...
+  Step 4: [move_forward] Push the rear wheels forcefully to drive them up and ov...
+  Step 5: [brake] Stabilize your position once all four wheels are on the...
+  Found: move_forward, pop_casters, brake
+  ACCURACY: 2/2 (100%)
+
+[norag-gpt-5-mini] No-RAG - Model: openai/gpt-5-mini
+Steps: 3
+  Step 1: [pop_casters] Press X to lift the front casters as you reach the curb...
+  Step 2: [move_forward] Press W and push forward firmly to drive the rear wheel...
+  Step 3: [brake] Press SPACE to stop and stabilize once both rear wheels...
+  Found: pop_casters, move_forward, brake
+  ACCURACY: 2/2 (100%)
+
+[norag-gemini-3-flash] No-RAG - Model: google/gemini-3-flash-preview
+Steps: 4
+  Step 1: [move_forward] Push forward to approach the curb with momentum
+  Step 2: [pop_casters] Pull back quickly to lift the front wheels over the edg...
+  Step 3: [move_forward] Push forward forcefully to drive the rear wheels up the...
+  Step 4: [brake] Press the brakes once all wheels are on the level surfa...
+  Found: move_forward, pop_casters, brake
+  ACCURACY: 2/2 (100%)
+
+-------------------------------------------------------------------------------
+SKILL #27: Performs stationary wheelie 30sec
+QUESTION: How do I perform a stationary wheelie for 30 seconds in a wheelchair?
+EXPECTED ACTIONS:  pop_casters, brake
+-------------------------------------------------------------------------------
+
+[rag-gpt-5-mini] RAG - Model: openai/gpt-5-mini
+Steps: 5
+  Step 1: [move_forward] Push forward slightly to initiate the wheelie
+  Step 2: [pop_casters] Pull the rims back firmly while leaning your torso back
+  Step 3: [move_backward] Shift your hips back to find your balance point
+  Step 4: [move_forward] Use small, quick rim adjustments to maintain balance
+  Step 5: [move_backward] Shift your hips slightly forward to lower the front cas...
+  Found: move_forward, pop_casters, move_backward
+  MISSING: brake
+  ACCURACY: 1/2 (50%)
+
+[rag-gemini-3-flash] RAG - Model: google/gemini-3-flash-preview
+Steps: 5
+  Step 1: [move_forward] Give a quick, forceful forward push
+  Step 2: [pop_casters] Pop casters to lift the front wheels off the ground
+  Step 3: [brake] Maintain balance by pulling back on the rims if falling...
+  Step 4: [brake] Hold this position for 30 seconds using continuous, min...
+  Step 5: [move_forward] Lean forward slightly to allow the casters to land gent...
+  Found: move_forward, pop_casters, brake
+  ACCURACY: 2/2 (100%)
+
+[norag-gpt-5-mini] No-RAG - Model: openai/gpt-5-mini
+Steps: 3
+  Step 1: [move_backward] Push backward on both handrims to tip the chair onto th...
+  Step 2: [pop_casters] Press the pop casters control to fully lift the front c...
+  Step 3: [brake] Hold the brake to lock your position and maintain the s...
+  Found: move_backward, pop_casters, brake
+  ACCURACY: 2/2 (100%)
+
+[norag-gemini-3-flash] No-RAG - Model: google/gemini-3-flash-preview
+Steps: 4
+  Step 1: [move_backward] Pull back quickly on the handrims to shift your weight
+  Step 2: [pop_casters] Abruptly lift the front wheels off the ground
+  Step 3: [move_forward] Push forward slightly to prevent falling backward
+  Step 4: [brake] Hold the handrims firmly to maintain the elevated posit...
+  Found: move_backward, pop_casters, move_forward, brake
+  ACCURACY: 2/2 (100%)
+
+-------------------------------------------------------------------------------
+SKILL #28: Turns in place in wheelie position 180deg
+QUESTION: How do I turn 180 degrees in place while in a wheelie position?
+EXPECTED ACTIONS:  pop_casters, turn_left, turn_right
+-------------------------------------------------------------------------------
+
+[rag-gpt-5-mini] RAG - Model: openai/gpt-5-mini
+Steps: 5
+  Step 1: [pop_casters] Pop into a controlled wheelie
+  Step 2: [turn_right] Begin the pivot with opposite-hand strokes to turn righ...
+  Step 3: [turn_left] Begin the pivot with opposite-hand strokes to turn left
+  Step 4: [move_forward] Exit the wheelie safely
+  Step 5: [brake] Stabilize on all wheels and reset posture
+  Found: pop_casters, turn_right, turn_left, move_forward, brake
+  ACCURACY: 3/3 (100%)
+
+[rag-gemini-3-flash] RAG - Model: google/gemini-3-flash-preview
+Steps: 5
+  Step 1: [pop_casters] Pop into a stable wheelie position
+  Step 2: [move_forward, move_backward] Initiate the pivot by using small, simultaneous opposit...
+  Step 3: [brake] Maintain height by keeping your center of gravity stead...
+  Step 4: [move_forward, move_backward] Complete the rotation with continued small rim adjustme...
+  Step 5: [brake] Land and stabilize by gently bringing the front casters...
+  Found: pop_casters, move_forward, move_backward, brake
+  MISSING: turn_left, turn_right
+  ACCURACY: 1/3 (33%)
+
+[norag-gpt-5-mini] No-RAG - Model: openai/gpt-5-mini
+Steps: 3
+  Step 1: [turn_left] Hold a steady left-turn input to start rotating in plac...
+  Step 2: [turn_left] Continue the left-turn input to rotate through approxim...
+  Step 3: [turn_left] Keep applying the left-turn input until you complete th...
+  Found: turn_left
+  MISSING: pop_casters, turn_right
+  ACCURACY: 1/3 (33%)
+
+[norag-gemini-3-flash] No-RAG - Model: google/gemini-3-flash-preview
+Steps: 3
+  Step 1: [pop_casters] Press the pop casters key to lift your front wheels off...
+  Step 2: [brake] Hold the brake key to stabilize your position in the wh...
+  Step 3: [turn_right] Press the turn right key to rotate your chair while bal...
+  Found: pop_casters, brake, turn_right
+  MISSING: turn_left
+  ACCURACY: 2/3 (67%)
+
+-------------------------------------------------------------------------------
+SKILL #29: Ascends 10deg incline in wheelie position
+QUESTION: How do I ascend a 10 degree incline while in a wheelie position?
+EXPECTED ACTIONS:  pop_casters, move_forward, brake
+-------------------------------------------------------------------------------
+
+[rag-gpt-5-mini] RAG - Model: openai/gpt-5-mini
+Steps: 5
+  Step 1: [pop_casters] Pop into a controlled wheelie
+  Step 2: [move_forward] Push up the slope using short, strong arcs on the rims
+  Step 3: [move_forward] Use tiny forward/back rim corrections to maintain balan...
+  Step 4: [move_backward] Ease the wheelie down by reducing push pressure and lea...
+  Step 5: [brake] Stabilize on all wheels
+  Found: pop_casters, move_forward, move_backward, brake
+  ACCURACY: 3/3 (100%)
+
+[rag-gemini-3-flash] RAG - Model: google/gemini-3-flash-preview
+Steps: 5
+  Step 1: [pop_casters] Pop into a stable wheelie
+  Step 2: [move_forward] Use short, explosive pushes on the handrims to move up ...
+  Step 3: [move_forward] Maintain the wheelie balance by making micro-adjustment...
+  Step 4: [move_backward] Gently bring the front casters down onto the flat surfa...
+  Step 5: [brake] Stop and stabilize at the flat surface
+  Found: pop_casters, move_forward, move_backward, brake
+  ACCURACY: 3/3 (100%)
+
+[norag-gpt-5-mini] No-RAG - Model: openai/gpt-5-mini
+Steps: 4
+  Step 1: [pop_casters] Press X to lift the front casters into a wheelie balanc...
+  Step 2: [move_forward] Push forward once to begin climbing the incline
+  Step 3: [move_forward] Push forward again to sustain upward momentum
+  Step 4: [brake] Press SPACE to stop and stabilize once you reach the to...
+  Found: pop_casters, move_forward, brake
+  ACCURACY: 3/3 (100%)
+
+[norag-gemini-3-flash] No-RAG - Model: google/gemini-3-flash-preview
+Steps: 4
+  Step 1: [pop_casters] Press the pop casters key to lift your front wheels int...
+  Step 2: [move_forward] Push forward quickly to drive the wheelchair up the slo...
+  Step 3: [move_forward] Push forward again to keep your momentum against the in...
+  Step 4: [brake] Apply the brakes once you reach the top to stabilize yo...
+  Found: pop_casters, move_forward, brake
+  ACCURACY: 3/3 (100%)
+
+-------------------------------------------------------------------------------
+SKILL #30: Ascends curb in wheelie position 15cm
+QUESTION: How do I ascend a 15 centimeter curb while in a wheelie position?
+EXPECTED ACTIONS:  pop_casters, move_forward, brake
+-------------------------------------------------------------------------------
+
+[rag-gpt-5-mini] RAG - Model: openai/gpt-5-mini
+Steps: 5
+  Step 1: [pop_casters] Pop the front casters up about 2â4 in so they clear a...
+  Step 2: [] Lean slightly forward and shift weight toward the caste...
+  Step 3: [move_forward] Push the rear wheels up by a firm, even forward push on...
+  Step 4: [move_forward] Roll forward a little to settle the chair fully on the ...
+  Step 5: [brake] Stop and stabilize before continuing
+  Found: pop_casters, move_forward, brake
+  ACCURACY: 3/3 (100%)
+
+[rag-gemini-3-flash] RAG - Model: google/gemini-3-flash-preview
+Steps: 4
+  Step 1: [pop_casters] Pop casters to lift the front wheels above the curb hei...
+  Step 2: [] Lean your torso forward aggressively
+  Step 3: [move_forward] Push forward powerfully on the handrims to drive the re...
+  Step 4: [brake] Stabilize your position once all four wheels are on the...
+  Found: pop_casters, move_forward, brake
+  ACCURACY: 3/3 (100%)
+
+[norag-gpt-5-mini] No-RAG - Model: openai/gpt-5-mini
+Steps: 4
+  Step 1: [pop_casters] Press X to pop the front casters and lift into a wheeli...
+  Step 2: [move_forward] Press W to give a firm, short push so the rear wheels c...
+  Step 3: [move_forward] Press W again to roll forward until the front casters c...
+  Step 4: [brake] Press SPACE to brake and stabilize once the casters are...
+  Found: pop_casters, move_forward, brake
+  ACCURACY: 3/3 (100%)
+
+[norag-gemini-3-flash] No-RAG - Model: google/gemini-3-flash-preview
+Steps: 4
+  Step 1: [pop_casters] Press the pop casters key to lift your front wheels int...
+  Step 2: [move_forward] Push forward on both handrims to drive the rear wheels ...
+  Step 3: [move_forward] Continue pushing forward forcefully to roll the rear wh...
+  Step 4: [brake] Apply the brakes briefly once all wheels are on the top...
+  Found: pop_casters, move_forward, brake
+  ACCURACY: 3/3 (100%)
+
+===============================================================================
+                              SUMMARY
+===============================================================================
+
+[1st] No-RAG GPT-5-mini      :  29/38 (76.3%)
+      [###############-----]
+
+[2nd] No-RAG Gemini-3-Flash  :  29/36 (80.6%)
+      [################----]
+
+[3rd] RAG + GPT-5-mini       :  28/38 (73.7%)
+      [###############-----]
+
+[4th] RAG + Gemini-3-Flash   :  27/38 (71.1%)
+      [##############------]
+
+-------------------------------------------------------------------------------
+
+RAG vs No-RAG Comparison:
+  RAG Average:      72.4%
+  No-RAG Average:  78.4%
+  RAG IMPROVEMENT: -6%
+
+===============================================================================
+

@@ -1,4 +1,4 @@
-# test_rag_comparison.ps1 - RAG vs No-RAG Karşılaştırma Testi (Hard Skills)
+# test_rag_comparison.ps1 - RAG vs No-RAG (4 Model Comparison)
 
 $baseUrl = "http://localhost:8000"
 
@@ -41,12 +41,6 @@ $questions = @(
         expectedActions = @("move_forward", "brake")
     },
     @{
-        id = "18"
-        name = "Descends 10deg incline"
-        question = "How do I descend a 10 degree incline ramp in a wheelchair safely?"
-        expectedActions = @("move_forward", "brake")
-    },
-    @{
         id = "19"
         name = "Rolls across side-slope 5deg"
         question = "How do I roll across a 5 degree side slope in a wheelchair?"
@@ -71,12 +65,6 @@ $questions = @(
         expectedActions = @("move_forward", "pop_casters")
     },
     @{
-        id = "26"
-        name = "Descends curb 15cm"
-        question = "How do I descend a 15 centimeter curb in a wheelchair safely?"
-        expectedActions = @("move_backward", "pop_casters", "brake")
-    },
-    @{
         id = "27"
         name = "Performs stationary wheelie 30sec"
         question = "How do I perform a stationary wheelie for 30 seconds in a wheelchair?"
@@ -90,57 +78,70 @@ $questions = @(
     },
     @{
         id = "29"
-        name = "Descends 10deg incline in wheelie position"
-        question = "How do I descend a 10 degree incline while in a wheelie position?"
+        name = "Ascends 10deg incline in wheelie position"
+        question = "How do I ascend a 10 degree incline while in a wheelie position?"
         expectedActions = @("pop_casters", "move_forward", "brake")
     },
     @{
         id = "30"
-        name = "Descends curb in wheelie position 15cm"
-        question = "How do I descend a 15 centimeter curb while in a wheelie position?"
+        name = "Ascends curb in wheelie position 15cm"
+        question = "How do I ascend a 15 centimeter curb while in a wheelie position?"
         expectedActions = @("pop_casters", "move_forward", "brake")
     }
 )
 
+# 4 Model tanımı
+$allModels = @(
+    "rag-gpt-5-mini",
+    "rag-gemini-3-flash",
+    "norag-gpt-5-mini",
+    "norag-gemini-3-flash"
+)
+
 # Modelleri kontrol et
 Write-Host "=============================================" -ForegroundColor Magenta
-Write-Host "   RAG vs NO-RAG COMPARISON TEST (HARD MODE)" -ForegroundColor Magenta
+Write-Host "   RAG vs NO-RAG COMPARISON (4 MODELS)" -ForegroundColor Magenta
 Write-Host "=============================================" -ForegroundColor Magenta
 Write-Host ""
-Write-Host "Checking available models..." -ForegroundColor Cyan
+Write-Host "Models being tested:" -ForegroundColor Cyan
+Write-Host "  1. RAG + GPT-5-mini" -ForegroundColor Green
+Write-Host "  2. RAG + Gemini-3-Flash" -ForegroundColor Green
+Write-Host "  3. No-RAG GPT-5-mini" -ForegroundColor Yellow
+Write-Host "  4. No-RAG Gemini-3-Flash" -ForegroundColor Yellow
+Write-Host ""
+Write-Host "Total Skills to Test:  $($questions.Count)" -ForegroundColor Cyan
+
 try {
     $models = Invoke-RestMethod -Uri "$baseUrl/models/available" -Method GET
-    Write-Host "RAG Model: $($models. rag_model)" -ForegroundColor Green
     Write-Host "OpenRouter Configured: $($models.openrouter_configured)" -ForegroundColor Green
-    Write-Host "Total Skills to Test: $($questions.Count)" -ForegroundColor Yellow
 }
 catch {
     Write-Host "ERROR: Cannot connect to backend.  Is it running?" -ForegroundColor Red
     exit 1
 }
 
-# Skorlar
+# Skorlar - 4 model için
 $scores = @{
-    "rag" = @{ correct = 0; total = 0 }
-    "gpt-5-mini" = @{ correct = 0; total = 0 }
-    "gemini-3-flash" = @{ correct = 0; total = 0 }
-}
-
-# Detaylı sonuçlar
-$detailedResults = @{
-    "rag" = @()
-    "gpt-5-mini" = @()
-    "gemini-3-flash" = @()
+    "rag-gpt-5-mini" = @{ correct = 0; total = 0 }
+    "rag-gemini-3-flash" = @{ correct = 0; total = 0 }
+    "norag-gpt-5-mini" = @{ correct = 0; total = 0 }
+    "norag-gemini-3-flash" = @{ correct = 0; total = 0 }
 }
 
 # Rapor başlığı
 $report = ""
 $report += "===============================================================================`n"
-$report += "         RAG vs NO-RAG COMPARISON TEST REPORT (HARD MODE)`n"
+$report += "         RAG vs NO-RAG COMPARISON TEST REPORT (4 MODELS)`n"
 $report += "===============================================================================`n"
 $report += "`n"
 $report += "Test Date: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')`n"
 $report += "Total Skills Tested: $($questions.Count)`n"
+$report += "`n"
+$report += "Models Tested:`n"
+$report += "  - RAG + GPT-5-mini (openai/gpt-5-mini)`n"
+$report += "  - RAG + Gemini-3-Flash (google/gemini-3-flash-preview)`n"
+$report += "  - No-RAG GPT-5-mini (openai/gpt-5-mini)`n"
+$report += "  - No-RAG Gemini-3-Flash (google/gemini-3-flash-preview)`n"
 $report += "`n"
 
 # Her soru için test
@@ -151,20 +152,21 @@ foreach ($q in $questions) {
     
     $report += "-------------------------------------------------------------------------------`n"
     $report += "SKILL #$($q.id): $($q.name)`n"
-    $report += "QUESTION: $($q.question)`n"
-    $report += "EXPECTED ACTIONS: $($q. expectedActions -join ', ')`n"
+    $report += "QUESTION: $($q. question)`n"
+    $report += "EXPECTED ACTIONS:  $($q.expectedActions -join ', ')`n"
     $report += "-------------------------------------------------------------------------------`n"
     
-    # Compare endpoint çağır
+    # Compare endpoint çağır - 4 model için
     $body = @{
-        question = $q.question
+        question = $q. question
         models = @("gpt-5-mini", "gemini-3-flash")
+        rag_models = @("gpt-5-mini", "gemini-3-flash")
     } | ConvertTo-Json
     
     try {
         $response = Invoke-RestMethod -Uri "$baseUrl/ask/practice/compare" -Method POST -Body $body -ContentType "application/json"
         
-        foreach ($modelKey in @("rag", "gpt-5-mini", "gemini-3-flash")) {
+        foreach ($modelKey in $allModels) {
             $result = $response.comparison.$modelKey
             
             if ($null -eq $result) {
@@ -173,7 +175,7 @@ foreach ($q in $questions) {
                 continue
             }
             
-            if ($result. error) {
+            if ($result.error) {
                 $report += "`n[$modelKey] ERROR: $($result. error)`n"
                 Write-Host "  [$modelKey] ERROR: $($result.error)" -ForegroundColor Red
                 continue
@@ -194,8 +196,8 @@ foreach ($q in $questions) {
                     }
                 }
                 $stepText = $step.text
-                if ($stepText. Length -gt 60) {
-                    $stepText = $stepText.Substring(0, 60) + "..."
+                if ($stepText. Length -gt 55) {
+                    $stepText = $stepText.Substring(0, 55) + "..."
                 }
                 $report += "  Step $($step.step_number): [$actions] $stepText`n"
             }
@@ -218,37 +220,31 @@ foreach ($q in $questions) {
                 $accuracy = [math]::Round(($correctCount / $q.expectedActions. Count) * 100)
             }
             
-            $report += "  Found Actions: $($foundUnique -join ', ')`n"
+            $report += "  Found: $($foundUnique -join ', ')`n"
             if ($missingActions. Count -gt 0) {
-                $report += "  MISSING Actions: $($missingActions -join ', ')`n"
+                $report += "  MISSING: $($missingActions -join ', ')`n"
             }
-            $report += "  ACCURACY: $correctCount/$($q.expectedActions. Count) ($accuracy%)`n"
-            
-            # Detaylı sonuç kaydet
-            $detailedResults[$modelKey] += @{
-                skill = $q.name
-                accuracy = $accuracy
-                missing = $missingActions
-            }
+            $report += "  ACCURACY: $correctCount/$($q.expectedActions.Count) ($accuracy%)`n"
             
             # Renk ile göster
+            $shortKey = $modelKey.Replace("rag-", "R: ").Replace("norag-", "N:")
             if ($accuracy -ge 80) {
-                Write-Host "  [$modelKey] $accuracy% ($correctCount/$($q. expectedActions.Count))" -ForegroundColor Green
+                Write-Host "  [$shortKey] $accuracy%" -ForegroundColor Green
             }
             elseif ($accuracy -ge 50) {
-                Write-Host "  [$modelKey] $accuracy% ($correctCount/$($q.expectedActions.Count))" -ForegroundColor Yellow
+                Write-Host "  [$shortKey] $accuracy%" -ForegroundColor Yellow
             }
             else {
-                Write-Host "  [$modelKey] $accuracy% ($correctCount/$($q. expectedActions.Count))" -ForegroundColor Red
+                Write-Host "  [$shortKey] $accuracy%" -ForegroundColor Red
             }
             
             $scores[$modelKey]. correct += $correctCount
-            $scores[$modelKey].total += $q.expectedActions.Count
+            $scores[$modelKey]. total += $q. expectedActions.Count
         }
     }
     catch {
-        $report += "ERROR: $($_.Exception.Message)`n"
-        Write-Host "  ERROR: $($_.Exception.Message)" -ForegroundColor Red
+        $report += "ERROR: $($_. Exception.Message)`n"
+        Write-Host "  ERROR:  $($_.Exception. Message)" -ForegroundColor Red
     }
     
     $report += "`n"
@@ -265,22 +261,38 @@ Write-Host "=============================================" -ForegroundColor Mage
 Write-Host "                 SUMMARY" -ForegroundColor Magenta
 Write-Host "=============================================" -ForegroundColor Magenta
 
-foreach ($modelKey in @("rag", "gpt-5-mini", "gemini-3-flash")) {
+# Sonuçları sırala
+$sortedResults = @()
+foreach ($modelKey in $allModels) {
     $s = $scores[$modelKey]
     $pct = 0
     if ($s.total -gt 0) {
         $pct = [math]::Round(($s.correct / $s.total) * 100, 1)
     }
+    $sortedResults += @{
+        key = $modelKey
+        correct = $s.correct
+        total = $s.total
+        pct = $pct
+    }
+}
+$sortedResults = $sortedResults | Sort-Object -Property pct -Descending
+
+# Sıralı göster
+$rank = 0
+foreach ($r in $sortedResults) {
+    $rank++
     
-    switch ($modelKey) {
-        "rag" { $label = "RAG + GPT-5-mini      " }
-        "gpt-5-mini" { $label = "No-RAG GPT-5-mini    " }
-        "gemini-3-flash" { $label = "No-RAG Gemini 3 Flash" }
+    switch ($r.key) {
+        "rag-gpt-5-mini" { $label = "RAG + GPT-5-mini      " }
+        "rag-gemini-3-flash" { $label = "RAG + Gemini-3-Flash  " }
+        "norag-gpt-5-mini" { $label = "No-RAG GPT-5-mini     " }
+        "norag-gemini-3-flash" { $label = "No-RAG Gemini-3-Flash " }
     }
     
     # Progress bar
     $bar = ""
-    $barLen = [math]::Round($pct / 5)
+    $barLen = [math]::Round($r.pct / 5)
     for ($i = 0; $i -lt 20; $i++) {
         if ($i -lt $barLen) {
             $bar += "#"
@@ -290,91 +302,84 @@ foreach ($modelKey in @("rag", "gpt-5-mini", "gemini-3-flash")) {
         }
     }
     
-    $report += "$label :  $($s.correct)/$($s.total) ($pct%)`n"
-    $report += "  [$bar]`n"
+    $medal = ""
+    if ($rank -eq 1) { $medal = "[1st]" }
+    elseif ($rank -eq 2) { $medal = "[2nd]" }
+    elseif ($rank -eq 3) { $medal = "[3rd]" }
+    elseif ($rank -eq 4) { $medal = "[4th]" }
+    
+    $report += "$medal $label :  $($r.correct)/$($r.total) ($($r.pct)%)`n"
+    $report += "      [$bar]`n"
     $report += "`n"
     
-    if ($pct -ge 80) {
-        Write-Host "$label :  $($s.correct)/$($s.total) ($pct%) [$bar]" -ForegroundColor Green
+    if ($r.pct -ge 80) {
+        Write-Host "$medal $label : $($r.correct)/$($r.total) ($($r.pct)%) [$bar]" -ForegroundColor Green
     }
-    elseif ($pct -ge 50) {
-        Write-Host "$label : $($s. correct)/$($s.total) ($pct%) [$bar]" -ForegroundColor Yellow
+    elseif ($r. pct -ge 50) {
+        Write-Host "$medal $label : $($r.correct)/$($r.total) ($($r.pct)%) [$bar]" -ForegroundColor Yellow
     }
     else {
-        Write-Host "$label : $($s.correct)/$($s.total) ($pct%) [$bar]" -ForegroundColor Red
+        Write-Host "$medal $label : $($r. correct)/$($r.total) ($($r.pct)%) [$bar]" -ForegroundColor Red
     }
 }
 
-# RAG farkını hesapla
-$ragPct = 0
-if ($scores["rag"].total -gt 0) {
-    $ragPct = ($scores["rag"]. correct / $scores["rag"].total) * 100
-}
+# RAG vs No-RAG karşılaştırması
+$ragAvg = 0
+$noragAvg = 0
+$ragCount = 0
+$noragCount = 0
 
-$noRagAvg = 0
-$noRagCount = 0
-foreach ($mk in @("gpt-5-mini", "gemini-3-flash")) {
-    if ($scores[$mk]. total -gt 0) {
-        $noRagAvg += ($scores[$mk].correct / $scores[$mk].total) * 100
-        $noRagCount++
+foreach ($r in $sortedResults) {
+    if ($r.key -like "rag-*") {
+        $ragAvg += $r. pct
+        $ragCount++
+    }
+    else {
+        $noragAvg += $r. pct
+        $noragCount++
     }
 }
-if ($noRagCount -gt 0) {
-    $noRagAvg = $noRagAvg / $noRagCount
-}
 
-$improvement = $ragPct - $noRagAvg
+if ($ragCount -gt 0) { $ragAvg = $ragAvg / $ragCount }
+if ($noragCount -gt 0) { $noragAvg = $noragAvg / $noragCount }
+
+$improvement = $ragAvg - $noragAvg
 
 $report += "-------------------------------------------------------------------------------`n"
 $report += "`n"
 $report += "RAG vs No-RAG Comparison:`n"
-$report += "  RAG Score:       $([math]::Round($ragPct, 1))%`n"
-$report += "  No-RAG Average: $([math]::Round($noRagAvg, 1))%`n"
-$report += "  RAG IMPROVEMENT: +$([math]:: Round($improvement, 1))%`n"
-$report += "`n"
-
-# En başarısız skill'leri bul
-$report += "-------------------------------------------------------------------------------`n"
-$report += "SKILLS WHERE RAG HELPED MOST:`n"
-$report += "-------------------------------------------------------------------------------`n"
-
-for ($i = 0; $i -lt $detailedResults["rag"].Count; $i++) {
-    $ragAcc = $detailedResults["rag"][$i].accuracy
-    $noRagAcc1 = if ($detailedResults["gpt-5-mini"].Count -gt $i) { $detailedResults["gpt-5-mini"][$i].accuracy } else { 0 }
-    $noRagAcc2 = if ($detailedResults["gemini-3-flash"].Count -gt $i) { $detailedResults["gemini-3-flash"][$i]. accuracy } else { 0 }
-    $noRagAvgAcc = ($noRagAcc1 + $noRagAcc2) / 2
-    $diff = $ragAcc - $noRagAvgAcc
-    
-    if ($diff -gt 20) {
-        $skillName = $detailedResults["rag"][$i]. skill
-        $report += "  + $skillName :  RAG $ragAcc% vs No-RAG $([math]::Round($noRagAvgAcc))% (+$([math]::Round($diff))%)`n"
-    }
+$report += "  RAG Average:      $([math]::Round($ragAvg, 1))%`n"
+$report += "  No-RAG Average:  $([math]:: Round($noragAvg, 1))%`n"
+if ($improvement -ge 0) {
+    $report += "  RAG IMPROVEMENT: +$([math]::Round($improvement, 1))%`n"
 }
-
+else {
+    $report += "  RAG IMPROVEMENT: $([math]::Round($improvement, 1))%`n"
+}
 $report += "`n"
 $report += "===============================================================================`n"
 
 Write-Host ""
 Write-Host "=============================================" -ForegroundColor Magenta
-Write-Host "             RAG IMPROVEMENT" -ForegroundColor Magenta
+Write-Host "          RAG vs NO-RAG COMPARISON" -ForegroundColor Magenta
 Write-Host "=============================================" -ForegroundColor Magenta
 Write-Host ""
-Write-Host "  RAG Score:       $([math]:: Round($ragPct, 1))%" -ForegroundColor Cyan
-Write-Host "  No-RAG Average:   $([math]::Round($noRagAvg, 1))%" -ForegroundColor Yellow
+Write-Host "  RAG Average:     $([math]::Round($ragAvg, 1))%" -ForegroundColor Cyan
+Write-Host "  No-RAG Average:  $([math]::Round($noragAvg, 1))%" -ForegroundColor Yellow
 
 if ($improvement -gt 0) {
     Write-Host ""
-    Write-Host "  RAG IMPROVEMENT:  +$([math]::Round($improvement, 1))%" -ForegroundColor Green
+    Write-Host "  RAG IMPROVEMENT: +$([math]::Round($improvement, 1))%" -ForegroundColor Green
 }
 else {
     Write-Host ""
-    Write-Host "  RAG IMPROVEMENT:  $([math]::Round($improvement, 1))%" -ForegroundColor Red
+    Write-Host "  RAG IMPROVEMENT: $([math]::Round($improvement, 1))%" -ForegroundColor Red
 }
 
 Write-Host ""
 Write-Host "=============================================" -ForegroundColor Magenta
 
 # Sonucu kaydet
-$reportPath = "rag_comparison_report_$(Get-Date -Format 'yyyyMMdd_HHmmss').txt"
+$reportPath = "rag_comparison_4models_$(Get-Date -Format 'yyyyMMdd_HHmmss').txt"
 $report | Out-File -FilePath $reportPath -Encoding UTF8
-Write-Host "`nReport saved to:  $reportPath" -ForegroundColor Green
+Write-Host "`nReport saved to: $reportPath" -ForegroundColor Green
