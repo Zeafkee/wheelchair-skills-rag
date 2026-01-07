@@ -230,6 +230,188 @@ def ask_rag(question:  str, filters: dict | None = None, top_k: int = 6, model: 
         "model_used": selected_model if openrouter_client else LLM_MODEL
     }
 
+    # Add or replace the endpoint /analytics/generate-report with this code.
+# Requires: openrouter_client or openai_client, OPENROUTER_RAG_MODEL / LLM_MODEL variables from your existing serve.py
+import re
+import json
+from fastapi import Body, HTTPException
+
+def safe_extract_text(chat_response):
+    """Robust extractor returns (text, finish_reason, raw_choice)"""
+    try:
+        choices = getattr(chat_response, "choices", None) or (chat_response.get("choices") if isinstance(chat_response, dict) else None)
+        if choices:
+            first = choices[0]
+            finish = first.get("finish_reason") if isinstance(first, dict) else getattr(first, "finish_reason", None)
+            # try message.content
+            if isinstance(first, dict):
+                msg = first.get("message", {}) or {}
+                content = msg.get("content") or ""
+                reasoning = msg.get("reasoning") or ""
+                text = content if content and content.strip() else reasoning or first.get("text") or ""
+                return (text or "").strip(), finish, first
+            else:
+                msg = getattr(first, "message", None)
+                content = getattr(msg, "content", None) if msg else ""
+                reasoning = getattr(msg, "reasoning", None) if msg else ""
+                text = content or reasoning or getattr(first, "text", "")
+                return (text or "").strip(), finish, first
+        # fallback top-level
+        text_top = getattr(chat_response, "text", None) or (chat_response.get("text") if isinstance(chat_response, dict) else None)
+        if text_top:
+            return (text_top or "").strip(), None, chat_response
+        return (str(chat_response) or "").strip(), None, chat_response
+    except Exception:
+        try:
+            return json.dumps(chat_response, default=str), None, chat_response
+        except:
+            return str(chat_response), None, chat_response
+
+def continue_model(api_client, model, messages, continue_prompt, max_tokens=1200):
+    """Ask continuation and return text (or empty)"""
+    messages2 = list(messages)
+    messages2.append({"role":"user", "content": continue_prompt})
+    try:
+        chat2 = api_client.chat.completions.create(
+            model=model,
+            messages=messages2,
+            temperature=0.2,
+            max_tokens=max_tokens
+        )
+    except Exception as e:
+        print("Continuation failed:", e)
+        return ""
+    cont_text, finish, raw = safe_extract_text(chat2)
+    return cont_text or ""
+
+def condense_display_text(training_text: str, global_text: str, max_lines: int = 40):
+    # (reuse earlier condense helper - same as previous messages)
+    lines = []
+    skill_pattern = re.compile(r"•\s*([^\n\r]+)", re.IGNORECASE)
+    attempts_pattern = re.compile(r"Attempts:\s*([0-9]+)", re.IGNORECASE)
+    errors_pattern = re.compile(r"Errors:\s*([0-9]+)", re.IGNORECASE)
+    success_pattern = re.compile(r"Success Rate:\s*([0-9]{1,3})%")
+    if global_text:
+        for m in skill_pattern.finditer(global_text):
+            start = m.start()
+            window = global_text[start:start+220]
+            skill_id = m.group(1).strip()
+            attempts = attempts_pattern.search(window)
+            errors = errors_pattern.search(window)
+            success = success_pattern.search(window)
+            a = attempts.group(1) if attempts else "?"
+            e = errors.group(1) if errors else "?"
+            s = (success.group(1) + "%") if success else "?"
+            lines.append(f"{skill_id} | attempts={a} | success={s} | errors={e}")
+            if len(lines) >= max_lines:
+                break
+    if len(lines) < max_lines and training_text:
+        for m in skill_pattern.finditer(training_text):
+            skill_id = m.group(1).strip()
+            lines.append(f"{skill_id} | (from training plan)")
+            if len(lines) >= max_lines:
+                break
+    if not lines:
+        if global_text:
+            sample = "\n".join(global_text.splitlines()[:20])
+            lines.append("GLOBAL_TEXT_SAMPLE:\n" + sample)
+        elif training_text:
+            sample = "\n".join(training_text.splitlines()[:20])
+            lines.append("TRAINING_TEXT_SAMPLE:\n" + sample)
+    return "\n".join(lines)
+
+@app.post("/analytics/generate-report")
+def generate_openai_report(payload: dict = Body(...)):
+    training_text = (payload.get("training_plan_text") or "").strip()
+    global_text = (payload.get("global_stats_text") or "").strip()
+    user_id = payload.get("user_id", "")
+
+    if not training_text and not global_text:
+        raise HTTPException(status_code=400, detail="Provide at least one of training_plan_text or global_stats_text")
+
+    # Truncate just in case
+    MAX_CHARS = 22000
+    if len(training_text) > MAX_CHARS:
+        training_text = training_text[:MAX_CHARS] + "\n\n...TRUNCATED..."
+    if len(global_text) > MAX_CHARS:
+        global_text = global_text[:MAX_CHARS] + "\n\n...TRUNCATED..."
+
+    condensed = condense_display_text(training_text, global_text, max_lines=40)
+
+    api_client = openrouter_client if 'openrouter_client' in globals() and openrouter_client else openai_client
+    model = OPENROUTER_RAG_MODEL if 'openrouter_client' in globals() and openrouter_client else LLM_MODEL
+
+    # Phase 1: summary + direct answers + compact table + short commentary
+    system_p1 = (
+        "You are an expert wheelchair skills analyst. Produce a concise, structured ENGLISH report part 1 consisting of:\n"
+        "A) Executive summary (2-4 sentences)\n"
+        "B) Direct answers to the four questions (bullet points)\n"
+        "C) A compact Markdown table (skill_id | attempts | success_rate% | errors | most_problematic_step)\n"
+        "D) Short commentary (3-5 sentences).\n"
+        "Respond in plain English text, no JSON, no code blocks."
+    )
+    user_p1 = f"User ID: {user_id}\n\nCondensed summary:\n{condensed}\n\nIf you need details, the full training text and global text are available."
+
+    try:
+        chat1 = api_client.chat.completions.create(
+            model=model,
+            messages=[{"role":"system","content":system_p1}, {"role":"user","content":user_p1}],
+            temperature=0.2,
+            max_tokens=2000
+        )
+    except Exception as e:
+        print("OpenAI call failed (phase1):", e)
+        raise HTTPException(status_code=500, detail=f"OpenAI request failed: {e}")
+
+    text1, finish1, raw1 = safe_extract_text(chat1)
+    print("[generate-report] phase1 finish:", finish1)
+
+    # If truncated, ask to continue the phase1 content
+    if finish1 == "length" or (not text1 or len(text1) < 50):
+        cont_prompt = "The previous assistant response was cut off. Please continue and finish the remaining content for part 1 (summary, direct answers, compact table, commentary). Return only the continuation in the same format."
+        cont = continue_model(api_client, model, [{"role":"system","content":system_p1},{"role":"user","content":user_p1}], cont_prompt, max_tokens=1500)
+        if cont:
+            text1 = (text1 + "\n\n" + cont).strip()
+
+    # Phase 2: personalized 2-week program + checklist (separate call)
+    system_p2 = (
+        "You are an expert wheelchair skills coach. Produce Part 2 in ENGLISH:\n"
+        "A detailed personalized 2-week training program (6 sessions, schedule, per-session drills, sets/reps/time, progression) tailored to the user's weaknesses from part 1. Include safety notes and a 3-5 bullet checklist at the end. Respond in plain English text, no JSON or code blocks."
+    )
+    user_p2 = f"User ID: {user_id}\n\nUse condensed summary:\n{condensed}\n\nProvide a practical program scaled for a beginner user."
+
+    try:
+        chat2 = api_client.chat.completions.create(
+            model=model,
+            messages=[{"role":"system","content":system_p2}, {"role":"user","content":user_p2}],
+            temperature=0.2,
+            max_tokens=2000
+        )
+    except Exception as e:
+        print("OpenAI call failed (phase2):", e)
+        # If phase2 fails, we can still return text1 (partial) + fallback program
+        program_fallback = "Program could not be generated by model. Recommend: 3 sessions/week focused on backward control and progressive wheelie drills. Safety: use spotter."
+        combined = (text1 or "") + "\n\n" + program_fallback
+        return {"report": combined}
+
+    text2, finish2, raw2 = safe_extract_text(chat2)
+    print("[generate-report] phase2 finish:", finish2)
+
+    if finish2 == "length" or (not text2 or len(text2) < 50):
+        cont_prompt2 = "The previous assistant response was cut off. Please continue and finish part 2 (2-week program + checklist). Return only the continuation."
+        cont2 = continue_model(api_client, model, [{"role":"system","content":system_p2},{"role":"user","content":user_p2}], cont_prompt2, max_tokens=1500)
+        if cont2:
+            text2 = (text2 + "\n\n" + cont2).strip()
+
+    # If either part empty, generate a simple fallback for that part
+    if not text1:
+        text1 = "Summary could not be generated by the model. (fallback)"
+    if not text2:
+        text2 = "Training program could not be generated by the model. (fallback)"
+
+    # Combine parts with clear headers
+    final_report = "PART 1 — SUMMARY & ANALYSIS\n\n" + text1.strip() + "\n\nPART 2 — 2-WEEK TRAINING PROGRAM & CHECKLIST\n\n" + text2.strip()
+    return {"report": final_report}
 @app.post("/ask")
 def ask(req: AskRequest):
     return ask_rag(req.question, req.filters, req.top_k)
@@ -750,6 +932,68 @@ def get_available_models():
         "openrouter_configured": openrouter_client is not None
     }
 DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "user_progress.json")
+# Add this endpoint somewhere in your endpoints section of scripts/serve.py
+@app.post("/analytics/generate-report")
+def generate_openai_report(payload: dict = Body(...)):
+    """
+    Accepts:
+      - training_plan_text: (string) content of training plan .txt (display format)
+      - global_stats_text: (string) content of global stats .txt (display format)
+      - user_id: optional
+    Returns:
+      - report: generated Turkish report (plain text)
+    """
+    training_text = payload.get("training_plan_text", "")
+    global_text = payload.get("global_stats_text", "")
+    user_id = payload.get("user_id", "")
+
+    if not training_text and not global_text:
+        raise HTTPException(status_code=400, detail="Provide at least one of training_plan_text or global_stats_text")
+
+    # Build prompt (Turkish) - ask model to produce a neat report, table and personalized program
+    system_prompt = (
+        "You are an expert wheelchair skills analyst and coach. "
+        "Given the user's training plan text and global statistics, produce a clear, structured report in Turkish. "
+        "Do NOT include any irrelevant metadata. The report must include:\n"
+        "1) Short executive summary (2-4 sentences)\n"
+        "2) Answers to these questions (with short headings):\n"
+        "   - En çok hata yapılan egzersiz hangisi?\n"
+        "   - Yapılırken en çok hata yapılan adım/egzersiz hangisi?\n"
+        "   - En doğru yapılan egzersiz hangisi?\n"
+        "   - En çok kişinin hata yaptığı egzersiz hangisi? (user count veya attempts ile belirt)\n"
+        "3) A compact Markdown table summarizing top ~8 skills with columns: skill_id, attempts, success_rate%, errors, most_problematic_step\n"
+        "4) Short commentary (3-6 sentences) describing main patterns from the data\n"
+        "5) A personalized 2-week training program for the user (if user info present), with daily sessions and 3-5 concrete exercises per session (include sets/reps/time where suitable). Use progressive difficulty and safety notes.\n"
+        "6) Final short checklist of recommendations (3-5 bullets).\n\n"
+        "Respond in Turkish. Output a single plain-text report (you may include a Markdown table). Do not output JSON or code blocks — plain text only."
+    )
+
+    user_prompt = "Training Plan:\n\n" + (training_text or "(none)") + "\n\nGlobal Stats:\n\n" + (global_text or "(none)")
+    if user_id:
+        user_prompt = f"User ID: {user_id}\n\n" + user_prompt
+
+    # Choose model
+    selected_model = OPENROUTER_RAG_MODEL if openrouter_client else LLM_MODEL
+
+    try:
+        # Use openrouter_client if available, else openai_client
+        api_client = openrouter_client if openrouter_client else openai_client
+
+        chat = api_client.chat.completions.create(
+            model=selected_model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            temperature=0.2,
+            max_tokens=1200
+        )
+
+        answer = chat.choices[0].message.content
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"OpenAI request failed: {e}")
+
+    return {"report": answer}
 
 @app.get("/analytics/global-errors-fixed")
 def get_global_error_stats_fixed():
