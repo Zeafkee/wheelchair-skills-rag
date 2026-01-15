@@ -1,0 +1,112 @@
+RAG vs No-RAG — Rubric Evaluation Report 
+Generated: 2026-01-14
+Source: pasted2.txt (RAG vs NO-RAG COMPARISON TEST REPORT)
+Test date in source: 2026-01-14
+Total skills evaluated: 14
+
+------------------------------------------------------------------------
+1) Purpose & context
+------------------------------------------------------------------------
+This report re-evaluates the pasted2.txt test results using the project's weighted rubric:
+- Sub-scores: Correctness 40%, Completeness 20%, Sequence/Ordering 10%, Safety/Specificity 10%, Directionality 10%, Format/Parsability 10%.
+- Final percent → 1–10 mapping: >=95%→10, 85–94→9, 75–84→8, 65–74→7, 55–64→6, 45–54→5, 35–44→4, 25–34→3, 15–24→2, <15→1.
+
+Assumptions (scoring applied):
+- Correctness = fraction of expected canonical actions found (after synonym normalization).
+- Completeness roughly mirrors correctness unless missing/extra actions were explicitly noted.
+- Sequence given full credit unless output showed clear ordering errors.
+- Safety = proportion of expected safety actions (brake, pop_casters, spotter) present.
+- Directionality credit lowered when only one direction present where two are expected.
+- Format = 100% if the run parsed or had Found: lists; 0% if explicit JSON parse error noted.
+- Final percent computed as weighted sum of subscores, then mapped to integer 1–10.
+
+------------------------------------------------------------------------
+2) Per-model summary (rubric-based re-evaluation)
+------------------------------------------------------------------------
+(Each model's total is the sum of fourteen 1–10 skill scores. Averages are per-skill 1–10.)
+
+- RAG + GPT-5-mini
+  - Total (14 skills): 127 / 140
+  - Average (1–10): 9.07 ≈ 9.1 / 10
+
+- RAG + Gemini-3-Flash
+  - Total (14 skills): 126 / 140
+  - Average (1–10): 9.00 = 9.0 / 10
+
+- No-RAG GPT-5-mini
+  - Total (14 skills): 123 / 140
+  - Average (1–10): 8.79 ≈ 8.8 / 10
+
+- No-RAG Gemini-3-Flash
+  - Total (14 skills): 119 / 140
+  - Average (1–10): 8.50 = 8.5 / 10
+
+Interpretation:
+- After the recent ingestion/updates (test outputs in pasted2.txt), both RAG configurations now outperform the No‑RAG runs on this 14-skill set when evaluated with the weighted rubric.
+- RAG + GPT-5-mini is the top performer by a small margin. Improvements are concentrated on previously under-retrieved, maneuver-focused skills.
+
+------------------------------------------------------------------------
+3) Per-skill notable outcomes (high level)
+------------------------------------------------------------------------
+Below are concise highlights for skills where the new results show material change or continued issues. Scores stated qualitatively (approx 1–10 effect).
+
+- Skill #1 — Rolls forwards 10 m
+  - All models: perfect canonical coverage.
+  - Score: 10/10 across the board.
+
+- Skill #4 — Turn 90° while moving backwards
+  - RAG + GPT-5-mini: now includes both turn_left & turn_right → full credit (10/10).
+  - RAG + Gemini: mostly correct but one run missed turn_right → ~8/10.
+  - No‑RAGs: each chose one direction; acceptable but direction-locked → ~8/10.
+
+- Skill #5 — Turn in place 180°
+  - RAG runs returned both directions and supporting steps → high scores (10/10).
+  - No‑RAG GPT-5-mini: one-direction bias (turn_left-only logs) → lower score (~6/10).
+  - No‑RAG Gemini: had a JSON parse error in one run — heavily penalized for format.
+
+- Skill #6 — Maneuver sideways 0.5 m
+  - RAG + GPT-5-mini: correct zigzag micro-steps (back → pivot → forward) → 10/10.
+  - RAG + Gemini: mostly correct but sometimes omitted the initial back step → ~9/10.
+  - No‑RAGs: mixed outputs; some lacked the back/pivot micro-step → 5–8/10.
+
+- Skill #7 — Gets through hinged door
+  - Mixed results across models. RAG-Gemini included turns but sometimes omitted an explicit brake or back-up step; other runs included pop_casters but not full sequencing.
+  - Scores: mixed 4–6/10 range depending on run; overall remains a moderate weakness.
+
+- Skill #17 — Ascend 10° incline
+  - All models: solid performance with safety detail → 10/10.
+
+- Skill #19 — Roll across 5° side-slope
+  - RAG‑Gemini: fully captured steering correction → 10/10.
+  - RAG‑GPT: some runs still omitted explicit turn action → lower (≈5/10) in run(s).
+  - No‑RAGs: generally correct but sometimes direction-limited → ~7/10.
+
+- Skills #21, #22, #25 — gap/threshold/curb handling
+  - All models: canonical pop_casters + forward + brake present → 10/10.
+
+- Skill #27 — Stationary wheelie 30s
+  - All models: included pop_casters and brake → 10/10.
+
+- Skill #28 — Wheelie 180 turn
+  - RAG + GPT-5-mini: returned pop_casters and both turn actions in one run → high score.
+  - RAG + Gemini and No-RAGs: mixed; some runs missed turn_left or turn_right → 6–8/10.
+
+- Skill #29 — Ascend incline in wheelie
+  - Mostly correct across models; occasional missing 'brake' in a RAG-Gemini run reduced score slightly.
+
+- Skill #30 — Ascend curb in wheelie
+  - Most runs correct; isolated RAG-GPT run missed an explicit brake → slight penalty.
+
+Overall pattern:
+- The added/rewritten retrieval documents and canonical phrasing materially improved RAG outputs on maneuver and direction-sensitive skills (sideways, backward-turns, wheelie pivots).
+- Remaining errors concentrate on multi-step, context-sensitive tasks (door negotiation) and isolated missing safety tokens (missing 'brake' in a small number of runs).
+
+------------------------------------------------------------------------
+4) Root causes & observations (from rubric perspective)
+------------------------------------------------------------------------
+- Retrieval coverage: RAG now returns the expected canonical labels for several skills.
+- Directionality: models still sometimes choose a single direction instead of listing alternatives (reduces Directionality sub-score).
+- Safety omissions: a small number of runs omitted explicit safety tokens (brake/pop_casters). Because Safety sub-score is part of the weighted rubric, this has a noticeable effect.
+- Format errors: isolated JSON parse failure in earlier tests penalizes Format/Parsability heavily. Ensure parser robustness or require JSON canonical arrays.
+
+------------------------------------------------------------------------
